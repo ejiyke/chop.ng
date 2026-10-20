@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CHOPS WEB APPLICATION — CORE LOGIC & DATA (app.js)
  * Brand: Connect Nigeria CHOPS
  * Version: 2.0.0 (Discovery-First Marketplace Rework)
@@ -603,7 +603,7 @@ const CHOPS_DATA = {
       description: "Order any Mega Beef Suya Platter or Whole Grilled Catfish and receive a complimentary chilled 500ml fresh palm wine or spiced zobo.",
       code: "SUYABASH",
       validity: "Fri – Sun from 4 PM",
-      terms: "With Mega Platter • Mention code on call",
+      terms: "With Mega Platter • Claim via chat or call",
       expiry: "This Weekend Only",
       img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80"
     },
@@ -651,7 +651,7 @@ const CHOPS_DATA = {
       description: "Order any fresh breakfast pastry or crispy chicken box and get your second natural tropical smoothie at half price.",
       code: "CRUST50",
       validity: "Daily • 7:30 AM – 11:00 AM",
-      terms: "Breakfast hours • Mention code to barista",
+      terms: "Breakfast hours • Claim via chat or call",
       expiry: "Morning Special",
       img: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=600&q=80"
     }
@@ -950,16 +950,6 @@ function getDishViews(dish) {
           </div>
           <p class="offer-desc">${offer.description}</p>
 
-          <div class="offer-promo-box">
-            <div class="offer-code-group">
-              <span class="offer-code-label">Promo Code:</span>
-              <span class="offer-code-val">${offer.code}</span>
-            </div>
-            <button type="button" class="offer-copy-btn" onclick="copyOfferCode('${offer.code}', this, event)" title="Copy promo code to clipboard">
-              <i class="uil uil-copy"></i> Copy
-            </button>
-          </div>
-
           <div class="offer-terms-line">
             <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
             <span>${offer.validity} • ${offer.terms}</span>
@@ -1002,7 +992,7 @@ function claimOfferViaChat(restaurantId, offerTitle, code, event) {
   if (event && event.stopPropagation) event.stopPropagation();
   const r = CHOPS_DATA.restaurants.find(item => item.id === restaurantId);
   if (!r) return;
-  const inquiryText = `Hi ${r.name}! I would like to claim the "${offerTitle}" offer with promo code [${code}]. Can you confirm availability and process my order?`;
+  const inquiryText = `Hi ${r.name}! I would like to claim the "${offerTitle}" special offer. Can you confirm availability and process my order?`;
   openChatWithRestaurant(restaurantId, inquiryText);
   showToast(`Inquired about "${offerTitle}" with ${r.name}`);
 }

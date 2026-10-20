@@ -67,8 +67,6 @@ Following shareholder directives and the updated PRD, **CHOPS** has transitioned
 7. **Exclusive Restaurant Offers & Deals (Landing Page):**
    - Positioned directly below **Trending Dishes This Week** on the marketplace discovery landing page.
    - Distinctive promotion badges (`20% OFF`, `FREE DRINK COMBO`, `SAVE ₦3,500`, `15% GROUP OFF`, `BUY 1 GET 50% OFF`).
-   - Countdown timer badges (e.g. `3 Days Left`, `This Weekend Only`, `First 30 Diners`).
-   - Copyable promo codes with one-click clipboard copying, tactile visual state change (`Copied! ✓`), and toast alerts.
    - Direct action buttons: **Claim via Chat** (pre-fills the inquiry and initiates direct offline order dialog with merchant) and **Call Merchant** (initiates direct phone dialer).
    - Clickable merchant attribution link navigating directly to the restaurant's full menu and profile.
 
