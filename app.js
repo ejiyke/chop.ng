@@ -2155,11 +2155,17 @@ function executeHeaderSearch() {
   showToast(`Searching for: ${query || 'All Dishes'} ${loc ? 'in ' + loc : ''}`);
 }
 
+let authCarouselIndex = 0;
+let authCarouselTimer = null;
+let isCreateAccountMode = false;
+
 function openLoginModal() {
   const modal = document.getElementById('login-modal');
   if (modal) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    setAuthSlide(0);
+    startAuthCarouselTimer();
   }
 }
 
@@ -2168,26 +2174,158 @@ function closeLoginModal() {
   if (modal) {
     modal.classList.remove('active');
     document.body.style.overflow = '';
+    stopAuthCarouselTimer();
   }
 }
 
-function switchAuthTab(role) {
-  const customerTab = document.getElementById('auth-tab-customer');
-  const merchantTab = document.getElementById('auth-tab-merchant');
-  const customerForm = document.getElementById('auth-customer-form');
-  const merchantForm = document.getElementById('auth-merchant-form');
+function setAuthSlide(index) {
+  authCarouselIndex = index;
+  const slides = document.querySelectorAll('.auth-visual-slide');
+  const dots = document.querySelectorAll('.auth-dot');
 
-  if (role === 'customer') {
-    if (customerTab) customerTab.classList.add('active');
-    if (merchantTab) merchantTab.classList.remove('active');
-    if (customerForm) customerForm.style.display = 'block';
-    if (merchantForm) merchantForm.style.display = 'none';
-  } else {
-    if (merchantTab) merchantTab.classList.add('active');
-    if (customerTab) customerTab.classList.remove('active');
-    if (merchantForm) merchantForm.style.display = 'block';
-    if (customerForm) customerForm.style.display = 'none';
+  slides.forEach((slide, i) => {
+    if (i === index) {
+      slide.classList.add('active');
+    } else {
+      slide.classList.remove('active');
+    }
+  });
+
+  dots.forEach((dot, i) => {
+    if (i === index) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+function nextAuthSlide() {
+  const slides = document.querySelectorAll('.auth-visual-slide');
+  if (!slides || slides.length === 0) return;
+  const nextIdx = (authCarouselIndex + 1) % slides.length;
+  setAuthSlide(nextIdx);
+}
+
+function startAuthCarouselTimer() {
+  stopAuthCarouselTimer();
+  authCarouselTimer = setInterval(() => {
+    nextAuthSlide();
+  }, 5000);
+}
+
+function stopAuthCarouselTimer() {
+  if (authCarouselTimer) {
+    clearInterval(authCarouselTimer);
+    authCarouselTimer = null;
   }
+}
+
+function togglePasswordVisibility() {
+  const pwdInput = document.getElementById('login-password');
+  const eyeIcon = document.getElementById('password-eye-icon');
+  if (!pwdInput) return;
+
+  if (pwdInput.type === 'password') {
+    pwdInput.type = 'text';
+    if (eyeIcon) {
+      eyeIcon.className = 'uil uil-eye-slash';
+    }
+  } else {
+    pwdInput.type = 'password';
+    if (eyeIcon) {
+      eyeIcon.className = 'uil uil-eye';
+    }
+  }
+}
+
+function handleSocialLogin(provider) {
+  let displayName = 'Bolanle Adeleke';
+  let email = 'bolanle.adeleke@gmail.com';
+  let avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80';
+
+  if (provider === 'Apple') {
+    displayName = 'Bolanle Adeleke';
+    email = 'bolanle@privaterelay.appleid.com';
+  } else if (provider === 'Facebook') {
+    displayName = 'Bolanle Adeleke';
+    email = 'bolanle.connect@facebook.com';
+  }
+
+  AppState.user.isLoggedIn = true;
+  AppState.user.name = displayName;
+  AppState.user.email = email;
+  AppState.user.avatar = avatar;
+
+  localStorage.setItem('chops-user-auth', JSON.stringify(AppState.user));
+  updateAuthUI();
+  closeLoginModal();
+  showToast(`Signed in successfully with ${provider}! Welcome back, ${displayName}.`);
+}
+
+function handleAuthSubmit() {
+  const emailInput = document.getElementById('login-email');
+  const pwdInput = document.getElementById('login-password');
+  const errorMsg = document.getElementById('auth-error-msg');
+  const pwdPill = document.getElementById('password-input-pill');
+
+  const email = emailInput?.value.trim() || 'user@example.com';
+  const pwd = pwdInput?.value || '';
+
+  // Demonstration: if password is "wrong" or "incorrect", show the Figma error state
+  if (pwd.toLowerCase() === 'incorrect' || pwd.toLowerCase() === 'incorrectpassword') {
+    if (errorMsg) errorMsg.style.display = 'flex';
+    if (pwdPill) pwdPill.classList.add('error');
+    showToast('Authentication error: Check credentials or reset password.');
+    return;
+  }
+
+  if (errorMsg) errorMsg.style.display = 'none';
+  if (pwdPill) pwdPill.classList.remove('error');
+
+  let displayName = email.split('@')[0] || 'Bolanle';
+  displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+
+  AppState.user.isLoggedIn = true;
+  AppState.user.name = displayName;
+  AppState.user.email = email;
+
+  localStorage.setItem('chops-user-auth', JSON.stringify(AppState.user));
+  updateAuthUI();
+  closeLoginModal();
+  showToast(`Welcome back, ${displayName}! Hover your profile icon to view menu & settings.`);
+}
+
+function toggleAuthMode(event) {
+  if (event) event.preventDefault();
+  isCreateAccountMode = !isCreateAccountMode;
+
+  const formTitle = document.getElementById('auth-form-title');
+  const formSubtitle = document.getElementById('auth-form-subtitle');
+  const submitBtn = document.getElementById('auth-submit-btn');
+  const switchText = document.getElementById('auth-switch-text');
+  const switchLink = document.getElementById('auth-switch-link');
+
+  if (isCreateAccountMode) {
+    if (formTitle) formTitle.innerText = 'Create Account';
+    if (formSubtitle) formSubtitle.innerText = 'Join Connect Nigeria to order and explore';
+    if (submitBtn) submitBtn.innerText = 'Create Account';
+    if (switchText) switchText.innerText = 'Already have an account?';
+    if (switchLink) switchLink.innerText = 'Sign in →';
+  } else {
+    if (formTitle) formTitle.innerText = 'Welcome back';
+    if (formSubtitle) formSubtitle.innerText = 'Sign in to continue to your account';
+    if (submitBtn) submitBtn.innerText = 'Sign In';
+    if (switchText) switchText.innerText = "Don't have an account?";
+    if (switchLink) switchLink.innerText = 'Create account →';
+  }
+}
+
+function handleForgotPassword(event) {
+  if (event) event.preventDefault();
+  const emailInput = document.getElementById('login-email');
+  const email = emailInput?.value.trim() || 'your email';
+  showToast(`Password reset link sent to ${email}. Please check your inbox.`);
 }
 
 function initAuth() {
@@ -2227,29 +2365,7 @@ function updateAuthUI() {
 }
 
 function handleCustomerLogin() {
-  const inputVal = document.getElementById('login-phone')?.value.trim();
-  let displayName = 'Bolanle Adeleke';
-  let contact = '+234 803 555 0199';
-
-  if (inputVal) {
-    if (inputVal.includes('@')) {
-      contact = inputVal;
-      displayName = inputVal.split('@')[0];
-      displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
-    } else {
-      contact = inputVal;
-    }
-  }
-
-  AppState.user.isLoggedIn = true;
-  AppState.user.name = displayName;
-  AppState.user.email = contact.includes('@') ? contact : 'bolanle@connectnigeria.com';
-  AppState.user.phone = contact.includes('@') ? '+234 803 555 0199' : contact;
-
-  localStorage.setItem('chops-user-auth', JSON.stringify(AppState.user));
-  updateAuthUI();
-  closeLoginModal();
-  showToast(`Welcome, ${displayName}! Hover your profile icon to view menu & settings.`);
+  handleAuthSubmit();
 }
 
 function handleSignOut() {

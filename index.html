@@ -943,53 +943,189 @@
     </div>
   </div>
 
-  <!-- Modal: Login / Authentication (Figma 72:3897) -->
+  <!-- Modal: Authentication & Onboarding (Figma 102:20978) -->
   <div class="modal-backdrop" id="login-modal" onclick="if(event.target === this) closeLoginModal();">
-    <div class="modal-card auth-modal-card">
-      <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <img src="assets/brands/chop-logo.png" alt="Chop" style="height: 28px; width: auto;">
-          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Welcome to CHOPS</h3>
+    <div class="auth-split-modal" role="dialog" aria-modal="true" aria-labelledby="auth-form-title">
+      <!-- Close button -->
+      <button class="auth-modal-close-btn" onclick="closeLoginModal()" aria-label="Close modal">
+        <i class="uil uil-times"></i>
+      </button>
+
+      <!-- Left Panel: Photographic Visual Hero Carousel -->
+      <div class="auth-modal-visual" id="auth-modal-visual">
+        <!-- Floating brand badge (Figma 102:20978) -->
+        <div class="auth-visual-badge" title="Connect Nigeria CHOPS">
+          <div class="auth-badge-disc">
+            <div class="auth-badge-inner">
+              <span>C</span>
+            </div>
+          </div>
         </div>
-        <button class="modal-close-btn" onclick="closeLoginModal()" aria-label="Close Modal" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
-          <i class="uil uil-times"></i>
-        </button>
+
+        <!-- Slide 1: Lagos Scene -->
+        <div class="auth-visual-slide active" data-slide="0">
+          <img src="assets/auth_slide_lagos.jpg" alt="Lagos Nigeria Street Scene" class="auth-slide-img">
+          <div class="auth-slide-overlay"></div>
+          <div class="auth-slide-content">
+            <h2 class="auth-carousel-title">Everything you need, in one place.</h2>
+            <p class="auth-carousel-desc">Order food, book professionals, request quotes and shop local — all on Connect Nigeria.</p>
+          </div>
+        </div>
+
+        <!-- Slide 2: Delicious Nigerian Feast -->
+        <div class="auth-visual-slide" data-slide="1">
+          <img src="assets/auth_slide_food.jpg" alt="Nigerian Culinary Feast" class="auth-slide-img">
+          <div class="auth-slide-overlay"></div>
+          <div class="auth-slide-content">
+            <h2 class="auth-carousel-title">Hungry? Chop has you covered.</h2>
+            <p class="auth-carousel-desc">Order from the best restaurants and food vendors near you — direct delivery, fresh meals, local favorites.</p>
+          </div>
+        </div>
+
+        <!-- Slide 3: Verified Menus & Transparent Prices -->
+        <div class="auth-visual-slide" data-slide="2">
+          <img src="assets/auth_slide_food.jpg" alt="Verified Menus and Pricing" class="auth-slide-img">
+          <div class="auth-slide-overlay"></div>
+          <div class="auth-slide-content">
+            <h2 class="auth-carousel-title">Verified Menus & Transparent Prices.</h2>
+            <p class="auth-carousel-desc">Explore accurate dish pricing, portion options, and verified diner reviews before ordering.</p>
+          </div>
+        </div>
+
+        <!-- Slide 4: Direct WhatsApp & Offline Ordering -->
+        <div class="auth-visual-slide" data-slide="3">
+          <img src="assets/auth_slide_lagos.jpg" alt="Direct Ordering" class="auth-slide-img">
+          <div class="auth-slide-overlay"></div>
+          <div class="auth-slide-content">
+            <h2 class="auth-carousel-title">Connect Directly with Food Vendors.</h2>
+            <p class="auth-carousel-desc">Skip high commission fees and chat directly via WhatsApp or phone call for rapid delivery.</p>
+          </div>
+        </div>
+
+        <!-- Slide 5: Restaurant Portal -->
+        <div class="auth-visual-slide" data-slide="4">
+          <img src="assets/auth_slide_food.jpg" alt="Grow Food Business" class="auth-slide-img">
+          <div class="auth-slide-overlay"></div>
+          <div class="auth-slide-content">
+            <h2 class="auth-carousel-title">Grow Your Restaurant Business.</h2>
+            <p class="auth-carousel-desc">List your restaurant, manage your menu items, and reach thousands of hungry diners across Nigeria.</p>
+          </div>
+        </div>
+
+        <!-- Carousel Pagination Dots (5 dots) -->
+        <div class="auth-carousel-dots" id="auth-carousel-dots">
+          <button type="button" class="auth-dot active" onclick="setAuthSlide(0)" aria-label="Slide 1"></button>
+          <button type="button" class="auth-dot" onclick="setAuthSlide(1)" aria-label="Slide 2"></button>
+          <button type="button" class="auth-dot" onclick="setAuthSlide(2)" aria-label="Slide 3"></button>
+          <button type="button" class="auth-dot" onclick="setAuthSlide(3)" aria-label="Slide 4"></button>
+          <button type="button" class="auth-dot" onclick="setAuthSlide(4)" aria-label="Slide 5"></button>
+        </div>
       </div>
-      <div class="modal-body" style="padding: 18px 24px;">
-        <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 18px;">
-          Discover verified menus, save favourite spots, or manage your restaurant profile.
-        </p>
 
-        <!-- Role Selector Tabs -->
-        <div class="auth-role-tabs">
-          <button type="button" class="auth-role-tab active" id="auth-tab-customer" onclick="switchAuthTab('customer')">
-            <i class="uil uil-user"></i> Customer Account
+      <!-- Right Panel: Sign In & Onboarding Form -->
+      <div class="auth-modal-form-wrap">
+        <!-- Connect Nigeria Brand -->
+        <div class="auth-brand-header">
+          <div class="auth-cn-logo" title="Connect Nigeria">
+            <span class="cn-brand-connect">connect</span>
+            <span class="cn-brand-nigeria">NIGERIA<span class="cn-brand-dotcom">.COM</span></span>
+          </div>
+          <h2 class="auth-form-title" id="auth-form-title">Welcome back</h2>
+          <p class="auth-form-subtitle" id="auth-form-subtitle">Sign in to continue to your account</p>
+        </div>
+
+        <!-- Social SSO Buttons -->
+        <div class="auth-sso-group">
+          <!-- Google SSO -->
+          <button type="button" class="auth-sso-btn" onclick="handleSocialLogin('Google')">
+            <svg class="auth-sso-icon" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Continue with Google</span>
           </button>
-          <button type="button" class="auth-role-tab" id="auth-tab-merchant" onclick="switchAuthTab('merchant')">
-            <i class="uil uil-store"></i> Merchant Portal
+
+          <!-- Facebook SSO -->
+          <button type="button" class="auth-sso-btn" onclick="handleSocialLogin('Facebook')">
+            <svg class="auth-sso-icon" viewBox="0 0 24 24" fill="#1877F2">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Continue with Facebook</span>
+          </button>
+
+          <!-- Apple SSO -->
+          <button type="button" class="auth-sso-btn auth-sso-apple" onclick="handleSocialLogin('Apple')">
+            <svg class="auth-sso-icon" viewBox="0 0 24 24" fill="#FFFFFF">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.77 1.05-1.83.93-2.91-.92.04-2.02.63-2.66 1.39-.56.65-.99 1.72-.86 2.76 1.02.08 2.03-.54 2.59-1.24z"/>
+            </svg>
+            <span>Continue with Apple</span>
           </button>
         </div>
 
-        <!-- Customer Form -->
-        <div id="auth-customer-form" style="margin-top: 16px;">
-          <div class="form-group">
-            <label class="form-label" for="login-phone">Phone Number or Email</label>
-            <input type="text" id="login-phone" class="form-control" placeholder="e.g. 0803 123 4567 or you@mail.com" value="0803 555 0199">
-          </div>
-          <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-full); font-weight: 700; height: 42px; margin-top: 8px;" onclick="handleCustomerLogin()">
-            Sign In / Continue
-          </button>
+        <p class="auth-sso-caption">Quick, secure and no passwords needed</p>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <span>OR SIGN IN WITH EMAIL</span>
         </div>
 
-        <!-- Merchant Form -->
-        <div id="auth-merchant-form" style="display: none; margin-top: 16px;">
-          <div class="form-group">
-            <label class="form-label" for="merchant-email">Merchant Account Email</label>
-            <input type="text" id="merchant-email" class="form-control" placeholder="merchant@mamas-kitchen.ng" value="owner@mamas-kitchen.ng">
+        <!-- Email & Password Form -->
+        <form class="auth-form" id="main-auth-form" onsubmit="event.preventDefault(); handleAuthSubmit();">
+          <div class="auth-field-group">
+            <label class="auth-label" for="login-email">Email Address</label>
+            <div class="auth-input-pill" id="email-input-pill">
+              <i class="uil uil-at auth-input-icon"></i>
+              <input type="email" id="login-email" class="auth-input" placeholder="user@example.com" value="user@example.com" required>
+            </div>
           </div>
-          <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-full); font-weight: 700; height: 42px; margin-top: 8px; background: var(--cn-blue-500); color: #fff;" onclick="handleMerchantPortalAccess()">
-            Access Merchant Portal
+
+          <div class="auth-field-group">
+            <div class="auth-label-row">
+              <label class="auth-label" for="login-password">Password</label>
+              <a href="#" class="auth-forgot-link" onclick="handleForgotPassword(event)">Forgot password?</a>
+            </div>
+            <div class="auth-input-pill" id="password-input-pill">
+              <i class="uil uil-lock-alt auth-input-icon"></i>
+              <input type="password" id="login-password" class="auth-input" placeholder="Enter password" value="password123" required>
+              <button type="button" class="auth-eye-btn" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                <i class="uil uil-eye" id="password-eye-icon"></i>
+              </button>
+            </div>
+            <!-- Validation State (Figma 102:20978) -->
+            <div class="auth-error-msg" id="auth-error-msg" style="display: none;">
+              <i class="uil uil-exclamation-circle"></i>
+              <span>Incorrect email or password. <a href="#" class="auth-error-link" onclick="handleForgotPassword(event)">Reset password</a></span>
+            </div>
+          </div>
+
+          <!-- Remember me checkbox -->
+          <div class="auth-remember-row">
+            <label class="auth-checkbox-label">
+              <input type="checkbox" id="auth-remember-checkbox" checked>
+              <span class="auth-custom-checkbox">
+                <i class="uil uil-check"></i>
+              </span>
+              <span>Remember me on this device</span>
+            </label>
+          </div>
+
+          <!-- Submit CTA -->
+          <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
+            Sign In
           </button>
+        </form>
+
+        <!-- Footer Links -->
+        <div class="auth-footer-links">
+          <p class="auth-signup-prompt">
+            <span id="auth-switch-text">Don't have an account?</span>
+            <a href="#" id="auth-switch-link" class="auth-accent-link" onclick="toggleAuthMode(event)">Create account &rarr;</a>
+          </p>
+          <p class="auth-guest-prompt">
+            <a href="#" class="auth-guest-link" onclick="closeLoginModal(); return false;">Continue as guest &rarr;</a>
+          </p>
         </div>
       </div>
     </div>
