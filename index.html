@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHOPS — Discover Restaurants & Menus | Connect Nigeria</title>
+  <meta name="description"
+    content="Discover verified local restaurants, explore accurate menus & transparent pricing, and connect directly to order offline with Connect Nigeria CHOPS.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brands/chop-favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brands/chop-favicon.png">
+  <link rel="apple-touch-icon" href="assets/brands/chop-favicon.png">
+  <link rel="shortcut icon" href="assets/brands/chop-favicon.png" type="image/png">
+  <!-- Cache Buster & Anti-stale headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- IconScout Unicons -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="tokens.css?v=2.9">
+  <link rel="stylesheet" href="style.css?v=2.9">
+</head>
+
+<body>
+
+  <!-- =========================================================================
+       SITE HEADER / TOP NAVIGATION (Figma Node 72:3865)
+       ========================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-wrapper" onclick="backToMarketplace(); return false;" id="brand-home-link" title="CHOPS Connect Nigeria">
+        <img src="assets/brands/chop-logo.png" alt="Chop" class="brand-logo-img">
+      </a>
+
+      <!-- Figma 72:3865 Center Integrated Search Bar -->
+      <div class="header-search-bar" id="header-search-bar">
+        <div class="header-search-field">
+          <svg class="header-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="header-search-input" class="header-search-input"
+            placeholder="Search for dishes, cuisines, or restaurants..." autocomplete="off">
+        </div>
+        <div class="header-search-divider"></div>
+        <div class="header-location-field">
+          <svg class="header-location-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <input type="text" id="header-location-input" class="header-location-input"
+            placeholder="Type your address, area, or city..." autocomplete="off" list="header-locations-list">
+          <datalist id="header-locations-list">
+            <option value="Near Me">Current Location</option>
+            <option value="Lekki Phase 1, Lagos">Lekki Phase 1</option>
+            <option value="Victoria Island, Lagos">Victoria Island</option>
+            <option value="Ikeja GRA, Lagos">Ikeja GRA</option>
+            <option value="Yaba, Lagos">Yaba</option>
+            <option value="Surulere, Lagos">Surulere</option>
+            <option value="Wuse II, Abuja">Wuse II, Abuja</option>
+            <option value="Garki, Abuja">Garki, Abuja</option>
+            <option value="Old GRA, Port Harcourt">Old GRA, PH</option>
+            <option value="Bodija, Ibadan">Bodija, Ibadan</option>
+          </datalist>
+        </div>
+        <button class="header-find-btn" id="header-find-btn" onclick="executeHeaderSearch()" aria-label="Find Food">Find Food</button>
+      </div>
+
+      <!-- Figma 72:3865 Nav Actions -->
+      <div class="nav-actions">
+        <!-- Favourites Button with badge "1" -->
+        <button class="header-action-btn header-fav-btn" id="favourites-nav-btn"
+          onclick="openFavouritesDrawer()" aria-label="View Favourites"
+          title="Saved Favourites">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          <span class="icon-badge header-badge" id="favourites-count-badge">1</span>
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button class="header-action-btn header-theme-btn" id="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode"
+          title="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <!-- Chat Button in Navbar (Close to Profile Icon) -->
+        <button class="header-action-btn header-chat-btn" id="nav-chat-btn" onclick="openChatInterface()" aria-label="Open In-App Chat"
+          title="Direct Restaurant Chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span class="icon-badge header-badge chat-badge" id="chat-unread-badge">1</span>
+        </button>
+
+        <!-- Auth Container: Login button (logged out) or Profile Icon with Hover Menu (logged in) -->
+        <div class="header-auth-wrapper" id="header-auth-wrapper">
+          <!-- State 1: Login Pill Button (Logged Out) -->
+          <button class="header-login-btn" id="header-login-btn" onclick="openLoginModal()" aria-label="Login">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            </svg>
+            <span>Login</span>
+          </button>
+
+          <!-- State 2: Profile Icon with Hover Dropdown (Logged In) -->
+          <div class="header-profile-menu-container" id="header-profile-menu-container" style="display: none;">
+            <button class="header-profile-btn" id="header-profile-btn" aria-haspopup="true" aria-expanded="false" aria-label="User Account Menu" title="Account Menu & Settings">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Bolanle Adeleke" class="header-profile-avatar" id="header-profile-avatar">
+              <span class="header-profile-status-dot"></span>
+            </button>
+
+            <!-- Hover Dropdown Menu -->
+            <div class="profile-dropdown-menu" id="profile-dropdown-menu" role="menu">
+              <!-- User Profile Header Card -->
+              <div class="profile-dropdown-header">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Profile" class="profile-dropdown-avatar" id="dropdown-user-avatar">
+                <div class="profile-dropdown-user-meta">
+                  <div class="profile-dropdown-name" id="dropdown-user-name">Bolanle Adeleke</div>
+                  <div class="profile-dropdown-email" id="dropdown-user-contact">bolanle@connectnigeria.com</div>
+                  <span class="profile-status-badge">
+                    <i class="uil uil-check-circle"></i> Verified Diner
+                  </span>
+                </div>
+              </div>
+
+              <div class="profile-dropdown-divider"></div>
+
+              <!-- Menu & Activity Section -->
+              <div class="profile-dropdown-section">
+                <div class="profile-dropdown-section-title">Menu & Activity</div>
+                <a href="#" class="profile-dropdown-item" onclick="openFavouritesDrawer(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon"><i class="uil uil-heart"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">My Favourites</span>
+                    <span class="profile-dropdown-item-sub">Saved restaurants & dishes</span>
+                  </div>
+                  <span class="profile-dropdown-badge" id="dropdown-fav-badge">1</span>
+                </a>
+
+                <a href="#" class="profile-dropdown-item" onclick="openOrderHistoryModal(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon"><i class="uil uil-receipt"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">Inquiry & Order History</span>
+                    <span class="profile-dropdown-item-sub">Direct call & chat records</span>
+                  </div>
+                </a>
+
+                <a href="#" class="profile-dropdown-item" onclick="openSavedAddressesModal(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon"><i class="uil uil-map-marker"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">Saved Delivery Addresses</span>
+                    <span class="profile-dropdown-item-sub">Lekki Phase 1, Victoria Island</span>
+                  </div>
+                </a>
+
+                <a href="#" class="profile-dropdown-item" onclick="handleMerchantPortalAccess(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon merchant-icon"><i class="uil uil-store"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">Merchant Portal</span>
+                    <span class="profile-dropdown-item-sub">Manage your restaurant</span>
+                  </div>
+                  <span class="profile-merchant-tag">Owner</span>
+                </a>
+              </div>
+
+              <div class="profile-dropdown-divider"></div>
+
+              <!-- Preferences & Settings Section -->
+              <div class="profile-dropdown-section">
+                <div class="profile-dropdown-section-title">Preferences & Settings</div>
+                <a href="#" class="profile-dropdown-item" onclick="openAccountSettingsModal(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon"><i class="uil uil-setting"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">Account Settings</span>
+                    <span class="profile-dropdown-item-sub">Dietary tastes, phone & alerts</span>
+                  </div>
+                </a>
+
+                <a href="#" class="profile-dropdown-item" onclick="toggleTheme(); return false;" role="menuitem">
+                  <div class="profile-dropdown-item-icon"><i class="uil uil-moon"></i></div>
+                  <div class="profile-dropdown-item-content">
+                    <span class="profile-dropdown-item-label">Dark / Light Mode</span>
+                    <span class="profile-dropdown-item-sub">Toggle theme appearance</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="profile-dropdown-divider"></div>
+
+              <!-- Sign Out -->
+              <div class="profile-dropdown-footer">
+                <button class="profile-dropdown-signout-btn" onclick="handleSignOut()" role="menuitem">
+                  <i class="uil uil-signout"></i> Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       VIEW 1: MARKETPLACE & CUSTOMER DISCOVERY (DEFAULT)
+       ========================================================================= -->
+  <main id="marketplace-view">
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="explore">
+      <div class="container hero-content">
+        <div class="hero-pill-badge">
+          <span><i class="uil uil-bolt"></i> Fast & Direct Local Food Discovery</span>
+        </div>
+        <h1 class="hero-title">Discover the best local food <span>near you.</span></h1>
+        <p class="hero-subtitle">Browse authentic verified menus, transparent pricing, and connect directly with
+          restaurants to order offline by phone call or chat.</p>
+
+        <!-- Integrated Search Bar -->
+        <div class="hero-search-bar">
+          <div class="search-field-group">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="hero-search-input" class="search-input"
+              placeholder="Search for dishes, cuisines, or restaurants...">
+          </div>
+          <div class="search-divider"></div>
+          <div class="search-location-group" id="search-location-group">
+            <i class="uil uil-location-point search-location-icon" title="Location"></i>
+            <input type="text" id="hero-location-input" class="search-location-input"
+              placeholder="Type your address, area, or city..." value="" autocomplete="off"
+              list="nigeria-locations-list" title="Type your street, area, or city">
+            <datalist id="nigeria-locations-list">
+              <option value="Near Me">Current Location</option>
+              <option value="Lekki Phase 1, Lagos">Lekki Phase 1</option>
+              <option value="Victoria Island, Lagos">Victoria Island</option>
+              <option value="Ikeja GRA, Lagos">Ikeja GRA</option>
+              <option value="Yaba, Lagos">Yaba</option>
+              <option value="Surulere, Lagos">Surulere</option>
+              <option value="Wuse II, Abuja">Wuse II, Abuja</option>
+              <option value="Garki, Abuja">Garki, Abuja</option>
+              <option value="Old GRA, Port Harcourt">Old GRA, PH</option>
+              <option value="Bodija, Ibadan">Bodija, Ibadan</option>
+            </datalist>
+          </div>
+          <button class="btn btn-primary hero-search-btn" onclick="executeHeroSearch()">Find Food</button>
+        </div>
+
+        <!-- Quick Tags -->
+        <div class="hero-popular-tags">
+          <span>Popular searches:</span>
+          <span class="popular-tag-chip" onclick="AppState.searchQuery='Jollof'; renderMarketplace();">Smoky
+            Jollof</span>
+          <span class="popular-tag-chip" onclick="AppState.searchQuery='Suya'; renderMarketplace();">Beef Suya</span>
+          <span class="popular-tag-chip" onclick="AppState.searchQuery='Egusi'; renderMarketplace();">Pounded Yam &
+            Egusi</span>
+          <span class="popular-tag-chip" onclick="AppState.searchQuery='Seafood'; renderMarketplace();">Seafood
+            Okro</span>
+          <span class="popular-tag-chip" onclick="AppState.searchQuery='Catfish'; renderMarketplace();">Spicy Grilled
+            Catfish</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <div class="categories-nav-wrapper" id="categories">
+      <div class="container categories-bar">
+        <button class="category-chip active" data-category="All">
+          <span class="category-icon"><i class="uil uil-utensils-alt"></i></span> All Cuisines
+        </button>
+        <button class="category-chip" data-category="Nigerian">
+          <span class="category-icon"><i class="uil uil-crockery"></i></span> Nigerian Traditional
+        </button>
+        <button class="category-chip" data-category="Suya">
+          <span class="category-icon"><i class="uil uil-fire"></i></span> Suya & Grills
+        </button>
+        <button class="category-chip" data-category="Continental">
+          <span class="category-icon"><i class="uil uil-pizza-slice"></i></span> Continental & Bistro
+        </button>
+        <button class="category-chip" data-category="Soups">
+          <span class="category-icon"><i class="uil uil-crockery"></i></span> Soups & Swallows
+        </button>
+        <button class="category-chip" data-category="Fast Food">
+          <span class="category-icon"><i class="uil uil-coffee"></i></span> Fast Food & Bakery
+        </button>
+        <button class="category-chip" data-category="Seafood">
+          <span class="category-icon"><i class="uil uil-water"></i></span> Fresh Seafood
+        </button>
+        <button class="category-chip" data-category="Drinks">
+          <span class="category-icon"><i class="uil uil-glass-martini-alt"></i></span> Smoothies & Drinks
+        </button>
+      </div>
+    </div>
+
+    <!-- Marketplace Content Area -->
+    <div class="container">
+      <!-- Quick Filter Row -->
+      <div class="filter-row">
+        <div class="filter-chips-group">
+          <button class="filter-pill" id="filter-open-now">
+            <span>●</span> Open Now
+          </button>
+          <button class="filter-pill" id="filter-top-rated">
+            <span style="color: var(--cn-yellow-normal);"><i class="uil uil-star"></i></span> Top Rated (4.8+)
+          </button>
+          <button class="filter-pill" id="filter-verified">
+            <span style="color: var(--cn-green-600);"><i class="uil uil-shield-check"></i></span> Verified Merchants
+            Only
+          </button>
+        </div>
+        <div class="results-count-text" id="results-count-text">Showing 5 verified food spots</div>
+      </div>
+
+      <!-- Section: Verified Restaurants Grid -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Popular Restaurants Near You</h2>
+          <p class="section-subtitle">Verified food establishments offering authentic menus and direct ordering.</p>
+        </div>
+      </div>
+
+      <div class="restaurants-grid" id="restaurants-grid-container">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+      <!-- Section: Trending Dishes -->
+      <div class="section-header" id="trending">
+        <div>
+          <h2 class="section-title">Trending Dishes This Week</h2>
+          <p class="section-subtitle">Popular culinary favorites you can inquire about and order directly via chat.</p>
+        </div>
+      </div>
+
+      <div class="dishes-grid" id="trending-dishes-grid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+      <!-- Section: Exclusive Offers & Combo Deals -->
+      <div class="section-header" id="offers" style="margin-top: var(--space-4xl);">
+        <div>
+          <div class="offers-section-badge">
+            <i class="uil uil-tag-alt"></i> Verified Exclusive Deals
+          </div>
+          <h2 class="section-title">Special Offers & Combo Deals</h2>
+          <p class="section-subtitle">Limited-time discounts, meal combos, and corporate packages directly from verified merchants.</p>
+        </div>
+        <div class="offers-header-note">
+          <i class="uil uil-comment-alt-check"></i> Mention code on call or chat to claim
+        </div>
+      </div>
+
+      <div class="offers-grid" id="offers-grid-container">
+        <!-- Offer 1: Mama's Kitchen -->
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Mama's Royal Feast Combo" loading="lazy">
+            <div class="offer-badge offer-badge-discount">20% OFF</div>
+            <div class="offer-expiry-pill"><i class="uil uil-clock-three"></i> 3 Days Left</div>
+          </div>
+          <div class="offer-content">
+            <div class="offer-merchant-line">
+              <i class="uil uil-shop" style="color: var(--cn-green-600);"></i>
+              <button type="button" class="offer-merchant-link" onclick="openRestaurantProfile('rest-1')" title="View Mama's Kitchen's menu and profile">
+                <strong>Mama's Kitchen</strong>
+              </button>
+              <span>• Lekki Phase 1, Lagos</span>
+            </div>
+            <h3 class="offer-title">Mama's Royal Feast Combo</h3>
+            <div class="offer-highlight"><i class="uil uil-bolt"></i> 20% Off All Native Soups & Swallows</div>
+            <p class="offer-desc">Order any 2 soup bowls (Melon Egusi, Native Okro, Fisherman Soup, or Ofe Nsala) and get 20% off plus 2 complimentary chilled ginger Zobos.</p>
+            <div class="offer-promo-box">
+              <div class="offer-code-group">
+                <span class="offer-code-label">Promo Code:</span>
+                <span class="offer-code-val">MAMAFEAST20</span>
+              </div>
+              <button type="button" class="offer-copy-btn" onclick="copyOfferCode('MAMAFEAST20', this, event)" title="Copy promo code to clipboard">
+                <i class="uil uil-copy"></i> Copy
+              </button>
+            </div>
+            <div class="offer-terms-line">
+              <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
+              <span>Mon – Thu Special • Min. order ₦8,000 • Dine-in & Phone Pickup</span>
+            </div>
+            <div class="offer-actions-row">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="claimOfferViaChat('rest-1', 'Mama\'s Royal Feast Combo', 'MAMAFEAST20', event)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Claim via Chat
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="callMerchant('rest-1', event)" title="Call restaurant host">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 2: Suya Central -->
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" alt="Weekend Charcoal Suya Bash" loading="lazy">
+            <div class="offer-badge offer-badge-combo">FREE DRINK COMBO</div>
+            <div class="offer-expiry-pill"><i class="uil uil-clock-three"></i> This Weekend Only</div>
+          </div>
+          <div class="offer-content">
+            <div class="offer-merchant-line">
+              <i class="uil uil-shop" style="color: var(--cn-green-600);"></i>
+              <button type="button" class="offer-merchant-link" onclick="openRestaurantProfile('rest-2')" title="View Suya Central's menu and profile">
+                <strong>Suya Central & BBQ Grills</strong>
+              </button>
+              <span>• Ikeja GRA, Lagos</span>
+            </div>
+            <h3 class="offer-title">Weekend Charcoal Suya Bash</h3>
+            <div class="offer-highlight"><i class="uil uil-bolt"></i> Free Calabash Palm Wine or Zobo</div>
+            <p class="offer-desc">Order any Mega Beef Suya Platter or Whole Grilled Catfish and receive a complimentary chilled 500ml fresh palm wine or spiced zobo.</p>
+            <div class="offer-promo-box">
+              <div class="offer-code-group">
+                <span class="offer-code-label">Promo Code:</span>
+                <span class="offer-code-val">SUYABASH</span>
+              </div>
+              <button type="button" class="offer-copy-btn" onclick="copyOfferCode('SUYABASH', this, event)" title="Copy promo code to clipboard">
+                <i class="uil uil-copy"></i> Copy
+              </button>
+            </div>
+            <div class="offer-terms-line">
+              <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
+              <span>Fri – Sun from 4 PM • With Mega Platter • Mention code on call</span>
+            </div>
+            <div class="offer-actions-row">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="claimOfferViaChat('rest-2', 'Weekend Charcoal Suya Bash', 'SUYABASH', event)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Claim via Chat
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="callMerchant('rest-2', event)" title="Call restaurant host">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 3: The Palms Bistro -->
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Date Night Bistro Duo" loading="lazy">
+            <div class="offer-badge offer-badge-savings">SAVE ₦3,500</div>
+            <div class="offer-expiry-pill"><i class="uil uil-clock-three"></i> First 30 Diners</div>
+          </div>
+          <div class="offer-content">
+            <div class="offer-merchant-line">
+              <i class="uil uil-shop" style="color: var(--cn-green-600);"></i>
+              <button type="button" class="offer-merchant-link" onclick="openRestaurantProfile('rest-3')" title="View The Palms Bistro's menu and profile">
+                <strong>The Palms Continental & Bistro</strong>
+              </button>
+              <span>• Victoria Island, Lagos</span>
+            </div>
+            <h3 class="offer-title">Date Night Bistro Duo</h3>
+            <div class="offer-highlight"><i class="uil uil-bolt"></i> ₦3,500 Off Prime Ribeye & Seafood</div>
+            <p class="offer-desc">Save ₦3,500 when you reserve an evening dining table for two and order 2 signature main courses. Complimentary garlic bread included.</p>
+            <div class="offer-promo-box">
+              <div class="offer-code-group">
+                <span class="offer-code-label">Promo Code:</span>
+                <span class="offer-code-val">PALMSDUO</span>
+              </div>
+              <button type="button" class="offer-copy-btn" onclick="copyOfferCode('PALMSDUO', this, event)" title="Copy promo code to clipboard">
+                <i class="uil uil-copy"></i> Copy
+              </button>
+            </div>
+            <div class="offer-terms-line">
+              <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
+              <span>Tue – Sun • Table Dining & Pre-order • 2 Mains minimum</span>
+            </div>
+            <div class="offer-actions-row">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="claimOfferViaChat('rest-3', 'Date Night Bistro Duo', 'PALMSDUO', event)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Claim via Chat
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="callMerchant('rest-3', event)" title="Call restaurant host">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 4: Buka Royale -->
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Corporate Amala Lunch Tray" loading="lazy">
+            <div class="offer-badge offer-badge-group">15% GROUP OFF</div>
+            <div class="offer-expiry-pill"><i class="uil uil-clock-three"></i> Active Workplace Promo</div>
+          </div>
+          <div class="offer-content">
+            <div class="offer-merchant-line">
+              <i class="uil uil-shop" style="color: var(--cn-green-600);"></i>
+              <button type="button" class="offer-merchant-link" onclick="openRestaurantProfile('rest-4')" title="View Buka Royale's menu and profile">
+                <strong>Buka Royale & Swallows</strong>
+              </button>
+              <span>• Yaba, Lagos</span>
+            </div>
+            <h3 class="offer-title">Corporate Amala Lunch Tray</h3>
+            <div class="offer-highlight"><i class="uil uil-bolt"></i> 15% Off Group Orders (4+ Packs)</div>
+            <p class="offer-desc">Feed your office squad with fluffy hot Amala Dudu, rich Gbegiri & Ewedu, and tender goat meat. Instant 15% discount on 4+ portions.</p>
+            <div class="offer-promo-box">
+              <div class="offer-code-group">
+                <span class="offer-code-label">Promo Code:</span>
+                <span class="offer-code-val">BUKATEAM</span>
+              </div>
+              <button type="button" class="offer-copy-btn" onclick="copyOfferCode('BUKATEAM', this, event)" title="Copy promo code to clipboard">
+                <i class="uil uil-copy"></i> Copy
+              </button>
+            </div>
+            <div class="offer-terms-line">
+              <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
+              <span>Mon – Fri • 11:30 AM – 3:30 PM • 4+ meals ordered</span>
+            </div>
+            <div class="offer-actions-row">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="claimOfferViaChat('rest-4', 'Corporate Amala Lunch Tray', 'BUKATEAM', event)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Claim via Chat
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="callMerchant('rest-4', event)" title="Call restaurant host">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Offer 5: Crust & Co. -->
+        <article class="offer-card">
+          <div class="offer-media">
+            <img src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=600&q=80" alt="Morning Fuel Pastry & Smoothie Duo" loading="lazy">
+            <div class="offer-badge offer-badge-bogo">BUY 1 GET 50% OFF</div>
+            <div class="offer-expiry-pill"><i class="uil uil-clock-three"></i> Morning Special</div>
+          </div>
+          <div class="offer-content">
+            <div class="offer-merchant-line">
+              <i class="uil uil-shop" style="color: var(--cn-green-600);"></i>
+              <button type="button" class="offer-merchant-link" onclick="openRestaurantProfile('rest-5')" title="View Crust & Co's menu and profile">
+                <strong>Crust & Co. Artisan Bakery & Café</strong>
+              </button>
+              <span>• Wuse 2, Abuja</span>
+            </div>
+            <h3 class="offer-title">Morning Fuel Pastry & Smoothie Duo</h3>
+            <div class="offer-highlight"><i class="uil uil-bolt"></i> 50% Off 2nd Fresh Smoothie</div>
+            <p class="offer-desc">Order any fresh breakfast pastry or crispy chicken box and get your second natural tropical smoothie at half price.</p>
+            <div class="offer-promo-box">
+              <div class="offer-code-group">
+                <span class="offer-code-label">Promo Code:</span>
+                <span class="offer-code-val">CRUST50</span>
+              </div>
+              <button type="button" class="offer-copy-btn" onclick="copyOfferCode('CRUST50', this, event)" title="Copy promo code to clipboard">
+                <i class="uil uil-copy"></i> Copy
+              </button>
+            </div>
+            <div class="offer-terms-line">
+              <i class="uil uil-calendar-alt" style="color: var(--cn-yellow-normal);"></i>
+              <span>Daily • 7:30 AM – 11:00 AM • Mention code to barista</span>
+            </div>
+            <div class="offer-actions-row">
+              <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="claimOfferViaChat('rest-5', 'Morning Fuel Pastry & Smoothie Duo', 'CRUST50', event)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Claim via Chat
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="callMerchant('rest-5', event)" title="Call restaurant host">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 2: RESTAURANT PROFILE & RICH MENU VIEW (DETAIL PAGE)
+       ========================================================================= -->
+  <main id="profile-view" class="profile-view-wrapper container">
+    <!-- Header banner filled via JS -->
+    <div id="profile-header-container"></div>
+
+    <!-- Tab Bar -->
+    <div class="detail-tabs-header" id="detail-tabs-header">
+      <button class="detail-tab-btn active" data-tab="menu" onclick="switchDetailTab('menu')">Menu & Pricing</button>
+      <button class="detail-tab-btn" data-tab="reviews" onclick="switchDetailTab('reviews')">Ratings & Reviews</button>
+      <button class="detail-tab-btn" data-tab="photos" onclick="switchDetailTab('photos')">Photo Gallery</button>
+      <button class="detail-tab-btn" data-tab="about" onclick="switchDetailTab('about')">About & Hours</button>
+      <button class="detail-tab-btn" data-tab="table" onclick="switchDetailTab('table')">Table Availability</button>
+    </div>
+
+    <!-- Tab Panels (Continuous Scroll & Direct Jump) -->
+    <div class="tab-content-panel" id="tab-menu"></div>
+    <div class="tab-content-panel" id="tab-reviews"></div>
+    <div class="tab-content-panel" id="tab-photos"></div>
+    <div class="tab-content-panel" id="tab-about"></div>
+    <div class="tab-content-panel" id="tab-table"></div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 3: BUSINESS PORTAL (MERCHANT DASHBOARD)
+       ========================================================================= -->
+  <main id="merchant-portal-view" class="business-portal-wrapper container">
+    <!-- Portal Store Top Banner -->
+    <div class="portal-top-banner">
+      <div class="portal-store-info">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&q=80" alt="Store Avatar"
+          class="portal-store-avatar">
+        <div>
+          <div style="font-size: 11px; font-weight: 800; color: var(--cn-green-600); text-transform: uppercase;">
+            Merchant Portal</div>
+          <h2 class="portal-store-name" id="portal-store-name">Mama's Kitchen</h2>
+          <div class="portal-store-status" id="portal-store-status"><i class="uil uil-map-marker"
+              style="color: var(--cn-green-600); margin-right: 4px;"></i> Lekki Phase 1, Lagos • Status: Accepting
+            Orders</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Live Store Status Toggle -->
+        <div class="store-switch-container">
+          <span style="font-size: 13px; font-weight: 700;">Live Store Status:</span>
+          <label class="switch" title="Toggle Live Open/Closed">
+            <input type="checkbox" id="store-status-switch" checked onchange="toggleStoreStatus(this)">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="toggleRoleMode()">Return to Marketplace</button>
+      </div>
+    </div>
+
+    <!-- KPI Overview Cards -->
+    <div class="kpi-cards-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Profile Views (7d)</div>
+        <div class="kpi-val">4,820</div>
+        <div class="kpi-trend positive">↑ 18.4% vs last week</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Menu Item Impressions</div>
+        <div class="kpi-val">12,450</div>
+        <div class="kpi-trend positive">↑ 24.1% customer reach</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Favourites Saved</div>
+        <div class="kpi-val">842</div>
+        <div class="kpi-trend positive">↑ High customer retention</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Average Rating</div>
+        <div class="kpi-val">4.9 <i class="uil uil-star" style="color: var(--cn-yellow-normal); font-size: 22px;"></i>
+        </div>
+        <div style="font-size: 12px; color: var(--color-text-muted);">From 312 reviews</div>
+      </div>
+    </div>
+
+    <!-- Weekly Views Analytics Chart -->
+    <div class="chart-container-card">
+      <div class="chart-header">
+        <div>
+          <h3 style="font-size: 18px; font-weight: 700;">Customer Discovery Traffic (This Week)</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted);">Daily profile and menu impressions across Connect
+            Nigeria CHOPS.</p>
+        </div>
+        <span class="badge badge-open" style="font-size: 11px;">Active Visibility</span>
+      </div>
+
+      <div class="chart-bars-wrapper">
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 55%;" title="Mon: 480 views"></div>
+          <span class="chart-bar-label">Mon</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 65%;" title="Tue: 590 views"></div>
+          <span class="chart-bar-label">Tue</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 70%;" title="Wed: 640 views"></div>
+          <span class="chart-bar-label">Wed</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 85%;" title="Thu: 780 views"></div>
+          <span class="chart-bar-label">Thu</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 98%; background-color: var(--cn-green-500);"
+            title="Fri: 940 views"></div>
+          <span class="chart-bar-label">Fri</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 90%; background-color: var(--cn-green-500);"
+            title="Sat: 880 views"></div>
+          <span class="chart-bar-label">Sat</span>
+        </div>
+        <div class="chart-bar-col">
+          <div class="chart-bar-fill" style="height: 60%;" title="Sun: 510 views"></div>
+          <span class="chart-bar-label">Sun</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Manager Section -->
+    <div
+      style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl); margin-bottom: var(--space-2xl);">
+      <div class="menu-manager-header">
+        <div>
+          <h3 style="font-size: 18px; font-weight: 700;">Menu Manager</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted);">Manage dishes, update prices, and control
+            availability displayed to customers.</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openAddNewDishModal()">
+          + Add New Dish
+        </button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="portal-table">
+          <thead>
+            <tr>
+              <th>Dish Name & Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="portal-dishes-tbody">
+            <!-- Rendered dynamically via app.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reviews Moderation & Feedback -->
+    <div
+      style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl);">
+      <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Customer Feedback & Inquiries</h3>
+      <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-lg);">Recent reviews left by
+        customers who visited or ordered from your restaurant.</p>
+
+      <div id="portal-reviews-list" style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Visibility Subscription Card -->
+    <div class="subscription-card">
+      <div>
+        <div
+          style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cn-green-800); margin-bottom: 4px;">
+          Platform Visibility Tier</div>
+        <h4 style="font-size: 20px; font-weight: 800; color: var(--color-text-primary);">CHOPS Verified Merchant Plan
+          (Active)</h4>
+        <p style="font-size: 13px; color: var(--color-text-secondary); max-width: 600px; margin-top: 4px;">
+          Your menu and restaurant profile are live and discoverable by thousands of diners across Lagos. Your next
+          renewal is on <strong>November 15, 2026</strong>.
+        </p>
+      </div>
+      <button class="btn btn-primary" onclick="showToast('Your subscription is up to date!')">Manage
+        Subscription</button>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 4: DEDICATED DIRECT RESTAURANT CHAT INTERFACE (FULL WORKSPACE)
+       ========================================================================= -->
+  <main id="chat-view" class="chat-interface-wrapper container" style="display: none;">
+    <!-- Top Action / Breadcrumbs Bar -->
+    <div class="chat-view-top-bar">
+      <button class="back-btn" onclick="backToMarketplace()">
+        <i class="uil uil-arrow-left"></i>
+        <span>Back to Explore</span>
+      </button>
+      <div class="chat-view-title-group">
+        <h1 class="chat-view-title">Direct Restaurant Messaging & Inquiries</h1>
+        <span class="chat-view-subtitle"><i class="uil uil-shield-check"></i> Direct Offline Ordering & Dish Inquiries with Verified Kitchens</span>
+      </div>
+      <div class="chat-view-top-actions">
+        <button class="btn btn-secondary btn-sm" onclick="backToMarketplace()">
+          <i class="uil uil-compass"></i> Explore Restaurants
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-Column Chat Layout Grid -->
+    <div class="chat-layout-grid">
+      <!-- 1. Left Sidebar: Restaurant Conversations -->
+      <aside class="chat-sidebar-panel">
+        <div class="chat-sidebar-header">
+          <div class="chat-sidebar-title-row">
+            <h2 class="chat-sidebar-title">Conversations</h2>
+            <span class="chat-unread-count-pill" id="chat-total-unread-badge">1 New</span>
+          </div>
+          <div class="chat-search-box">
+            <i class="uil uil-search"></i>
+            <input type="text" id="chat-search-input" placeholder="Search restaurant..." oninput="filterChatConversations(this.value)">
+          </div>
+        </div>
+        <div class="chat-convos-list" id="chat-convos-list">
+          <!-- Rendered dynamically via renderChatConversationsList() in app.js -->
+        </div>
+      </aside>
+
+      <!-- 2. Center Panel: Active Conversation Stream -->
+      <section class="chat-convo-main">
+        <!-- Active Partner Header -->
+        <div class="chat-main-header" id="chat-main-header">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Quick Inquiry Suggestion Chips -->
+        <div class="chat-quick-inquiries-bar">
+          <span class="chat-quick-label"><i class="uil uil-bolt"></i> Quick Inquiries:</span>
+          <button class="chat-quick-chip" onclick="sendQuickInquiry('Is this dish available right now?')">Is dish available now?</button>
+          <button class="chat-quick-chip" onclick="sendQuickInquiry('Can I place a pickup order in 25 mins?')">Pickup in 25 mins?</button>
+          <button class="chat-quick-chip" onclick="sendQuickInquiry('Do you deliver around my area?')">Direct delivery?</button>
+          <button class="chat-quick-chip" onclick="sendQuickInquiry('What is your chef\'s special today?')">Today's special?</button>
+          <button class="chat-quick-chip" onclick="sendQuickInquiry('Hi! I would like to inquire about reserving a table for 2.')">Table for 2 inquiry</button>
+        </div>
+
+        <!-- Scrollable Message Stream -->
+        <div class="chat-messages-container" id="chat-interface-messages">
+          <!-- Chat bubbles rendered dynamically -->
+        </div>
+
+        <!-- Typing Indicator Animation -->
+        <div class="chat-typing-indicator" id="chat-typing-indicator" style="display: none;">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span id="chat-typing-text">Kitchen staff is typing...</span>
+        </div>
+
+        <!-- Message Compose Input Bar -->
+        <div class="chat-compose-bar">
+          <button type="button" class="chat-compose-icon-btn" title="Add dietary preference note" onclick="insertDietaryNote()"><i class="uil uil-plus-circle"></i></button>
+          <input type="text" id="chat-interface-input" class="chat-compose-input" placeholder="Type an inquiry or offline order note..." onkeydown="if(event.key==='Enter') sendChatInterfaceMessage()">
+          <button type="button" class="btn btn-primary chat-send-btn" onclick="sendChatInterfaceMessage()">
+            <span>Send</span>
+            <i class="uil uil-message"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Right Sidebar: Restaurant Quick Info & Direct Order Hub -->
+      <aside class="chat-info-panel" id="chat-restaurant-info-panel">
+        <!-- Rendered dynamically based on active restaurant -->
+      </aside>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+  <!-- Modal: Add New Dish (Merchant Mode) -->
+  <div class="modal-backdrop" id="add-dish-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Dish to Menu</h3>
+        <button onclick="closeAddNewDishModal()" style="font-size: 18px; color: var(--color-text-muted);"
+          aria-label="Close Modal"><i class="uil uil-times"></i></button>
+      </div>
+      <form onsubmit="handleAddDishFormSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="dish-form-name">Dish Name *</label>
+            <input type="text" id="dish-form-name" class="form-control"
+              placeholder="e.g. Traditional Goat Meat Pepper Soup" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dish-form-category">Category *</label>
+            <select id="dish-form-category" class="form-control">
+              <option value="Rice & Grains">Rice & Grains</option>
+              <option value="Soups & Swallows">Soups & Swallows</option>
+              <option value="Suya & Grills">Suya & Grills</option>
+              <option value="Fast Food">Fast Food</option>
+              <option value="Drinks & Smoothies">Drinks & Smoothies</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dish-form-price">Price (₦) *</label>
+            <input type="number" id="dish-form-price" class="form-control" placeholder="e.g. 3500" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dish-form-desc">Description</label>
+            <textarea id="dish-form-desc" class="form-control" rows="3"
+              placeholder="Describe the ingredients, cooking style, and sides..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dish-form-img">Photo Image URL</label>
+            <input type="url" id="dish-form-img" class="form-control" placeholder="https://images.unsplash.com/...">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeAddNewDishModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save & Publish Dish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Write a Review (Customer Mode) -->
+  <div class="modal-backdrop" id="write-review-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Write an Authentic Review</h3>
+        <button onclick="closeWriteReviewModal()" style="font-size: 18px; color: var(--color-text-muted);"
+          aria-label="Close Modal"><i class="uil uil-times"></i></button>
+      </div>
+      <form onsubmit="handleReviewFormSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="review-form-name">Your Name</label>
+            <input type="text" id="review-form-name" class="form-control" placeholder="e.g. Bolanle Adeleke">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="review-form-rating">Star Rating</label>
+            <select id="review-form-rating" class="form-control">
+              <option value="5">5 Stars — Outstanding Experience</option>
+              <option value="4">4 Stars — Very Good</option>
+              <option value="3">3 Stars — Average</option>
+              <option value="2">2 Stars — Below Expectations</option>
+              <option value="1">1 Star — Poor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="review-form-comment">Your Comments *</label>
+            <textarea id="review-form-comment" class="form-control" rows="4"
+              placeholder="How was the food flavor, preparation speed, and customer service?" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeWriteReviewModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Post Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Login / Authentication (Figma 72:3897) -->
+  <div class="modal-backdrop" id="login-modal" onclick="if(event.target === this) closeLoginModal();">
+    <div class="modal-card auth-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/brands/chop-logo.png" alt="Chop" style="height: 28px; width: auto;">
+          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Welcome to CHOPS</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeLoginModal()" aria-label="Close Modal" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 18px 24px;">
+        <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 18px;">
+          Discover verified menus, save favourite spots, or manage your restaurant profile.
+        </p>
+
+        <!-- Role Selector Tabs -->
+        <div class="auth-role-tabs">
+          <button type="button" class="auth-role-tab active" id="auth-tab-customer" onclick="switchAuthTab('customer')">
+            <i class="uil uil-user"></i> Customer Account
+          </button>
+          <button type="button" class="auth-role-tab" id="auth-tab-merchant" onclick="switchAuthTab('merchant')">
+            <i class="uil uil-store"></i> Merchant Portal
+          </button>
+        </div>
+
+        <!-- Customer Form -->
+        <div id="auth-customer-form" style="margin-top: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="login-phone">Phone Number or Email</label>
+            <input type="text" id="login-phone" class="form-control" placeholder="e.g. 0803 123 4567 or you@mail.com" value="0803 555 0199">
+          </div>
+          <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-full); font-weight: 700; height: 42px; margin-top: 8px;" onclick="handleCustomerLogin()">
+            Sign In / Continue
+          </button>
+        </div>
+
+        <!-- Merchant Form -->
+        <div id="auth-merchant-form" style="display: none; margin-top: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="merchant-email">Merchant Account Email</label>
+            <input type="text" id="merchant-email" class="form-control" placeholder="merchant@mamas-kitchen.ng" value="owner@mamas-kitchen.ng">
+          </div>
+          <button type="button" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-full); font-weight: 700; height: 42px; margin-top: 8px; background: var(--cn-blue-500); color: #fff;" onclick="handleMerchantPortalAccess()">
+            Access Merchant Portal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer/Modal: Favourites (Figma 72:3889) -->
+  <div class="modal-backdrop" id="favourites-modal" onclick="if(event.target === this) closeFavouritesDrawer();">
+    <div class="modal-card favourites-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #fef2f2; color: #ef4444; display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Saved Favourites (<span id="fav-modal-count">1</span>)</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeFavouritesDrawer()" aria-label="Close Favourites" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="favourites-modal-list" style="padding: 16px 20px;">
+        <!-- Injected dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Account Settings (Profile Menu) -->
+  <div class="modal-backdrop" id="account-settings-modal" onclick="if(event.target === this) closeAccountSettingsModal();">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center;">
+            <i class="uil uil-setting" style="font-size: 18px;"></i>
+          </div>
+          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Account Settings</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeAccountSettingsModal()" aria-label="Close Settings" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 18px 24px;">
+        <div class="form-group">
+          <label class="form-label" for="setting-name">Full Name</label>
+          <input type="text" id="setting-name" class="form-control" value="Bolanle Adeleke">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="setting-phone">Phone Number</label>
+          <input type="text" id="setting-phone" class="form-control" value="+234 803 555 0199">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="setting-email">Email Address</label>
+          <input type="email" id="setting-email" class="form-control" value="bolanle@connectnigeria.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dietary & Food Tastes</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px;">
+            <span class="dietary-chip active">Nigerian Traditional</span>
+            <span class="dietary-chip active">Spicy / Pepper Soup</span>
+            <span class="dietary-chip active">Halal Friendly</span>
+            <span class="dietary-chip">Seafood Lover</span>
+            <span class="dietary-chip">Pastries & Bakery</span>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 14px;">
+          <label style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; font-weight: 600; cursor: pointer;">
+            <span>SMS & WhatsApp Order Notifications</span>
+            <input type="checkbox" checked style="accent-color: var(--cn-green-500); width: 18px; height: 18px;">
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeAccountSettingsModal()">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="saveAccountSettings()">Save Preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Order & Inquiry History (Profile Menu) -->
+  <div class="modal-backdrop" id="order-history-modal" onclick="if(event.target === this) closeOrderHistoryModal();">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center;">
+            <i class="uil uil-receipt" style="font-size: 18px;"></i>
+          </div>
+          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Inquiry & Order History</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeOrderHistoryModal()" aria-label="Close" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 16px 20px;">
+        <div class="history-item-card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div>
+              <div style="font-weight: 700; font-size: 14.5px;">Mama's Kitchen (Lekki Phase 1)</div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Direct Chat Inquiry • Yesterday, 2:45 PM</div>
+            </div>
+            <span class="badge-status-completed">Completed</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 8px;">
+            Inquired: 2x Smoky Jollof Rice Special + Steamed Moi Moi (₦7,800)
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary btn-sm" onclick="closeOrderHistoryModal(); openRestaurantProfile('rest-1');">Order Again</button>
+            <button class="btn btn-secondary btn-sm" onclick="closeOrderHistoryModal(); openChatWithRestaurant('rest-1');">View Chat</button>
+          </div>
+        </div>
+
+        <div class="history-item-card" style="margin-top: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div>
+              <div style="font-weight: 700; font-size: 14.5px;">Suya Central & Grill Lounge</div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Phone Order Call • 3 days ago</div>
+            </div>
+            <span class="badge-status-completed">Picked Up</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 8px;">
+            Order: Charcoal Grilled Beef Suya Platter (Large) (₦4,500)
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary btn-sm" onclick="closeOrderHistoryModal(); openRestaurantProfile('rest-2');">View Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Saved Addresses (Profile Menu) -->
+  <div class="modal-backdrop" id="saved-addresses-modal" onclick="if(event.target === this) closeSavedAddressesModal();">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #e0e7ff; color: #4f46e5; display: flex; align-items: center; justify-content: center;">
+            <i class="uil uil-map-marker" style="font-size: 18px;"></i>
+          </div>
+          <h3 class="modal-title" style="margin: 0; font-size: 18px;">Saved Addresses</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeSavedAddressesModal()" aria-label="Close" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-muted);">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 16px 20px;">
+        <div class="address-item-card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <div style="font-weight: 700; font-size: 14px;"><i class="uil uil-home-alt"></i> Home (Primary)</div>
+              <div style="font-size: 12.5px; color: var(--color-text-muted); margin-top: 2px;">14 Admiralty Way, Lekki Phase 1, Lagos</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="applySavedLocation('Lekki Phase 1')">Use Location</button>
+          </div>
+        </div>
+
+        <div class="address-item-card" style="margin-top: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <div style="font-weight: 700; font-size: 14px;"><i class="uil uil-building"></i> Office</div>
+              <div style="font-size: 12.5px; color: var(--color-text-muted); margin-top: 2px;">Plot 12 Adeola Odeku, Victoria Island, Lagos</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="applySavedLocation('Victoria Island')">Use Location</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <img src="assets/brands/chop-logo.png" alt="Chop" style="height: 38px; width: auto; object-fit: contain;">
+        </div>
+        <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; max-width: 320px;">
+          Connect Nigeria CHOPS is the discovery-first marketplace connecting Nigerian diners with authentic local
+          restaurants, caterers, and food creators.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">For Customers</h4>
+        <ul class="footer-links">
+          <li><a href="#" onclick="backToMarketplace(); return false;">Explore Restaurants</a></li>
+          <li><a href="#" onclick="backToMarketplace(); return false;">Trending Dishes</a></li>
+          <li><a href="#" onclick="backToMarketplace(); return false;">Near Me Discovery</a></li>
+          <li><a href="#" onclick="showToast('Authentic community reviews'); return false;">Reviews & Ratings</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">For Restaurants</h4>
+        <ul class="footer-links">
+          <li><a href="#" onclick="toggleRoleMode(); return false;">Merchant Portal</a></li>
+          <li><a href="#" onclick="toggleRoleMode(); return false;">Menu Manager</a></li>
+          <li><a href="#" onclick="toggleRoleMode(); return false;">Visibility Pricing</a></li>
+          <li><a href="#" onclick="showToast('Contact CN Business Desk'); return false;">Partner Support</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Connect Nigeria</h4>
+        <ul class="footer-links">
+          <li><a href="https://connectnigeria.com" target="_blank" rel="noopener">ConnectNigeria.com</a></li>
+          <li><a href="#">Urgent.ng Marketplace</a></li>
+          <li><a href="#">Ads.ng Classifieds</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom-bar">
+      <div>© 2026 Connect Nigeria. All rights reserved. Built with the CN Design System.</div>
+      <div style="display: flex; gap: 16px;">
+        <span>Lagos</span>
+        <span>Abuja</span>
+        <span>Port Harcourt</span>
+        <span>Ibadan</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js?v=2.9"></script>
+</body>
+
+</html>
