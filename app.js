@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CHOPS WEB APPLICATION — CORE LOGIC & DATA (app.js)
  * Brand: Connect Nigeria CHOPS
  * Version: 2.0.0 (Discovery-First Marketplace Rework)
@@ -737,6 +737,30 @@ function toggleTheme() {
 // 4. RENDERING FUNCTIONS
 // ==========================================================================
 
+function formatViews(views) {
+  if (views === undefined || views === null) return '12.4k';
+  if (typeof views === 'string') return views;
+  if (views >= 1000000) return (views / 1000000).toFixed(1) + 'M';
+  if (views >= 1000) return (views / 1000).toFixed(1) + 'k';
+  return views.toLocaleString();
+}
+
+function getDishViews(dish) {
+  if (dish && dish.views) return dish.views;
+  let hash = 0;
+  const str = (dish && (dish.id || dish.name)) || 'dish';
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  const base = Math.abs(hash) % 18500 + 5200;
+  if (dish) dish.views = base;
+  return base;
+}
+
+window.formatViews = formatViews;
+window.getDishViews = getDishViews;
+
 function renderMarketplace() {
   const gridContainer = document.getElementById('restaurants-grid-container');
   const trendingContainer = document.getElementById('trending-dishes-grid');
@@ -847,27 +871,6 @@ function renderMarketplace() {
       `;
     }).join('');
   }
-
-function formatViews(views) {
-  if (views === undefined || views === null) return '12.4k';
-  if (typeof views === 'string') return views;
-  if (views >= 1000000) return (views / 1000000).toFixed(1) + 'M';
-  if (views >= 1000) return (views / 1000).toFixed(1) + 'k';
-  return views.toLocaleString();
-}
-
-function getDishViews(dish) {
-  if (dish && dish.views) return dish.views;
-  let hash = 0;
-  const str = (dish && (dish.id || dish.name)) || 'dish';
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  const base = Math.abs(hash) % 18500 + 5200;
-  if (dish) dish.views = base;
-  return base;
-}
 
   // 2. Render Trending Dishes
   if (trendingContainer) {
