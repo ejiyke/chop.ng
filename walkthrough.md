@@ -72,3 +72,14 @@ Following shareholder directives and the updated PRD, **CHOPS** has transitioned
    - Direct action buttons: **Claim via Chat** (pre-fills the inquiry and initiates direct offline order dialog with merchant) and **Call Merchant** (initiates direct phone dialer).
    - Clickable merchant attribution link navigating directly to the restaurant's full menu and profile.
 
+8. **Authentic Nigerian Food Photography:**
+   - Replaced mismatched generic stock photos with high-definition, photorealistic culinary photography representing each dish:
+     - **Signature Smoky Jollof Rice Special**: Vibrant party jollof with fried sweet plantain (dodo), crunchy coleslaw, and grilled quarter chicken.
+     - **Ofada Rice Royal Fiesta (in Banana Leaf)**: Unpolished fragrant Ofada rice served in fresh banana leaves with Ayamase designer stew, boiled eggs, and assorted meats.
+     - **Pounded Yam & Rich Melon Egusi**: Silky smooth white pounded yam mound with bubbling melon seed soup, stockfish flakes, and slow-cooked beef.
+     - **Fisherman Soup (Rivers State Native Pot)**: Rich Niger Delta seafood broth loaded with ocean tiger prawns, whole catfish steak, and scent leaves.
+     - **Spicy Peppered Asun Bites**: Sizzling charred goat meat sauteed with scotch bonnet relish and sweet red onions.
+     - **Charcoal Beef Suya Platter**: Thin sirloin steak skewers dusted with Kano yaji kuli-kuli spice, charred over open wood coals with sliced onions and tomatoes.
+     - **Crispy Lagos Small Chops Party Platter**: Golden round puff-puff balls, crispy beef samosas, spring rolls, and peppered chicken gizzard skewers.
+   - Assets are stored directly in `assets/dishes/` for fast, resilient, and offline-compatible rendering.
+
