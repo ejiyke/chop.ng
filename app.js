@@ -49,6 +49,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80",
           isAvailable: true,
           isTrending: true,
+          views: 24650,
           variations: ["With Quarter Chicken (₦3,500)", "With Crispy Fried Fish (₦4,000)", "With Peppered Goat Meat (₦4,800)"],
           addOns: ["Extra Fried Plantain (+₦700)", "Creamy Coleslaw (+₦500)", "Steamed Moi Moi (+₦800)"]
         },
@@ -61,6 +62,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80",
           isAvailable: true,
           isTrending: true,
+          views: 18320,
           variations: ["Standard Assorted Meats (₦4,800)", "With Extra Goat Meat (₦5,500)", "With Jumbo Prawns (₦6,200)"],
           addOns: ["Extra Ayamase Stew (+₦1,200)", "Fried Plantain (+₦700)", "Boiled Egg (+₦400)"]
         },
@@ -73,6 +75,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=80",
           isAvailable: true,
           isTrending: false,
+          views: 8900,
           variations: ["Giant Peppered Turkey (₦4,500)", "Peppered Chicken Wing (₦4,000)"],
           addOns: ["Coleslaw (+₦500)", "Steamed Moi Moi (+₦800)"]
         },
@@ -85,6 +88,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80",
           isAvailable: true,
           isTrending: false,
+          views: 6400,
           variations: ["With Fried Croaker Fish (₦3,800)", "With Tender Beef (₦3,600)"],
           addOns: ["Extra Croaker Fish (+₦1,500)", "Fried Dodo (+₦700)"]
         },
@@ -97,6 +101,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80",
           isAvailable: true,
           isTrending: true,
+          views: 21900,
           variations: ["Tender Beef & Shaki (₦4,200)", "Fresh Catfish (₦5,200)", "Goat Meat (₦5,000)"],
           addOns: ["Extra Swallow (+₦800)", "Extra Meat Piece (+₦1,200)"]
         },
@@ -109,6 +114,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80",
           isAvailable: true,
           isTrending: false,
+          views: 14750,
           variations: ["Standard Pot (₦6,500)", "Jumbo Seafood Bowl (₦9,500)"],
           addOns: ["Pounded Yam (+₦800)", "Eba (+₦600)"]
         },
@@ -121,6 +127,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80",
           isAvailable: true,
           isTrending: false,
+          views: 9200,
           variations: ["Slow-Braised Goat Meat (₦4,800)", "Fresh Catfish Cut (₦5,200)"],
           addOns: ["Pounded Yam (+₦800)", "Oat Swallow (+₦700)", "Extra Goat Meat (+₦1,500)"]
         },
@@ -133,6 +140,7 @@ const CHOPS_DATA = {
           img: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80",
           isAvailable: true,
           isTrending: true,
+          views: 15480,
           variations: ["Standard Fisherman Pot (₦7,500)", "Jumbo Royal Basin (₦11,000)"],
           addOns: ["Yellow Garri / Eba (+₦600)", "Pounded Yam (+₦800)", "Extra Jumbo Crab (+₦2,500)"]
         },
@@ -840,6 +848,27 @@ function renderMarketplace() {
     }).join('');
   }
 
+function formatViews(views) {
+  if (views === undefined || views === null) return '12.4k';
+  if (typeof views === 'string') return views;
+  if (views >= 1000000) return (views / 1000000).toFixed(1) + 'M';
+  if (views >= 1000) return (views / 1000).toFixed(1) + 'k';
+  return views.toLocaleString();
+}
+
+function getDishViews(dish) {
+  if (dish && dish.views) return dish.views;
+  let hash = 0;
+  const str = (dish && (dish.id || dish.name)) || 'dish';
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  const base = Math.abs(hash) % 18500 + 5200;
+  if (dish) dish.views = base;
+  return base;
+}
+
   // 2. Render Trending Dishes
   if (trendingContainer) {
     const trendingList = [];
@@ -851,27 +880,46 @@ function renderMarketplace() {
       });
     });
 
-    trendingContainer.innerHTML = trendingList.slice(0, 4).map(({ dish, restaurant }) => `
-      <div class="dish-card">
-        <div class="dish-thumb">
-          <img src="${dish.img}" alt="${dish.name}" loading="lazy">
-          <div class="dish-price-tag">₦${dish.price.toLocaleString()}</div>
-        </div>
-        <div class="dish-info">
-          <h4 class="dish-title">${dish.name}</h4>
-          <div class="dish-restaurant-name">
-            at <button type="button" class="dish-restaurant-link" onclick="openRestaurantProfile('${restaurant.id}')" title="View ${restaurant.name}'s menu and profile">
-              <strong>${restaurant.name}</strong>
-            </button> • <span>${restaurant.location}</span>
+    trendingContainer.innerHTML = trendingList.slice(0, 4).map(({ dish, restaurant }) => {
+      const viewsCount = getDishViews(dish);
+      const formattedViews = formatViews(viewsCount);
+      return `
+        <div class="dish-card">
+          <div class="dish-thumb">
+            <img src="${dish.img}" alt="${dish.name}" loading="lazy">
+            <div class="dish-views-tag" title="${viewsCount.toLocaleString()} food lovers viewed this dish this week">
+              <i class="uil uil-eye"></i>
+              <span>${formattedViews} views</span>
+            </div>
+            <div class="dish-trending-tag">
+              <i class="uil uil-fire"></i> Trending
+            </div>
+            <div class="dish-price-tag">₦${dish.price.toLocaleString()}</div>
           </div>
-          <p class="dish-desc">${dish.description}</p>
-          <button class="btn btn-outline-green btn-sm dish-cta-btn" onclick="inquireDish('${restaurant.id}', '${dish.name}', ${dish.price})">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Order / Inquire via Chat
-          </button>
+          <div class="dish-info">
+            <div class="dish-meta-stats">
+              <span class="dish-views-stat" title="Total views this week">
+                <i class="uil uil-eye"></i> <strong>${formattedViews}</strong> views
+              </span>
+              <span class="dish-trending-rank">
+                <i class="uil uil-fire"></i> Popular Pick
+              </span>
+            </div>
+            <h4 class="dish-title">${dish.name}</h4>
+            <div class="dish-restaurant-name">
+              at <button type="button" class="dish-restaurant-link" onclick="openRestaurantProfile('${restaurant.id}')" title="View ${restaurant.name}'s menu and profile">
+                <strong>${restaurant.name}</strong>
+              </button> • <span>${restaurant.location}</span>
+            </div>
+            <p class="dish-desc">${dish.description}</p>
+            <button class="btn btn-outline-green btn-sm dish-cta-btn" onclick="inquireDish('${restaurant.id}', '${dish.name}', ${dish.price})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Order / Inquire via Chat
+            </button>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   // 3. Render Exclusive Offers & Deals
@@ -1096,7 +1144,10 @@ function renderProfileMenuTab(r) {
             <div class="menu-dish-item">
               <img src="${dish.img}" alt="${dish.name}" class="menu-dish-img" loading="lazy">
               <div class="menu-dish-details">
-                <h4 class="menu-dish-name">${dish.name}</h4>
+                <h4 class="menu-dish-name">
+                  ${dish.name}
+                  ${dish.isTrending ? `<span class="menu-dish-views-pill" title="${getDishViews(dish).toLocaleString()} diners viewed this week"><i class="uil uil-eye"></i> ${formatViews(getDishViews(dish))} views</span>` : ''}
+                </h4>
                 <p class="menu-dish-desc">${dish.description}</p>
                 ${dish.variations ? `<div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 4px;"><strong>Options:</strong> ${dish.variations.join(' • ')}</div>` : ''}
                 <div class="menu-dish-price-row">
