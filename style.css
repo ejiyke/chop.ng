@@ -5280,6 +5280,14 @@ input:checked + .slider:before {
   line-height: 1;
 }
 
+.auth-badge-favicon-img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 .auth-visual-slide {
   position: absolute;
   inset: 0;
@@ -5394,6 +5402,21 @@ input:checked + .slider:before {
 .auth-brand-header {
   text-align: center;
   margin-bottom: 14px;
+}
+
+.auth-chop-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.auth-chop-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .auth-cn-logo {
