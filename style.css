@@ -4471,6 +4471,173 @@ input:checked + .slider:before {
   box-shadow: 0 0 0 3px var(--color-brand-ring);
 }
 
+/* Dish Image Upload Dropzone & Preview (Merchant Modal) */
+.dish-upload-container {
+  width: 100%;
+  position: relative;
+}
+
+.dish-upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 16px;
+  border: 2px dashed var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-surface-sunken);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dish-upload-dropzone:hover,
+.dish-upload-dropzone.dragover {
+  border-color: var(--cn-green-500);
+  background-color: rgba(147, 199, 0, 0.05);
+}
+
+.dish-upload-dropzone:focus-within {
+  border-color: var(--cn-green-500);
+  box-shadow: 0 0 0 3px var(--color-brand-ring);
+}
+
+.dish-upload-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dish-upload-icon-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-full);
+  background-color: rgba(147, 199, 0, 0.12);
+  color: var(--cn-green-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.dish-upload-dropzone:hover .dish-upload-icon-circle,
+.dish-upload-dropzone.dragover .dish-upload-icon-circle {
+  transform: translateY(-2px) scale(1.05);
+  background-color: rgba(147, 199, 0, 0.22);
+}
+
+.dish-upload-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dish-upload-primary {
+  font-size: 13.5px;
+  color: var(--color-text-primary);
+}
+
+.dish-upload-primary strong {
+  color: var(--cn-green-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dish-upload-secondary {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+/* Uploaded Image Preview */
+.dish-upload-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-surface-sunken);
+  animation: fadeIn 0.2s ease;
+}
+
+.dish-preview-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: #000;
+}
+
+.dish-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dish-preview-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  backdrop-filter: blur(4px);
+}
+
+.dish-preview-remove-btn:hover {
+  background-color: #ef4444;
+  transform: scale(1.08);
+}
+
+.dish-preview-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.dish-preview-name {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.dish-preview-size {
+  color: var(--color-text-muted);
+}
+
+.dish-upload-error-msg {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
 /* Toast Notifications */
 .toast-container {
   position: fixed;

@@ -17,8 +17,8 @@
   <meta http-equiv="Expires" content="0">
   <!-- IconScout Unicons -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="tokens.css?v=3.2">
-  <link rel="stylesheet" href="style.css?v=3.2">
+  <link rel="stylesheet" href="tokens.css?v=3.3">
+  <link rel="stylesheet" href="style.css?v=3.3">
 </head>
 
 <body>
@@ -1354,8 +1354,35 @@
               placeholder="Describe the ingredients, cooking style, and sides..."></textarea>
           </div>
           <div class="form-group">
-            <label class="form-label" for="dish-form-img">Photo Image URL</label>
-            <input type="url" id="dish-form-img" class="form-control" placeholder="https://images.unsplash.com/...">
+            <label class="form-label">Dish Photo *</label>
+            <div class="dish-upload-container" id="dish-upload-container">
+              <!-- Upload Dropzone -->
+              <label for="dish-form-file" class="dish-upload-dropzone" id="dish-dropzone">
+                <input type="file" id="dish-form-file" class="dish-upload-input" accept="image/png, image/jpeg, image/webp, image/gif" onchange="handleDishImageUpload(event)" required>
+                <div class="dish-upload-icon-circle">
+                  <i class="uil uil-cloud-upload"></i>
+                </div>
+                <div class="dish-upload-text">
+                  <span class="dish-upload-primary"><strong>Click to upload photo</strong> or drag and drop</span>
+                  <span class="dish-upload-secondary">PNG, JPG, or WebP up to 5MB</span>
+                </div>
+              </label>
+
+              <!-- Uploaded Preview Box (hidden initially) -->
+              <div class="dish-upload-preview" id="dish-upload-preview" style="display: none;">
+                <div class="dish-preview-img-wrapper">
+                  <img id="dish-preview-img" src="" alt="Dish Preview" class="dish-preview-img">
+                  <button type="button" class="dish-preview-remove-btn" onclick="removeDishUploadedImage()" title="Remove photo" aria-label="Remove photo">
+                    <i class="uil uil-trash-alt"></i>
+                  </button>
+                </div>
+                <div class="dish-preview-meta">
+                  <span class="dish-preview-name" id="dish-preview-name">photo.jpg</span>
+                  <span class="dish-preview-size" id="dish-preview-size">1.2 MB</span>
+                </div>
+              </div>
+            </div>
+            <div id="dish-upload-error" class="dish-upload-error-msg" style="display: none;"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -2228,7 +2255,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=3.2"></script>
+  <script src="app.js?v=3.3"></script>
 </body>
 
 </html>

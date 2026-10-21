@@ -2821,12 +2821,122 @@ function callMerchant(restId, event) {
 // ==========================================================================
 // 9. MODALS & FORMS
 // ==========================================================================
+let uploadedDishImageDataUrl = null;
+
+function handleDishImageUpload(e) {
+  const file = (e.target && e.target.files && e.target.files[0]) || (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
+  const errorEl = document.getElementById('dish-upload-error');
+  if (errorEl) {
+    errorEl.style.display = 'none';
+    errorEl.innerText = '';
+  }
+
+  if (!file) return;
+
+  // Validate file type is an image
+  if (!file.type.startsWith('image/')) {
+    if (errorEl) {
+      errorEl.innerText = 'Please select a valid image file (PNG, JPG, WebP, GIF).';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  // Validate file size (max 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    if (errorEl) {
+      errorEl.innerText = 'The selected image is larger than 5MB. Please choose a smaller photo.';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    uploadedDishImageDataUrl = evt.target.result;
+
+    const dropzone = document.getElementById('dish-dropzone');
+    const preview = document.getElementById('dish-upload-preview');
+    const previewImg = document.getElementById('dish-preview-img');
+    const previewName = document.getElementById('dish-preview-name');
+    const previewSize = document.getElementById('dish-preview-size');
+
+    if (previewImg) previewImg.src = uploadedDishImageDataUrl;
+    if (previewName) previewName.innerText = file.name;
+    if (previewSize) previewSize.innerText = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+
+    if (dropzone) dropzone.style.display = 'none';
+    if (preview) preview.style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeDishUploadedImage() {
+  uploadedDishImageDataUrl = null;
+  const fileInput = document.getElementById('dish-form-file');
+  if (fileInput) fileInput.value = '';
+
+  const dropzone = document.getElementById('dish-dropzone');
+  const preview = document.getElementById('dish-upload-preview');
+  const previewImg = document.getElementById('dish-preview-img');
+  const errorEl = document.getElementById('dish-upload-error');
+
+  if (previewImg) previewImg.src = '';
+  if (preview) preview.style.display = 'none';
+  if (dropzone) dropzone.style.display = 'flex';
+  if (errorEl) {
+    errorEl.style.display = 'none';
+    errorEl.innerText = '';
+  }
+}
+
+function initDishDropzoneDragDrop() {
+  const dropzone = document.getElementById('dish-dropzone');
+  if (!dropzone || dropzone.dataset.dragInit === 'true') return;
+  dropzone.dataset.dragInit = 'true';
+
+  ['dragenter', 'dragover'].forEach(evtName => {
+    dropzone.addEventListener(evtName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.add('dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(evtName => {
+    dropzone.addEventListener(evtName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.remove('dragover');
+    });
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    if (dt && dt.files && dt.files.length > 0) {
+      handleDishImageUpload(e);
+    }
+  });
+}
+
 function openAddNewDishModal() {
+  removeDishUploadedImage();
+  const nameInput = document.getElementById('dish-form-name');
+  const priceInput = document.getElementById('dish-form-price');
+  const descInput = document.getElementById('dish-form-desc');
+  if (nameInput) nameInput.value = '';
+  if (priceInput) priceInput.value = '';
+  if (descInput) descInput.value = '';
+
   const modal = document.getElementById('add-dish-modal');
-  if (modal) modal.classList.add('is-open');
+  if (modal) {
+    modal.classList.add('is-open');
+    initDishDropzoneDragDrop();
+  }
 }
 
 function closeAddNewDishModal() {
+  removeDishUploadedImage();
   const modal = document.getElementById('add-dish-modal');
   if (modal) modal.classList.remove('is-open');
 }
@@ -2837,7 +2947,17 @@ function handleAddDishFormSubmit(e) {
   const cat = document.getElementById('dish-form-category').value.trim();
   const price = parseInt(document.getElementById('dish-form-price').value, 10);
   const desc = document.getElementById('dish-form-desc').value.trim();
-  const img = document.getElementById('dish-form-img').value.trim() || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80';
+  const errorEl = document.getElementById('dish-upload-error');
+
+  if (!uploadedDishImageDataUrl) {
+    if (errorEl) {
+      errorEl.innerText = 'Please upload a photo for this dish.';
+      errorEl.style.display = 'block';
+    } else {
+      alert("Please upload a photo for this dish.");
+    }
+    return;
+  }
 
   if (!name || isNaN(price)) {
     alert("Please enter a valid dish name and price.");
@@ -2850,7 +2970,7 @@ function handleAddDishFormSubmit(e) {
     category: cat,
     price,
     description: desc,
-    img,
+    img: uploadedDishImageDataUrl,
     isAvailable: true,
     isTrending: false
   };
@@ -2858,7 +2978,7 @@ function handleAddDishFormSubmit(e) {
   AppState.merchantStore.menu.unshift(newDish);
   closeAddNewDishModal();
   renderMerchantDishesTable();
-  showToast(`Added "${name}" to your restaurant menu!`);
+  showToast(`Added "${name}" with uploaded photo to your restaurant menu!`);
 }
 
 function openWriteReviewModal() {
@@ -3545,6 +3665,8 @@ window.sendChatMessage = sendChatMessage;
 window.sendQuickInquiry = sendQuickInquiry;
 window.openAddNewDishModal = openAddNewDishModal;
 window.closeAddNewDishModal = closeAddNewDishModal;
+window.handleDishImageUpload = handleDishImageUpload;
+window.removeDishUploadedImage = removeDishUploadedImage;
 window.handleAddDishFormSubmit = handleAddDishFormSubmit;
 window.openWriteReviewModal = openWriteReviewModal;
 window.closeWriteReviewModal = closeWriteReviewModal;

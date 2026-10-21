@@ -121,7 +121,7 @@ Following the PRD documentation (`https://docs.google.com/document/d/1CfNH-sDBIi
    - Category filtering chips bar with dynamic item count badges.
    - "+ Add Category" modal to organize menu sections.
    - Dishes table with instant stock availability toggle ("Available" vs. "Sold Out") and deletion.
-   - "+ Add New Dish" modal with pricing, description, category, and image URL.
+   - "+ Add New Dish" modal with pricing, description, category, and direct file upload dropzone with live preview (URL input removed, enforcing authentic photo uploads).
 4. **Promotions & Special Deals Manager:**
    - Promotion campaign creation modal with discount percentages, minimum spend thresholds, promo tags, and validity dates.
    - Real-time performance metrics (redemptions count and gross revenue generated).
