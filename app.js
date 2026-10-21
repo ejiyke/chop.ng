@@ -1591,7 +1591,7 @@ function switchMerchantTab(tabName) {
   AppState.merchantStore.activeTab = tabName;
 
   // Update sidebar active buttons
-  document.querySelectorAll('.portal-nav-item').forEach(btn => {
+  document.querySelectorAll('.portal-nav-link, .portal-nav-item').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tabName);
   });
 

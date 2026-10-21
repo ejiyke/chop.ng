@@ -2274,14 +2274,18 @@ input:checked + .slider:before {
   color: var(--cn-green-600);
 }
 
-.portal-nav-link.active {
-  background-color: var(--cn-green-500);
-  color: white;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+.portal-nav-link.active,
+.portal-nav-item.active {
+  background-color: var(--cn-green-600) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
 }
 
-.portal-nav-link.active i {
-  color: white;
+.portal-nav-link.active i,
+.portal-nav-link.active span,
+.portal-nav-item.active i,
+.portal-nav-item.active span {
+  color: #ffffff !important;
 }
 
 .portal-nav-badge {
@@ -2294,9 +2298,10 @@ input:checked + .slider:before {
   animation: pulse-soft 2s infinite;
 }
 
-.portal-nav-link.active .portal-nav-badge {
-  background-color: white;
-  color: var(--cn-green-800);
+.portal-nav-link.active .portal-nav-badge,
+.portal-nav-item.active .portal-nav-badge {
+  background-color: #ffffff !important;
+  color: var(--cn-green-900) !important;
 }
 
 .portal-nav-divider {
