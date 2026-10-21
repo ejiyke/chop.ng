@@ -6,7 +6,7 @@
 > - [CHOPS Product Requirements Document](https://docs.google.com/document/d/1CfNH-sDBIiPtJ0ktqsjxp6IQQZMcJFkduSgm_cJNjGI/edit)  
 > - [Style Guide: design.md](file:///c:/Users/mbaek/Desktop/Chop.ng/design.md)  
 > - [Execution Plan: project_plan.md](file:///c:/Users/mbaek/Desktop/Chop.ng/project_plan.md)  
-> **Status:** Phase 1 & Phase 2 Verified & Running on `http://localhost:8080/`
+> **Status:** Full Customer & Merchant Suite Verified & Running on `http://localhost:8080/`
 
 ---
 
@@ -81,3 +81,78 @@ Following shareholder directives and the updated PRD, **CHOPS** has transitioned
      - **Crispy Lagos Small Chops Party Platter**: Golden round puff-puff balls, crispy beef samosas, spring rolls, and peppered chicken gizzard skewers.
    - Assets are stored directly in `assets/dishes/` for fast, resilient, and offline-compatible rendering.
 
+---
+
+## 9. Merchant's Flow Implementation (PRD Specification)
+
+Following the PRD documentation (`https://docs.google.com/document/d/1CfNH-sDBIiPtJ0ktqsjxp6IQQZMcJFkduSgm_cJNjGI/edit?usp=sharing`) and design guidelines from `/frontend-design`, `/ui-ux-pro-max`, and `/web-design-guidelines`, the Merchant experience has been elevated into a full operational suite:
+
+### 1. Multi-Step Business Onboarding Wizard
+- **Step 1: Business Profile & Verification:**
+  - Registered business legal name and entity type (LLC, Registered Business Name, Independent Caterer).
+  - CAC registration number verification and Tax Identification Number (TIN).
+  - Physical restaurant location in Nigeria with Lagos zones autocomplete.
+  - Document dropzones for CAC Certificate of Incorporation and Food Safety / Hygiene Permits with verified badges.
+- **Step 2: Restaurant Setup:**
+  - Customer-facing brand name, cuisine styles, and tagline.
+  - Authentic culinary bio / kitchen story.
+  - Direct telephone, WhatsApp contact hotline, and Instagram handle.
+- **Step 3: Delivery Setup:**
+  - Active coverage zones (Lekki Phase 1 & 2, Victoria Island, Ikoyi, Oniru, Ikeja GRA).
+  - Average preparation time (15–45 minutes) and standard base delivery fee (₦).
+  - Connect Nigeria Sonic Rider toggle for automatic dispatch.
+- **Step 4: Automated Midnight Bank Settlements:**
+  - Commercial bank dropdown (GTBank, Zenith, Access, First Bank, Kuda, Moniepoint, etc.).
+  - 10-digit NUBAN account number with instant simulated NIBSS NIP name resolution.
+  - Agreement to 0% commission terms with automated daily 00:00 WAT bank payouts.
+
+### 2. Comprehensive 8-Module Merchant Dashboard
+1. **Home Overview & Daily Insights:**
+   - Real-time command bar with store open/closed toggle and "Simulate Order" tester.
+   - Dynamic KPIs: Today's Estimated Revenue, Active Orders Count, Profile Views (7d), and Overall Diner Rating.
+   - Peak ordering rush analysis (1:00 PM – 3:30 PM), top-selling dish stats, and diner retention rate.
+   - Weekly customer discovery traffic and orders bar chart.
+2. **Live Orders & Fulfillment Pipeline:**
+   - Sequential status pipeline: `Received` &rarr; `In Preparation` &rarr; `Ready for Pickup` &rarr; `Sonic In-Transit` &rarr; `Delivered`.
+   - Pipeline filter pills with real-time order count badges.
+   - Dynamic Sonic Rider dispatch card showing assigned courier (name, phone, motorcycle license plate, and delivery ETA).
+   - "New Test Order" simulation button to test end-to-end fulfillment.
+3. **Menu & Category Controls:**
+   - Category filtering chips bar with dynamic item count badges.
+   - "+ Add Category" modal to organize menu sections.
+   - Dishes table with instant stock availability toggle ("Available" vs. "Sold Out") and deletion.
+   - "+ Add New Dish" modal with pricing, description, category, and image URL.
+4. **Promotions & Special Deals Manager:**
+   - Promotion campaign creation modal with discount percentages, minimum spend thresholds, promo tags, and validity dates.
+   - Real-time performance metrics (redemptions count and gross revenue generated).
+   - Instant activation / pause toggles for active promotional campaigns.
+5. **Analytics & Diner Retention:**
+   - Gross revenue 30-day tracking, Average Order Value (AOV), unique diner counts, and 100% midnight settled amounts.
+   - Top Loyal Diners Leaderboard ranking frequent customers by total orders and lifetime spend.
+6. **Customer Feedback & Verified Merchant Replies:**
+   - Community review stream with diner ratings and feedback.
+   - Verified Merchant Reply modal featuring one-click professional quick suggestions and official response publication.
+   - Verified merchant responses automatically sync to public diner view.
+7. **Store Settings & Midnight Bank Settlements:**
+   - Configurable commercial bank settlement account details.
+   - Operating address, kitchen story, direct phone, and Sonic Rider auto-dispatch preferences.
+8. **Subscription & Visibility Plan:**
+   - Verified Merchant Plan status display (Monthly ₦15,000/mo vs. Annual ₦150,000/yr with 2 months free).
+   - Complete marketplace search ranking, unlimited menu items, and Sonic Rider dispatch benefits.
+
+---
+
+## 10. Verification & Quality Checklist
+
+| Feature | Status | Notes |
+|---|---|---|
+| Multi-Step Onboarding Wizard (Steps 1–4) | PASS | Verified with CAC docs, Lagos zones, and NUBAN bank verification |
+| Sequential Order Fulfillment Pipeline | PASS | `Received` &rarr; `Preparing` &rarr; `Ready` &rarr; `Sonic In-Transit` &rarr; `Delivered` |
+| Sonic Rider Dispatch | PASS | Auto-assigns nearest courier with ETA, phone, and vehicle plate |
+| Live Order Simulation | PASS | Instant order generation with toast alert & badge updates |
+| Menu & Category Manager | PASS | Category creation, dish stock toggle, and delete actions verified |
+| Promotions & Deals Manager | PASS | Promo creation modal, active status toggles, and metrics |
+| Customer Reviews & Verified Merchant Reply | PASS | Modal with quick suggestions; verified reply badge rendered |
+| Midnight Bank Settlements Config | PASS | NUBAN input, NIP verification badge, and midnight payout terms |
+| Role Switching (Customer &harr; Merchant) | PASS | Seamless view toggling via header command button |
+| Clean Console & Responsiveness | PASS | 0 runtime console errors on `http://localhost:8080/` |

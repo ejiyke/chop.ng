@@ -693,11 +693,181 @@ const AppState = {
     address: '14 Admiralty Way, Lekki Phase 1, Lagos'
   },
   // Merchant Dashboard State (Simulated logged-in restaurant)
-  merchantStore: null
+  merchantStore: {
+    ...CHOPS_DATA.restaurants[0],
+    activeTab: 'overview',
+    orderFilter: 'all',
+    selectedCategory: 'All',
+    categories: [
+      "All",
+      "Rice & Grains",
+      "Soups & Swallows",
+      "Suya & Grills",
+      "Fast Food",
+      "Drinks & Smoothies",
+      "Small Chops & Starters"
+    ],
+    orders: [
+      {
+        id: "ORD-9481",
+        diner: "Adebayo Ogunlesi",
+        phone: "+234 802 334 1109",
+        items: [
+          { name: "Signature Smoky Jollof Rice Special", qty: 2, price: 3500 },
+          { name: "Extra Fried Sweet Plantain (Dodo)", qty: 1, price: 700 }
+        ],
+        total: 7700,
+        status: "received",
+        time: "4 mins ago",
+        address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+        zone: "Lekki Phase 1",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: null
+      },
+      {
+        id: "ORD-9480",
+        diner: "Ngozi Eze",
+        phone: "+234 812 443 9081",
+        items: [
+          { name: "Ofada Rice Royal Fiesta (in Banana Leaf)", qty: 1, price: 4800 },
+          { name: "Steamed Moi Moi Special", qty: 1, price: 800 }
+        ],
+        total: 5600,
+        status: "preparing",
+        time: "16 mins ago",
+        address: "Plot 12 Adeola Odeku, Victoria Island, Lagos",
+        zone: "Victoria Island",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: null
+      },
+      {
+        id: "ORD-9478",
+        diner: "Tunde Bakare",
+        phone: "+234 809 111 2233",
+        items: [
+          { name: "Pounded Yam & Rich Melon Egusi", qty: 1, price: 4200 },
+          { name: "Extra Slow-Cooked Goat Meat", qty: 1, price: 1200 }
+        ],
+        total: 5400,
+        status: "ready",
+        time: "28 mins ago",
+        address: "7 Bourdillon Road, Ikoyi, Lagos",
+        zone: "Ikoyi",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: {
+          name: "Ibrahim Musa",
+          phone: "+234 803 777 8899",
+          vehicle: "Bajaj Boxer (LAG-492-XY)",
+          status: "Arrived at Restaurant",
+          eta: "Ready to pick up"
+        }
+      },
+      {
+        id: "ORD-9475",
+        diner: "Kemi Adeleke",
+        phone: "+234 805 667 3321",
+        items: [
+          { name: "Special Fried Rice & Peppered Turkey", qty: 1, price: 4500 }
+        ],
+        total: 4500,
+        status: "dispatched",
+        time: "42 mins ago",
+        address: "Chevron Drive, Lekki Phase 2, Lagos",
+        zone: "Lekki Phase 2",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: {
+          name: "Chinedu Okafor",
+          phone: "+234 807 444 3322",
+          vehicle: "TVS Star HLX (APP-182-JJ)",
+          status: "On the way to diner",
+          eta: "Delivering now (7 mins)"
+        }
+      },
+      {
+        id: "ORD-9471",
+        diner: "Dr. Babatunde Alao",
+        phone: "+234 808 221 4455",
+        items: [
+          { name: "Native Seafood Okro Supreme", qty: 1, price: 6500 },
+          { name: "Pounded Yam Swallow", qty: 1, price: 800 }
+        ],
+        total: 7300,
+        status: "delivered",
+        time: "1 hour ago",
+        address: "Block 4, Twin Waters, Oniru, Lagos",
+        zone: "Oniru",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: {
+          name: "Samuel Danjuma",
+          phone: "+234 813 555 9012",
+          vehicle: "Yamaha Crux (KJA-710-AB)",
+          status: "Completed Delivery",
+          eta: "Delivered safely"
+        }
+      },
+      {
+        id: "ORD-9466",
+        diner: "Fatima Garba",
+        phone: "+234 806 889 0011",
+        items: [
+          { name: "Signature Smoky Jollof Rice Special", qty: 3, price: 3500 }
+        ],
+        total: 10500,
+        status: "delivered",
+        time: "3 hours ago",
+        address: "Alexander Ave, Ikoyi, Lagos",
+        zone: "Ikoyi",
+        payment: "Direct Online Card (Settling Midnight)",
+        rider: {
+          name: "Ibrahim Musa",
+          phone: "+234 803 777 8899",
+          vehicle: "Bajaj Boxer (LAG-492-XY)",
+          status: "Completed Delivery",
+          eta: "Delivered safely"
+        }
+      }
+    ],
+    promotions: [
+      {
+        id: "promo-1",
+        title: "Weekend Family Feast Promo",
+        discount: "15% OFF",
+        minSpend: 5000,
+        code: "WEEKEND15",
+        expiry: "2026-11-30",
+        description: "Enjoy 15% discount on all orders above ₦5,000 this weekend. Valid on delivery or pickup.",
+        status: "Active",
+        claims: 42,
+        revenue: "₦315,000"
+      },
+      {
+        id: "promo-2",
+        title: "Free Sweet Plantain on Jollof Combos",
+        discount: "Free Side (₦700 Value)",
+        minSpend: 4000,
+        code: "FREEPLANT",
+        expiry: "2026-12-15",
+        description: "Get complimentary sweet dodo side on all Signature Jollof and Ofada rice orders.",
+        status: "Active",
+        claims: 86,
+        revenue: "₦430,000"
+      }
+    ],
+    settings: {
+      bankName: "Guaranty Trust Bank (GTBank)",
+      accountNum: "0149283719",
+      accountName: "MAMA'S KITCHEN NIGERIA LTD",
+      prepTime: 25,
+      deliveryFee: 1200,
+      autoSonicRider: true,
+      legalName: "Mama's Kitchen Nigeria Ltd",
+      cacNumber: "RC-1849204",
+      tin: "TIN-29384710-0001",
+      address: "14 Admiralty Way, Lekki Phase 1, Lagos"
+    },
+    activeReplyingReviewIndex: null
+  }
 };
-
-// Initialize default merchant store as Mama's Kitchen
-AppState.merchantStore = CHOPS_DATA.restaurants[0];
 
 // ==========================================================================
 // 3. UI INITIALIZATION & EVENT LISTENERS
@@ -1339,7 +1509,7 @@ function backToMarketplace() {
 }
 
 // ==========================================================================
-// 6. BUSINESS PORTAL (MERCHANT MODE)
+// 6. BUSINESS PORTAL (MERCHANT MODE & PRD SUITE)
 // ==========================================================================
 function toggleRoleMode() {
   const newRole = AppState.currentRole === 'customer' ? 'merchant' : 'customer';
@@ -1347,19 +1517,23 @@ function toggleRoleMode() {
 
   const btn = document.getElementById('role-toggle-btn');
   if (newRole === 'merchant') {
-    btn.className = 'role-toggle-btn btn-customer-mode';
-    btn.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      Switch to Customer Mode
-    `;
+    if (btn) {
+      btn.className = 'role-toggle-btn btn-customer-mode';
+      btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Switch to Customer Mode
+      `;
+    }
     openMerchantPortal();
     showToast("Switched to Merchant Portal (Business Mode)");
   } else {
-    btn.className = 'role-toggle-btn btn-merchant-mode';
-    btn.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-      Merchant Portal
-    `;
+    if (btn) {
+      btn.className = 'role-toggle-btn btn-merchant-mode';
+      btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        Merchant Portal
+      `;
+    }
     backToMarketplace();
     showToast("Switched to Customer Mode (Explore & Discover)");
   }
@@ -1373,8 +1547,9 @@ function openMerchantPortal() {
   if (chatView) chatView.style.display = 'none';
   const navChatBtn = document.getElementById('nav-chat-btn');
   if (navChatBtn) navChatBtn.classList.remove('is-active');
+
   const portalView = document.getElementById('merchant-portal-view');
-  portalView.style.display = 'block';
+  if (portalView) portalView.style.display = 'block';
 
   renderMerchantDashboard();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1384,17 +1559,20 @@ function renderMerchantDashboard() {
   const m = AppState.merchantStore;
   if (!m) return;
 
-  // Store top banner
-  document.getElementById('portal-store-name').innerText = m.name;
-  document.getElementById('portal-store-status').innerHTML = `<i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> ${m.location} • Status: ${m.isOpen ? 'Accepting Orders' : 'Store Closed'}`;
+  // Store top command banner
+  const nameEl = document.getElementById('portal-store-name');
+  if (nameEl) nameEl.innerText = m.name;
+
+  const statusEl = document.getElementById('portal-store-status');
+  if (statusEl) {
+    statusEl.innerHTML = `<i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> ${m.location} • Status: ${m.isOpen ? 'Accepting Orders' : 'Store Closed'}`;
+  }
+
   const toggle = document.getElementById('store-status-switch');
   if (toggle) toggle.checked = m.isOpen;
 
-  // Dishes Table
-  renderMerchantDishesTable();
-
-  // Reviews Feed
-  renderMerchantReviewsFeed();
+  // Active module tab
+  switchMerchantTab(m.activeTab || 'overview');
 }
 
 function toggleStoreStatus(checkbox) {
@@ -1403,38 +1581,447 @@ function toggleStoreStatus(checkbox) {
   if (statusEl) {
     statusEl.innerHTML = `<i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> ${AppState.merchantStore.location} • Status: ${checkbox.checked ? 'Accepting Orders' : 'Store Closed'}`;
   }
-  showToast(checkbox.checked ? "Store is now LIVE and Open!" : "Store is now marked as Closed");
+  showToast(checkbox.checked ? "Store is now LIVE and accepting diner orders!" : "Store is now marked as Closed");
+}
+
+// --------------------------------------------------------------------------
+// MODULE NAVIGATION SWITCHER
+// --------------------------------------------------------------------------
+function switchMerchantTab(tabName) {
+  AppState.merchantStore.activeTab = tabName;
+
+  // Update sidebar active buttons
+  document.querySelectorAll('.portal-nav-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+
+  // Update module views
+  document.querySelectorAll('.portal-module').forEach(mod => {
+    mod.classList.toggle('active', mod.id === `portal-tab-${tabName}`);
+  });
+
+  // Render module specific data
+  if (tabName === 'overview') {
+    renderMerchantOverview();
+  } else if (tabName === 'orders') {
+    renderMerchantOrders();
+  } else if (tabName === 'menu') {
+    renderMerchantMenu();
+  } else if (tabName === 'promotions') {
+    renderMerchantPromos();
+  } else if (tabName === 'analytics') {
+    renderMerchantAnalytics();
+  } else if (tabName === 'reviews') {
+    renderMerchantReviewsFeed();
+  } else if (tabName === 'settings') {
+    renderMerchantSettings();
+  }
+}
+
+// --------------------------------------------------------------------------
+// MODULE 1: HOME OVERVIEW & DAILY SNAPSHOT
+// --------------------------------------------------------------------------
+function renderMerchantOverview() {
+  const m = AppState.merchantStore;
+  if (!m) return;
+
+  // Compute live metrics
+  const todayOrders = m.orders.length;
+  const grossSales = m.orders.reduce((sum, o) => sum + (o.total || 0), 0);
+  const activeSonicRiders = m.orders.filter(o => o.status === 'dispatched' || o.status === 'ready').length;
+
+  const salesEl = document.getElementById('kpi-revenue') || document.getElementById('kpi-today-sales');
+  if (salesEl) salesEl.innerText = `₦${grossSales.toLocaleString()}`;
+
+  const ordersEl = document.getElementById('kpi-orders-count') || document.getElementById('kpi-today-orders');
+  if (ordersEl) ordersEl.innerText = todayOrders;
+
+  const ridersEl = document.getElementById('kpi-active-riders');
+  if (ridersEl) ridersEl.innerText = activeSonicRiders;
+
+  // Render Live Orders Preview list
+  const previewContainer = document.getElementById('overview-orders-preview');
+  if (!previewContainer) return;
+
+  const pendingOrders = m.orders.slice(0, 3);
+  if (pendingOrders.length === 0) {
+    previewContainer.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--color-text-muted);">No live orders right now.</div>`;
+    return;
+  }
+
+  previewContainer.innerHTML = pendingOrders.map(o => `
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--color-bg-surface-sunken); border-radius: var(--radius-md); margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+      <div>
+        <div style="font-weight: 700; font-size: 14px;">${o.id} • ${o.diner}</div>
+        <div style="font-size: 12px; color: var(--color-text-muted);">${o.items.map(i => `${i.qty}x ${i.name}`).join(', ')}</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-weight: 800; font-size: 14px;">₦${o.total.toLocaleString()}</span>
+        <span class="badge ${getOrderStatusBadgeClass(o.status)}">${formatOrderStatus(o.status)}</span>
+        <button class="btn btn-secondary btn-sm" onclick="switchMerchantTab('orders')">Manage</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// --------------------------------------------------------------------------
+// MODULE 2: LIVE ORDERS MANAGEMENT & FULFILLMENT PIPELINE
+// --------------------------------------------------------------------------
+function renderMerchantOrders(filterStatus = null) {
+  const m = AppState.merchantStore;
+  if (!m) return;
+
+  const filter = filterStatus || m.orderFilter || 'all';
+  m.orderFilter = filter;
+
+  // Update pipeline badges
+  const counts = {
+    all: m.orders.length,
+    received: m.orders.filter(o => o.status === 'received').length,
+    preparing: m.orders.filter(o => o.status === 'preparing').length,
+    ready: m.orders.filter(o => o.status === 'ready').length,
+    dispatched: m.orders.filter(o => o.status === 'dispatched').length,
+    delivered: m.orders.filter(o => o.status === 'delivered').length
+  };
+
+  const cAll = document.getElementById('count-all');
+  if (cAll) cAll.innerText = counts.all;
+  const cRec = document.getElementById('count-received');
+  if (cRec) cRec.innerText = counts.received;
+  const cPrep = document.getElementById('count-preparing');
+  if (cPrep) cPrep.innerText = counts.preparing;
+  const cRdy = document.getElementById('count-ready');
+  if (cRdy) cRdy.innerText = counts.ready;
+  const cDisp = document.getElementById('count-dispatched');
+  if (cDisp) cDisp.innerText = counts.dispatched;
+  const cDel = document.getElementById('count-delivered');
+  if (cDel) cDel.innerText = counts.delivered;
+
+  // Filter orders
+  const filtered = filter === 'all'
+    ? m.orders
+    : m.orders.filter(o => o.status === filter);
+
+  const container = document.getElementById('merchant-orders-container');
+  if (!container) return;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 48px 20px; background: var(--color-bg-surface); border-radius: var(--radius-xl); border: 1px dashed var(--color-border-subtle); color: var(--color-text-muted);">
+        <i class="uil uil-clipboard-notes" style="font-size: 40px; margin-bottom: 8px; display: inline-block;"></i>
+        <h4 style="font-size: 16px; font-weight: 700; margin: 0 0 4px 0; color: var(--color-text-primary);">No Orders in "${formatOrderStatus(filter)}"</h4>
+        <p style="font-size: 13px; margin: 0;">Click "New Test Order" above to simulate an incoming customer order!</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(o => `
+    <div class="order-pipeline-card">
+      <div class="order-pipeline-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+            <span class="order-id-tag">${o.id}</span>
+            <span class="badge ${getOrderStatusBadgeClass(o.status)}">${formatOrderStatus(o.status)}</span>
+            <span style="font-size: 12px; color: var(--color-text-muted);">• ${o.time}</span>
+          </div>
+          <h3 class="order-diner-name">${o.diner}</h3>
+          <div class="order-contact-row">
+            <span><i class="uil uil-phone"></i> <a href="tel:${o.phone}">${o.phone}</a></span>
+            <span>•</span>
+            <span><i class="uil uil-map-marker"></i> ${o.address}</span>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div class="order-total-amount">₦${o.total.toLocaleString()}</div>
+          <span class="order-settlement-badge"><i class="uil uil-moon"></i> Midnight Direct Settlement</span>
+        </div>
+      </div>
+
+      <!-- Items Ordered -->
+      <div class="order-items-table">
+        ${o.items.map(item => `
+          <div class="order-item-row">
+            <span class="order-item-qty">${item.qty}x</span>
+            <span class="order-item-title">${item.name}</span>
+            <span class="order-item-cost">₦${(item.price * item.qty).toLocaleString()}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Sonic Rider Dispatch Card (if assigned) -->
+      ${o.rider ? `
+        <div class="sonic-rider-dispatch-card">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="sonic-rider-avatar">
+              <i class="uil uil-motorcycle"></i>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="sonic-rider-name">${o.rider.name}</span>
+                <span class="sonic-verified-tag"><i class="uil uil-check-circle"></i> Sonic Courier</span>
+              </div>
+              <div class="sonic-rider-vehicle">${o.rider.vehicle} • <a href="tel:${o.rider.phone}">${o.rider.phone}</a></div>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div class="sonic-rider-eta">${o.rider.eta}</div>
+            <span style="font-size: 11px; color: #15803d; font-weight: 700;">${o.rider.status}</span>
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Order Fulfillment Action Buttons (PRD pipeline: received -> preparing -> ready -> dispatched -> delivered) -->
+      <div class="order-actions-bar">
+        ${getOrderActionButtonsHtml(o)}
+      </div>
+    </div>
+  `).join('');
+}
+
+function getOrderStatusBadgeClass(status) {
+  if (status === 'received') return 'badge-received';
+  if (status === 'preparing') return 'badge-preparing';
+  if (status === 'ready') return 'badge-ready';
+  if (status === 'dispatched') return 'badge-dispatched';
+  if (status === 'delivered') return 'badge-delivered';
+  return 'badge-secondary';
+}
+
+function formatOrderStatus(status) {
+  if (status === 'received') return 'Order Received';
+  if (status === 'preparing') return 'In Kitchen Prep';
+  if (status === 'ready') return 'Ready for Pickup';
+  if (status === 'dispatched') return 'Sonic In-Transit';
+  if (status === 'delivered') return 'Delivered';
+  if (status === 'all') return 'All Orders';
+  return status;
+}
+
+function getOrderActionButtonsHtml(o) {
+  if (o.status === 'received') {
+    return `
+      <button class="btn btn-primary btn-sm" onclick="updateOrderStatus('${o.id}', 'preparing')">
+        <i class="uil uil-utensils"></i> Accept & Start Preparing
+      </button>
+      <button class="btn btn-ghost btn-sm" style="color: #ef4444;" onclick="updateOrderStatus('${o.id}', 'declined')">
+        Decline
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="callMerchant('${o.id}')">
+        <i class="uil uil-phone"></i> Call Diner
+      </button>
+    `;
+  }
+  if (o.status === 'preparing') {
+    return `
+      <button class="btn btn-primary btn-sm" onclick="updateOrderStatus('${o.id}', 'ready')">
+        <i class="uil uil-check-circle"></i> Mark Ready for Pickup
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="callMerchant('${o.id}')">
+        <i class="uil uil-phone"></i> Call Diner
+      </button>
+    `;
+  }
+  if (o.status === 'ready') {
+    return `
+      <button class="btn btn-primary btn-sm" style="background: #2563eb;" onclick="updateOrderStatus('${o.id}', 'dispatched')">
+        <i class="uil uil-bolt-alt"></i> Dispatch Sonic Rider
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="updateOrderStatus('${o.id}', 'delivered')">
+        Direct Customer Pickup Completed
+      </button>
+    `;
+  }
+  if (o.status === 'dispatched') {
+    return `
+      <button class="btn btn-primary btn-sm" style="background: #16a34a;" onclick="updateOrderStatus('${o.id}', 'delivered')">
+        <i class="uil uil-check"></i> Confirm Order Delivered
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="callMerchant('${o.id}')">
+        <i class="uil uil-phone"></i> Contact Rider
+      </button>
+    `;
+  }
+  if (o.status === 'delivered') {
+    return `
+      <span class="badge badge-open" style="padding: 6px 12px; font-size: 12px;">
+        <i class="uil uil-check-circle"></i> Fulfill Completed • Deposited in Midnight Settlement
+      </span>
+    `;
+  }
+  return '';
+}
+
+function filterMerchantOrders(status, btnElement) {
+  if (btnElement) {
+    document.querySelectorAll('.order-filter-pill').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+  }
+  renderMerchantOrders(status);
+}
+
+function updateOrderStatus(orderId, nextStatus) {
+  const o = AppState.merchantStore.orders.find(item => item.id === orderId);
+  if (!o) return;
+
+  if (nextStatus === 'declined') {
+    const idx = AppState.merchantStore.orders.findIndex(item => item.id === orderId);
+    if (idx !== -1) AppState.merchantStore.orders.splice(idx, 1);
+    showToast(`Order ${orderId} has been declined.`, 'warning');
+    renderMerchantOrders();
+    renderMerchantOverview();
+    return;
+  }
+
+  // Automatic Sonic Rider assignment when moving to ready or dispatched
+  if ((nextStatus === 'ready' || nextStatus === 'dispatched') && !o.rider) {
+    o.rider = {
+      name: "Ibrahim Musa",
+      phone: "+234 803 777 8899",
+      vehicle: "Bajaj Boxer (LAG-492-XY)",
+      status: nextStatus === 'dispatched' ? "En route to diner with insulated hot-box" : "Arrived at restaurant for pickup",
+      eta: nextStatus === 'dispatched' ? "ETA: 12 mins" : "Rider Waiting at counter"
+    };
+  } else if (nextStatus === 'dispatched' && o.rider) {
+    o.rider.status = "En route to diner with insulated hot-box";
+    o.rider.eta = "ETA: 12 mins";
+  } else if (nextStatus === 'delivered' && o.rider) {
+    o.rider.status = "Delivered successfully";
+    o.rider.eta = "Delivered";
+  }
+
+  o.status = nextStatus;
+  renderMerchantOrders();
+  renderMerchantOverview();
+
+  let message = `Order ${orderId} updated to ${formatOrderStatus(nextStatus)}`;
+  if (nextStatus === 'dispatched') {
+    message = `⚡ Sonic Rider dispatched! ${o.rider.name} (${o.rider.vehicle}) is en route to ${o.zone}`;
+  } else if (nextStatus === 'delivered') {
+    message = `🎉 Order ${orderId} successfully delivered! ₦${o.total.toLocaleString()} queued for midnight settlement.`;
+  }
+  showToast(message);
+}
+
+function simulateIncomingOrder() {
+  const names = ["Folake Balogun", "Chuka Eze", "Yemi Osinbajo", "Kikelomo Adeleke", "Segun Arinze"];
+  const zones = ["Lekki Phase 1", "Victoria Island", "Ikoyi", "Oniru"];
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  const randomZone = zones[Math.floor(Math.random() * zones.length)];
+  const randNum = Math.floor(1000 + Math.random() * 9000);
+  const newId = `ORD-${randNum}`;
+
+  const newOrder = {
+    id: newId,
+    diner: randomName,
+    phone: `+234 80${Math.floor(10000000 + Math.random() * 90000000)}`,
+    items: [
+      { name: "Signature Smoky Jollof Rice Special", qty: 2, price: 3500 },
+      { name: "Extra Fried Sweet Plantain (Dodo)", qty: 1, price: 700 }
+    ],
+    total: 7700,
+    status: "received",
+    time: "Just now",
+    address: `Plot ${Math.floor(1 + Math.random() * 50)} Admiralty Way, ${randomZone}, Lagos`,
+    zone: randomZone,
+    payment: "Direct Online Card (Settling Midnight)",
+    rider: null
+  };
+
+  AppState.merchantStore.orders.unshift(newOrder);
+
+  // Switch to orders tab and highlight received
+  switchMerchantTab('orders');
+  filterMerchantOrders('received', document.querySelectorAll('.order-filter-pill')[1]);
+
+  showToast(`🔔 New Order Alert: ${randomName} placed ${newId} (₦7,700)!`);
+}
+
+// --------------------------------------------------------------------------
+// MODULE 3: MENU & CATEGORY CONTROLS
+// --------------------------------------------------------------------------
+function renderMerchantMenu() {
+  renderMerchantCategories();
+  renderMerchantDishesTable();
+}
+
+function renderMerchantCategories() {
+  const container = document.getElementById('menu-cat-chips-bar');
+  if (!container) return;
+
+  const categories = AppState.merchantStore.categories || ["All", "Rice & Grains", "Soups & Swallows", "Suya & Grills", "Fast Food", "Drinks & Smoothies"];
+  const selected = AppState.merchantStore.selectedCategory || 'All';
+
+  container.innerHTML = categories.map(cat => {
+    const count = cat === 'All'
+      ? AppState.merchantStore.menu.length
+      : AppState.merchantStore.menu.filter(d => d.category === cat).length;
+    const isActive = selected === cat;
+
+    return `
+      <button class="menu-cat-chip ${isActive ? 'active' : ''}" onclick="selectMerchantMenuCategory('${cat}')">
+        <span>${cat}</span>
+        <span class="menu-cat-count">${count}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function selectMerchantMenuCategory(catName) {
+  AppState.merchantStore.selectedCategory = catName;
+  renderMerchantCategories();
+  renderMerchantDishesTable();
 }
 
 function renderMerchantDishesTable() {
   const tbody = document.getElementById('portal-dishes-tbody');
   if (!tbody) return;
 
-  const dishes = AppState.merchantStore.menu;
+  const selectedCat = AppState.merchantStore.selectedCategory || 'All';
+  const dishes = selectedCat === 'All'
+    ? AppState.merchantStore.menu
+    : AppState.merchantStore.menu.filter(d => d.category === selectedCat);
+
+  if (dishes.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 32px; color: var(--color-text-muted);">
+          No dishes found in category "${selectedCat}". Click "+ Add New Dish" above to create one.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
   tbody.innerHTML = dishes.map(d => `
     <tr>
       <td>
         <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${d.img}" alt="${d.name}" style="width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover;">
+          <img src="${d.img}" alt="${d.name}" style="width: 48px; height: 48px; border-radius: var(--radius-md); object-fit: cover;">
           <div>
-            <div style="font-weight: 700; color: var(--color-text-primary);">${d.name}</div>
-            <div style="font-size: 11px; color: var(--color-text-muted);">${d.category}</div>
+            <div style="font-weight: 700; color: var(--color-text-primary); font-size: 14px;">${d.name}</div>
+            <div style="font-size: 12px; color: var(--color-text-muted); max-width: 320px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${d.description || 'Authentic Nigerian preparation'}</div>
           </div>
         </div>
       </td>
-      <td style="font-weight: 700;">₦${d.price.toLocaleString()}</td>
       <td>
-        <span class="badge ${d.isAvailable ? 'badge-open' : 'badge-closed'}" style="font-size: 10px;">
-          ${d.isAvailable ? 'Available' : 'Sold Out'}
+        <span class="badge" style="background: var(--color-bg-surface-sunken); font-size: 11px;">${d.category}</span>
+      </td>
+      <td style="font-weight: 800; font-size: 14px;">₦${d.price.toLocaleString()}</td>
+      <td>
+        <span class="badge ${d.isAvailable ? 'badge-open' : 'badge-closed'}" style="font-size: 11px;">
+          ${d.isAvailable ? '<i class="uil uil-check-circle"></i> Available' : '<i class="uil uil-times-circle"></i> Sold Out'}
         </span>
       </td>
       <td>
-        <button class="btn btn-secondary btn-sm" onclick="toggleDishAvailability('${d.id}')">
-          ${d.isAvailable ? 'Mark Sold Out' : 'Mark Available'}
-        </button>
-        <button class="btn btn-ghost btn-sm" style="color: #ef4444;" onclick="deleteMerchantDish('${d.id}')">
-          Delete
-        </button>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn btn-secondary btn-sm" onclick="toggleDishAvailability('${d.id}')">
+            ${d.isAvailable ? 'Mark Sold Out' : 'Mark Available'}
+          </button>
+          <button class="btn btn-ghost btn-sm" style="color: #ef4444;" onclick="deleteMerchantDish('${d.id}')" title="Delete Dish">
+            <i class="uil uil-trash-alt"></i>
+          </button>
+        </div>
       </td>
     </tr>
   `).join('');
@@ -1445,50 +2032,426 @@ function toggleDishAvailability(dishId) {
   if (!dish) return;
   dish.isAvailable = !dish.isAvailable;
   renderMerchantDishesTable();
-  showToast(`Updated "${dish.name}" availability to ${dish.isAvailable ? 'Available' : 'Sold Out'}`);
+  showToast(`"${dish.name}" availability updated to: ${dish.isAvailable ? 'Available' : 'Sold Out'}`);
 }
 
 function deleteMerchantDish(dishId) {
   const idx = AppState.merchantStore.menu.findIndex(d => d.id === dishId);
   if (idx !== -1) {
     const deleted = AppState.merchantStore.menu.splice(idx, 1)[0];
+    renderMerchantCategories();
     renderMerchantDishesTable();
     showToast(`Removed "${deleted.name}" from your menu`, "warning");
   }
 }
 
+function openAddNewCategoryModal() {
+  const modal = document.getElementById('add-category-modal');
+  if (modal) modal.classList.add('is-open');
+}
+
+function closeAddCategoryModal() {
+  const modal = document.getElementById('add-category-modal');
+  if (modal) modal.classList.remove('is-open');
+}
+
+function handleCreateCategory(e) {
+  e.preventDefault();
+  const input = document.getElementById('category-name-input');
+  if (!input || !input.value.trim()) return;
+
+  const newCat = input.value.trim();
+  if (!AppState.merchantStore.categories.includes(newCat)) {
+    AppState.merchantStore.categories.push(newCat);
+  }
+
+  // Update dish category select in add-dish-modal
+  const catSelect = document.getElementById('dish-form-category');
+  if (catSelect) {
+    const opt = document.createElement('option');
+    opt.value = newCat;
+    opt.innerText = newCat;
+    catSelect.appendChild(opt);
+    catSelect.value = newCat;
+  }
+
+  input.value = '';
+  closeAddCategoryModal();
+  renderMerchantCategories();
+  showToast(`Category "${newCat}" created successfully!`);
+}
+
+// --------------------------------------------------------------------------
+// MODULE 4: PROMOTIONS & DEALS MANAGER
+// --------------------------------------------------------------------------
+function renderMerchantPromos() {
+  const m = AppState.merchantStore;
+  if (!m) return;
+
+  const promos = m.promotions || [];
+  const container = document.getElementById('merchant-promos-container');
+  if (!container) return;
+
+  const activeCountEl = document.getElementById('promo-active-count');
+  if (activeCountEl) activeCountEl.innerText = promos.filter(p => p.status === 'Active').length;
+
+  const claimsCountEl = document.getElementById('promo-claims-count');
+  if (claimsCountEl) {
+    const totalClaims = promos.reduce((sum, p) => sum + (p.claims || 0), 0);
+    claimsCountEl.innerText = totalClaims;
+  }
+
+  if (promos.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--color-bg-surface); border-radius: var(--radius-xl); border: 1px dashed var(--color-border-subtle); color: var(--color-text-muted);">
+        <i class="uil uil-tag" style="font-size: 36px; margin-bottom: 8px; display: inline-block;"></i>
+        <h4 style="font-size: 16px; font-weight: 700; margin: 0 0 4px 0; color: var(--color-text-primary);">No Active Promotional Deals</h4>
+        <p style="font-size: 13px; margin: 0;">Create a promotion to attract diners and boost search placement on CHOPS.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = promos.map(p => `
+    <div class="promo-card">
+      <div class="promo-card-header">
+        <span class="promo-discount-badge">${p.discount}</span>
+        <span class="badge ${p.status === 'Active' ? 'badge-open' : 'badge-closed'}">${p.status}</span>
+      </div>
+      <h3 class="promo-title">${p.title}</h3>
+      <p class="promo-desc">${p.description}</p>
+      
+      <div class="promo-meta-box">
+        <div><strong>Min Spend:</strong> ₦${p.minSpend ? p.minSpend.toLocaleString() : '0'}</div>
+        <div><strong>Code:</strong> <code>${p.code}</code></div>
+        <div><strong>Expires:</strong> ${p.expiry}</div>
+      </div>
+
+      <div class="promo-stats-row">
+        <div><strong>${p.claims || 0}</strong> Redemptions</div>
+        <div><strong>${p.revenue || '₦0'}</strong> Revenue</div>
+      </div>
+
+      <div class="promo-actions-row">
+        <button class="btn btn-secondary btn-sm" onclick="togglePromoStatus('${p.id}')">
+          ${p.status === 'Active' ? 'Pause Campaign' : 'Activate Campaign'}
+        </button>
+        <button class="btn btn-ghost btn-sm" style="color: #ef4444;" onclick="deletePromo('${p.id}')">
+          Delete
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openCreatePromoModal() {
+  const modal = document.getElementById('create-promo-modal');
+  if (modal) modal.classList.add('is-open');
+}
+
+function closeCreatePromoModal() {
+  const modal = document.getElementById('create-promo-modal');
+  if (modal) modal.classList.remove('is-open');
+}
+
+function handleCreatePromo(e) {
+  e.preventDefault();
+  const title = document.getElementById('promo-title-input').value.trim();
+  const discount = document.getElementById('promo-discount-input').value.trim();
+  const minSpend = parseInt(document.getElementById('promo-min-spend').value, 10) || 0;
+  const code = (document.getElementById('promo-code-input').value.trim() || 'DEAL').toUpperCase();
+  const expiry = document.getElementById('promo-expiry-input').value || '2026-12-31';
+  const desc = document.getElementById('promo-description-input').value.trim();
+
+  const newPromo = {
+    id: `promo-${Date.now()}`,
+    title,
+    discount,
+    minSpend,
+    code,
+    expiry,
+    description: desc,
+    status: "Active",
+    claims: 0,
+    revenue: "₦0"
+  };
+
+  AppState.merchantStore.promotions.unshift(newPromo);
+  closeCreatePromoModal();
+  renderMerchantPromos();
+  showToast(`Promotional Deal "${title}" published successfully!`);
+}
+
+function togglePromoStatus(promoId) {
+  const p = AppState.merchantStore.promotions.find(item => item.id === promoId);
+  if (!p) return;
+  p.status = p.status === 'Active' ? 'Paused' : 'Active';
+  renderMerchantPromos();
+  showToast(`Promotion "${p.title}" status changed to: ${p.status}`);
+}
+
+function deletePromo(promoId) {
+  const idx = AppState.merchantStore.promotions.findIndex(item => item.id === promoId);
+  if (idx !== -1) {
+    const deleted = AppState.merchantStore.promotions.splice(idx, 1)[0];
+    renderMerchantPromos();
+    showToast(`Promotion "${deleted.title}" deleted`, 'warning');
+  }
+}
+
+// --------------------------------------------------------------------------
+// MODULE 5: ANALYTICS & DINER RETENTION
+// --------------------------------------------------------------------------
+function renderMerchantAnalytics() {
+  // Real-time analytics view renders automatically via existing static container
+}
+
+// --------------------------------------------------------------------------
+// MODULE 6: CUSTOMER FEEDBACK & VERIFIED MERCHANT REPLIES
+// --------------------------------------------------------------------------
 function renderMerchantReviewsFeed() {
   const container = document.getElementById('portal-reviews-list');
   if (!container) return;
 
   const reviews = AppState.merchantStore.reviews;
   container.innerHTML = reviews.map((rev, idx) => `
-    <div style="background: var(--color-bg-surface-sunken); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle);">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-        <strong style="font-size: 13px;">${rev.author}</strong>
-        <span style="color: var(--cn-yellow-normal); font-size: 12px;">${'<i class="uil uil-star"></i>'.repeat(rev.rating)}</span>
+    <div class="portal-review-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+        <div>
+          <div style="font-weight: 700; font-size: 14.5px; color: var(--color-text-primary);">${rev.author}</div>
+          <div style="font-size: 12px; color: var(--color-text-muted);">${rev.date}</div>
+        </div>
+        <div style="color: var(--cn-yellow-normal); font-size: 13px;">${'<i class="uil uil-star"></i>'.repeat(rev.rating)}</div>
       </div>
-      <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px;">"${rev.comment}"</p>
+      <p style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin: 0 0 10px 0;">"${rev.comment}"</p>
       ${rev.reply ? `
-        <div style="background: var(--color-bg-surface); border-left: 3px solid var(--cn-green-500); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 12px;">
-          <strong>Your Response:</strong> ${rev.reply}
+        <div class="portal-reply-box">
+          <div class="portal-reply-author">
+            <i class="uil uil-check-circle"></i> Official Verified Response from Mama's Kitchen:
+          </div>
+          <p style="margin: 0; color: var(--color-text-primary); line-height: 1.4; font-size: 12.5px;">${rev.reply}</p>
         </div>
       ` : `
-        <button class="btn btn-ghost btn-sm" style="color: var(--cn-green-600); font-weight: 700; padding: 2px 6px;" onclick="promptReplyReview(${idx})">
-          + Reply to Customer
+        <button class="btn btn-primary btn-sm" onclick="openReplyReviewModal(${idx})">
+          <i class="uil uil-comment-alt-lines"></i> Post Verified Merchant Reply
         </button>
       `}
     </div>
   `).join('');
 }
 
-function promptReplyReview(idx) {
-  const reply = prompt("Enter your public reply to this review:");
-  if (reply && reply.trim()) {
-    AppState.merchantStore.reviews[idx].reply = reply.trim();
-    renderMerchantReviewsFeed();
-    showToast("Reply posted successfully!");
+function openReplyReviewModal(idx) {
+  AppState.merchantStore.activeReplyingReviewIndex = idx;
+  const rev = AppState.merchantStore.reviews[idx];
+  if (!rev) return;
+
+  const quoteBox = document.getElementById('review-reply-context-box');
+  if (quoteBox) {
+    quoteBox.innerHTML = `
+      <div style="font-weight: 700; font-size: 13.5px; margin-bottom: 2px;">${rev.author} • ${'<i class="uil uil-star" style="color: var(--cn-yellow-normal);"></i>'.repeat(rev.rating)}</div>
+      <div style="font-size: 12.5px; color: var(--color-text-muted); font-style: italic;">"${rev.comment}"</div>
+    `;
   }
+
+  const textarea = document.getElementById('merchant-reply-textarea');
+  if (textarea) textarea.value = '';
+
+  const modal = document.getElementById('reply-review-modal');
+  if (modal) modal.classList.add('is-open');
+}
+
+function closeReplyReviewModal() {
+  const modal = document.getElementById('reply-review-modal');
+  if (modal) modal.classList.remove('is-open');
+}
+
+function applyQuickReplyText(text) {
+  const textarea = document.getElementById('merchant-reply-textarea');
+  if (textarea) {
+    textarea.value = text;
+    textarea.focus();
+  }
+}
+
+function handleMerchantReplySubmit(e) {
+  e.preventDefault();
+  const textarea = document.getElementById('merchant-reply-textarea');
+  const text = textarea ? textarea.value.trim() : '';
+  const idx = AppState.merchantStore.activeReplyingReviewIndex;
+
+  if (idx !== null && AppState.merchantStore.reviews[idx] && text) {
+    AppState.merchantStore.reviews[idx].reply = text;
+
+    // Sync to public restaurant data
+    const r = CHOPS_DATA.restaurants.find(item => item.id === AppState.merchantStore.id);
+    if (r && r.reviews[idx]) {
+      r.reviews[idx].reply = text;
+    }
+
+    renderMerchantReviewsFeed();
+    closeReplyReviewModal();
+    showToast("Official Verified Reply posted to customer review!");
+  }
+}
+
+// --------------------------------------------------------------------------
+// MODULE 7: STORE SETTINGS & MIDNIGHT BANK SETTLEMENTS
+// --------------------------------------------------------------------------
+function renderMerchantSettings() {
+  const m = AppState.merchantStore;
+  if (!m || !m.settings) return;
+
+  const bankSelect = document.getElementById('settings-bank-name');
+  if (bankSelect && m.settings.bankName) bankSelect.value = m.settings.bankName;
+
+  const acctNumInput = document.getElementById('settings-bank-account-num');
+  if (acctNumInput && m.settings.accountNum) acctNumInput.value = m.settings.accountNum;
+
+  const acctNameInput = document.getElementById('settings-bank-account-name');
+  if (acctNameInput && m.settings.accountName) acctNameInput.value = m.settings.accountName;
+
+  const storeNameInput = document.getElementById('settings-store-name');
+  if (storeNameInput) storeNameInput.value = m.name;
+
+  const storeTaglineInput = document.getElementById('settings-store-tagline');
+  if (storeTaglineInput) storeTaglineInput.value = m.tagline;
+
+  const storeLocInput = document.getElementById('settings-store-location');
+  if (storeLocInput) storeLocInput.value = m.location;
+
+  const storePhoneInput = document.getElementById('settings-store-phone');
+  if (storePhoneInput) storePhoneInput.value = m.phone;
+}
+
+function saveStoreSettings(e) {
+  if (e) e.preventDefault();
+  const m = AppState.merchantStore;
+
+  const storeName = document.getElementById('settings-store-name')?.value.trim();
+  const storeTagline = document.getElementById('settings-store-tagline')?.value.trim();
+  const storeLoc = document.getElementById('settings-store-location')?.value.trim();
+  const storePhone = document.getElementById('settings-store-phone')?.value.trim();
+  const bankName = document.getElementById('settings-bank-name')?.value;
+  const acctNum = document.getElementById('settings-bank-account-num')?.value.trim();
+  const acctName = document.getElementById('settings-bank-account-name')?.value.trim();
+
+  if (storeName) m.name = storeName;
+  if (storeTagline) m.tagline = storeTagline;
+  if (storeLoc) m.location = storeLoc;
+  if (storePhone) m.phone = storePhone;
+
+  if (!m.settings) m.settings = {};
+  if (bankName) m.settings.bankName = bankName;
+  if (acctNum) m.settings.accountNum = acctNum;
+  if (acctName) m.settings.accountName = acctName;
+
+  // Sync to header command bar
+  const nameEl = document.getElementById('portal-store-name');
+  if (nameEl) nameEl.innerText = m.name;
+
+  showToast("Store settings & automated midnight settlement bank account saved!");
+}
+
+function validateNubanAccount() {
+  const input = document.getElementById('ob-nuban-account');
+  const statusEl = document.getElementById('nuban-verification-status');
+  const nameEl = document.getElementById('nuban-account-name');
+  if (!input || !statusEl) return;
+
+  if (input.value.length === 10) {
+    statusEl.style.display = 'flex';
+    if (nameEl) nameEl.innerText = "MAMA'S KITCHEN NIGERIA LTD";
+  } else {
+    statusEl.style.display = 'none';
+  }
+}
+
+// --------------------------------------------------------------------------
+// MULTI-STEP BUSINESS ONBOARDING WIZARD (PRD Requirement)
+// --------------------------------------------------------------------------
+let onboardingStep = 1;
+
+function openMerchantOnboarding() {
+  onboardingStep = 1;
+  const modal = document.getElementById('business-onboarding-modal');
+  if (modal) {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    updateOnboardingStepUI();
+  }
+}
+
+function closeMerchantOnboarding() {
+  const modal = document.getElementById('business-onboarding-modal');
+  if (modal) {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+}
+
+function jumpToOnboardingStep(step) {
+  onboardingStep = step;
+  updateOnboardingStepUI();
+}
+
+function nextOnboardingStep() {
+  if (onboardingStep < 4) {
+    onboardingStep += 1;
+    updateOnboardingStepUI();
+  }
+}
+
+function prevOnboardingStep() {
+  if (onboardingStep > 1) {
+    onboardingStep -= 1;
+    updateOnboardingStepUI();
+  }
+}
+
+function updateOnboardingStepUI() {
+  // Update step tabs
+  for (let i = 1; i <= 4; i++) {
+    const tab = document.getElementById(`onboarding-step-tab-${i}`);
+    const panel = document.getElementById(`onboarding-panel-${i}`);
+    if (tab) {
+      tab.classList.toggle('active', i === onboardingStep);
+      tab.classList.toggle('completed', i < onboardingStep);
+    }
+    if (panel) {
+      panel.classList.toggle('active', i === onboardingStep);
+    }
+  }
+
+  // Update footer buttons
+  const prevBtn = document.getElementById('ob-prev-btn');
+  const nextBtn = document.getElementById('ob-next-btn');
+  const finishBtn = document.getElementById('ob-finish-btn');
+
+  if (prevBtn) prevBtn.style.display = onboardingStep > 1 ? 'inline-flex' : 'none';
+  if (nextBtn) nextBtn.style.display = onboardingStep < 4 ? 'inline-flex' : 'none';
+  if (finishBtn) finishBtn.style.display = onboardingStep === 4 ? 'inline-flex' : 'none';
+}
+
+function finishOnboarding() {
+  // Read onboarding inputs and sync to merchant store
+  const brandName = document.getElementById('ob-brand-name')?.value.trim();
+  const legalName = document.getElementById('ob-legal-name')?.value.trim();
+  const cac = document.getElementById('ob-cac-number')?.value.trim();
+  const address = document.getElementById('ob-street-address')?.value.trim();
+  const bank = document.getElementById('ob-bank-name')?.value;
+  const acct = document.getElementById('ob-nuban-account')?.value.trim();
+
+  if (brandName) AppState.merchantStore.name = brandName;
+  if (!AppState.merchantStore.settings) AppState.merchantStore.settings = {};
+  if (legalName) AppState.merchantStore.settings.legalName = legalName;
+  if (cac) AppState.merchantStore.settings.cacNumber = cac;
+  if (address) AppState.merchantStore.settings.address = address;
+  if (bank) AppState.merchantStore.settings.bankName = bank;
+  if (acct) AppState.merchantStore.settings.accountNum = acct;
+
+  closeMerchantOnboarding();
+  renderMerchantDashboard();
+  showToast("🎉 Store Onboarding Complete! Your verified restaurant profile and midnight payouts are active!");
 }
 
 // ==========================================================================
@@ -2589,7 +3552,7 @@ window.handleReviewFormSubmit = handleReviewFormSubmit;
 window.toggleStoreStatus = toggleStoreStatus;
 window.toggleDishAvailability = toggleDishAvailability;
 window.deleteMerchantDish = deleteMerchantDish;
-window.promptReplyReview = promptReplyReview;
+window.promptReplyReview = openReplyReviewModal;
 window.resetFilters = resetFilters;
 window.renderMarketplace = renderMarketplace;
 window.setNearMeLocation = setNearMeLocation;
@@ -2597,7 +3560,7 @@ window.executeHeroSearch = executeHeroSearch;
 window.executeHeaderSearch = executeHeaderSearch;
 window.openLoginModal = openLoginModal;
 window.closeLoginModal = closeLoginModal;
-window.switchAuthTab = switchAuthTab;
+window.toggleAuthMode = toggleAuthMode;
 window.handleCustomerLogin = handleCustomerLogin;
 window.handleSignOut = handleSignOut;
 window.initAuth = initAuth;
@@ -2621,5 +3584,41 @@ window.selectChatConversation = selectChatConversation;
 window.filterChatConversations = filterChatConversations;
 window.sendChatInterfaceMessage = sendChatInterfaceMessage;
 window.insertDietaryNote = insertDietaryNote;
+
+// Merchant Portal 8-Module & Onboarding Exports
+window.switchMerchantTab = switchMerchantTab;
+window.renderMerchantOverview = renderMerchantOverview;
+window.renderMerchantOrders = renderMerchantOrders;
+window.filterMerchantOrders = filterMerchantOrders;
+window.updateOrderStatus = updateOrderStatus;
+window.simulateIncomingOrder = simulateIncomingOrder;
+window.renderMerchantMenu = renderMerchantMenu;
+window.renderMerchantCategories = renderMerchantCategories;
+window.selectMerchantMenuCategory = selectMerchantMenuCategory;
+window.openAddNewCategoryModal = openAddNewCategoryModal;
+window.closeAddCategoryModal = closeAddCategoryModal;
+window.handleCreateCategory = handleCreateCategory;
+window.renderMerchantDishesTable = renderMerchantDishesTable;
+window.renderMerchantPromos = renderMerchantPromos;
+window.openCreatePromoModal = openCreatePromoModal;
+window.closeCreatePromoModal = closeCreatePromoModal;
+window.handleCreatePromo = handleCreatePromo;
+window.togglePromoStatus = togglePromoStatus;
+window.deletePromo = deletePromo;
+window.renderMerchantReviewsFeed = renderMerchantReviewsFeed;
+window.openReplyReviewModal = openReplyReviewModal;
+window.closeReplyReviewModal = closeReplyReviewModal;
+window.applyQuickReplyText = applyQuickReplyText;
+window.handleMerchantReplySubmit = handleMerchantReplySubmit;
+window.renderMerchantSettings = renderMerchantSettings;
+window.saveStoreSettings = saveStoreSettings;
+window.validateNubanAccount = validateNubanAccount;
+window.openMerchantOnboarding = openMerchantOnboarding;
+window.closeMerchantOnboarding = closeMerchantOnboarding;
+window.jumpToOnboardingStep = jumpToOnboardingStep;
+window.nextOnboardingStep = nextOnboardingStep;
+window.prevOnboardingStep = prevOnboardingStep;
+window.finishOnboarding = finishOnboarding;
+
 
 

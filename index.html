@@ -563,162 +563,668 @@
        VIEW 3: BUSINESS PORTAL (MERCHANT DASHBOARD)
        ========================================================================= -->
   <main id="merchant-portal-view" class="business-portal-wrapper container">
-    <!-- Portal Store Top Banner -->
+    <!-- Portal Store Top Banner / Operational Command Bar -->
     <div class="portal-top-banner">
       <div class="portal-store-info">
         <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&q=80" alt="Store Avatar"
-          class="portal-store-avatar">
+          class="portal-store-avatar" id="portal-store-avatar">
         <div>
-          <div style="font-size: 11px; font-weight: 800; color: var(--cn-green-600); text-transform: uppercase;">
-            Merchant Portal</div>
+          <div style="font-size: 11px; font-weight: 800; color: var(--cn-green-600); text-transform: uppercase; letter-spacing: 0.05em;">
+            Connect Nigeria CHOPS • Verified Merchant Hub</div>
           <h2 class="portal-store-name" id="portal-store-name">Mama's Kitchen</h2>
-          <div class="portal-store-status" id="portal-store-status"><i class="uil uil-map-marker"
-              style="color: var(--cn-green-600); margin-right: 4px;"></i> Lekki Phase 1, Lagos • Status: Accepting
-            Orders</div>
+          <div class="portal-store-status" id="portal-store-status">
+            <i class="uil uil-map-marker" style="color: var(--cn-green-600);"></i> 
+            <span id="portal-store-location-text">Lekki Phase 1, Lagos</span>
+            <span>•</span>
+            <span class="portal-store-status-badge open" id="portal-store-status-pill">
+              <i class="uil uil-check-circle"></i> Accepting Orders
+            </span>
+            <span>•</span>
+            <span style="font-size: 12px; color: var(--color-text-muted);"><i class="uil uil-clock"></i> 09:00 – 22:00 Daily</span>
+          </div>
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
         <!-- Live Store Status Toggle -->
         <div class="store-switch-container">
-          <span style="font-size: 13px; font-weight: 700;">Live Store Status:</span>
-          <label class="switch" title="Toggle Live Open/Closed">
+          <span style="font-size: 13px; font-weight: 700;">Live Ordering:</span>
+          <label class="switch" title="Toggle Live Ordering (Open/Closed)">
             <input type="checkbox" id="store-status-switch" checked onchange="toggleStoreStatus(this)">
             <span class="slider"></span>
           </label>
         </div>
-        <button class="btn btn-secondary btn-sm" onclick="toggleRoleMode()">Return to Marketplace</button>
-      </div>
-    </div>
 
-    <!-- KPI Overview Cards -->
-    <div class="kpi-cards-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Total Profile Views (7d)</div>
-        <div class="kpi-val">4,820</div>
-        <div class="kpi-trend positive">↑ 18.4% vs last week</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Menu Item Impressions</div>
-        <div class="kpi-val">12,450</div>
-        <div class="kpi-trend positive">↑ 24.1% customer reach</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Favourites Saved</div>
-        <div class="kpi-val">842</div>
-        <div class="kpi-trend positive">↑ High customer retention</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Average Rating</div>
-        <div class="kpi-val">4.9 <i class="uil uil-star" style="color: var(--cn-yellow-normal); font-size: 22px;"></i>
-        </div>
-        <div style="font-size: 12px; color: var(--color-text-muted);">From 312 reviews</div>
-      </div>
-    </div>
+        <!-- Quick Demo Incoming Order Trigger -->
+        <button class="btn btn-secondary btn-sm" onclick="simulateIncomingOrder()" title="Simulate a new customer order for testing fulfillment">
+          <i class="uil uil-bell"></i> Simulate Order
+        </button>
 
-    <!-- Weekly Views Analytics Chart -->
-    <div class="chart-container-card">
-      <div class="chart-header">
-        <div>
-          <h3 style="font-size: 18px; font-weight: 700;">Customer Discovery Traffic (This Week)</h3>
-          <p style="font-size: 13px; color: var(--color-text-muted);">Daily profile and menu impressions across Connect
-            Nigeria CHOPS.</p>
-        </div>
-        <span class="badge badge-open" style="font-size: 11px;">Active Visibility</span>
-      </div>
+        <!-- Quick Launch Onboarding / Store Edit -->
+        <button class="btn btn-secondary btn-sm" onclick="openMerchantOnboarding()" title="Update business onboarding profile">
+          <i class="uil uil-edit"></i> Edit Business Profile
+        </button>
 
-      <div class="chart-bars-wrapper">
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 55%;" title="Mon: 480 views"></div>
-          <span class="chart-bar-label">Mon</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 65%;" title="Tue: 590 views"></div>
-          <span class="chart-bar-label">Tue</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 70%;" title="Wed: 640 views"></div>
-          <span class="chart-bar-label">Wed</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 85%;" title="Thu: 780 views"></div>
-          <span class="chart-bar-label">Thu</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 98%; background-color: var(--cn-green-500);"
-            title="Fri: 940 views"></div>
-          <span class="chart-bar-label">Fri</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 90%; background-color: var(--cn-green-500);"
-            title="Sat: 880 views"></div>
-          <span class="chart-bar-label">Sat</span>
-        </div>
-        <div class="chart-bar-col">
-          <div class="chart-bar-fill" style="height: 60%;" title="Sun: 510 views"></div>
-          <span class="chart-bar-label">Sun</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Menu Manager Section -->
-    <div
-      style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl); margin-bottom: var(--space-2xl);">
-      <div class="menu-manager-header">
-        <div>
-          <h3 style="font-size: 18px; font-weight: 700;">Menu Manager</h3>
-          <p style="font-size: 13px; color: var(--color-text-muted);">Manage dishes, update prices, and control
-            availability displayed to customers.</p>
-        </div>
-        <button class="btn btn-primary btn-sm" onclick="openAddNewDishModal()">
-          + Add New Dish
+        <!-- Switch Role -->
+        <button class="btn btn-primary btn-sm" onclick="toggleRoleMode()">
+          <i class="uil uil-arrow-left"></i> Switch to Customer Mode
         </button>
       </div>
+    </div>
 
-      <div style="overflow-x: auto;">
-        <table class="portal-table">
-          <thead>
-            <tr>
-              <th>Dish Name & Category</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="portal-dishes-tbody">
+    <!-- Workspace Grid: Sidebar Navigation + Content Modules -->
+    <div class="portal-workspace-grid">
+      <!-- 1. Left Sidebar Navigation -->
+      <aside class="portal-sidebar-nav" aria-label="Merchant Portal Navigation">
+        <div class="portal-nav-header">Store Operations</div>
+
+        <button type="button" class="portal-nav-link active" onclick="switchMerchantTab('overview')" data-tab="overview">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-apps"></i>
+            <span>Overview & Insights</span>
+          </span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('orders')" data-tab="orders">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-receipt"></i>
+            <span>Live Orders</span>
+          </span>
+          <span class="portal-nav-badge" id="sidebar-orders-badge">2 Active</span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('menu')" data-tab="menu">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-utensils-alt"></i>
+            <span>Menu & Categories</span>
+          </span>
+          <span style="font-size: 11px; color: var(--color-text-muted);" id="sidebar-dish-count">18 items</span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('promotions')" data-tab="promotions">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-tag-alt"></i>
+            <span>Promotions & Deals</span>
+          </span>
+        </button>
+
+        <div class="portal-nav-divider"></div>
+        <div class="portal-nav-header">Performance & Trust</div>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('analytics')" data-tab="analytics">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-chart-line"></i>
+            <span>Analytics & Diners</span>
+          </span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('reviews')" data-tab="reviews">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-star"></i>
+            <span>Customer Reviews</span>
+          </span>
+          <span style="font-size: 11px; font-weight: 700; color: #16a34a;">4.9 ★</span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('settings')" data-tab="settings">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-cog"></i>
+            <span>Settings & Bank Payouts</span>
+          </span>
+        </button>
+
+        <button type="button" class="portal-nav-link" onclick="switchMerchantTab('subscription')" data-tab="subscription">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-shield-check"></i>
+            <span>Subscription & Plan</span>
+          </span>
+          <span style="font-size: 10.5px; font-weight: 700; color: var(--cn-green-600);">Active</span>
+        </button>
+      </aside>
+
+      <!-- 2. Main Content Modules -->
+      <section class="portal-module-container">
+        <!-- ===================================================================
+             MODULE 1: OVERVIEW & INSIGHTS (HOME)
+             =================================================================== -->
+        <div class="portal-module active" id="portal-tab-overview">
+          <!-- KPI Overview Cards -->
+          <div class="kpi-cards-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Today's Estimated Revenue</span>
+                <i class="uil uil-money-bill" style="color: var(--cn-green-600);"></i>
+              </div>
+              <div class="kpi-val" id="kpi-revenue">₦148,500</div>
+              <div class="kpi-trend positive">↑ 14.2% vs yesterday</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Active Orders Today</span>
+                <i class="uil uil-shopping-bag" style="color: #2563eb;"></i>
+              </div>
+              <div class="kpi-val" id="kpi-orders-count">18</div>
+              <div class="kpi-trend positive">↑ 5 in fulfillment queue</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Profile & Menu Views (7d)</span>
+                <i class="uil uil-eye" style="color: #9333ea;"></i>
+              </div>
+              <div class="kpi-val" id="kpi-views">17,270</div>
+              <div class="kpi-trend positive">↑ 18.4% weekly reach</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Overall Diner Rating</span>
+                <i class="uil uil-star" style="color: var(--cn-yellow-normal);"></i>
+              </div>
+              <div class="kpi-val">4.9 <span style="font-size: 16px; font-weight: 600; color: var(--color-text-muted);">/ 5.0</span></div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">From 312 verified reviews</div>
+            </div>
+          </div>
+
+          <!-- Daily Operational Insights Banner (PRD requirement) -->
+          <div class="portal-insights-box">
+            <div class="insight-item">
+              <div class="insight-icon-box"><i class="uil uil-fire"></i></div>
+              <div>
+                <div class="insight-title">Peak Ordering Rush</div>
+                <p class="insight-desc"><strong>1:00 PM – 3:30 PM</strong> accounts for 58% of daily lunch orders.</p>
+              </div>
+            </div>
+
+            <div class="insight-item">
+              <div class="insight-icon-box" style="background-color: #f59e0b;"><i class="uil uil-trophy"></i></div>
+              <div>
+                <div class="insight-title">Top-Selling Dish</div>
+                <p class="insight-desc"><strong>Smoky Jollof Special</strong> (48 orders this week, ₦168,000).</p>
+              </div>
+            </div>
+
+            <div class="insight-item">
+              <div class="insight-icon-box" style="background-color: #3b82f6;"><i class="uil uil-sync"></i></div>
+              <div>
+                <div class="insight-title">Diner Retention Rate</div>
+                <p class="insight-desc"><strong>68.4% returning customers</strong> order 2+ times per month.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Traffic & Revenue Chart -->
+          <div class="chart-container-card">
+            <div class="chart-header">
+              <div>
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 4px 0;">Weekly Discovery Traffic & Orders</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Daily customer views and order volume across Connect Nigeria CHOPS.</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <span class="badge badge-open" style="font-size: 11px;">Active Listing</span>
+                <button class="btn btn-secondary btn-sm" onclick="switchMerchantTab('analytics')">Detailed Analytics →</button>
+              </div>
+            </div>
+
+            <div class="chart-bars-wrapper">
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦98k</span>
+                <div class="chart-bar-fill" style="height: 52%;" title="Mon: 480 views • 12 orders • ₦98,400"></div>
+                <span class="chart-bar-label">Mon</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦112k</span>
+                <div class="chart-bar-fill" style="height: 62%;" title="Tue: 590 views • 15 orders • ₦112,500"></div>
+                <span class="chart-bar-label">Tue</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦128k</span>
+                <div class="chart-bar-fill" style="height: 68%;" title="Wed: 640 views • 17 orders • ₦128,000"></div>
+                <span class="chart-bar-label">Wed</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦145k</span>
+                <div class="chart-bar-fill" style="height: 78%;" title="Thu: 780 views • 21 orders • ₦145,200"></div>
+                <span class="chart-bar-label">Thu</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦184k</span>
+                <div class="chart-bar-fill" style="height: 98%;" title="Fri: 940 views • 28 orders • ₦184,000"></div>
+                <span class="chart-bar-label">Fri</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦172k</span>
+                <div class="chart-bar-fill" style="height: 92%;" title="Sat: 880 views • 26 orders • ₦172,500"></div>
+                <span class="chart-bar-label">Sat</span>
+              </div>
+              <div class="chart-bar-col">
+                <span class="chart-bar-stat">₦148k</span>
+                <div class="chart-bar-fill" style="height: 74%;" title="Sun: 510 views • 18 orders • ₦148,500"></div>
+                <span class="chart-bar-label">Sun</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders Quick Preview Row -->
+          <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 2px 0;">Live Orders Queue</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Orders awaiting prep and rider dispatch.</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="switchMerchantTab('orders')">View All Orders →</button>
+            </div>
+            <div id="overview-orders-preview">
+              <!-- Injected dynamically via app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 2: LIVE ORDERS & FULFILLMENT PIPELINE
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-orders">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Orders Management</h2>
+              <p class="portal-module-subtitle">Process incoming orders, track preparation, and dispatch Sonic Riders in real time.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" onclick="simulateIncomingOrder()">
+                <i class="uil uil-plus-circle"></i> New Test Order
+              </button>
+            </div>
+          </div>
+
+          <!-- Order Status Pipeline Filter Tabs (PRD: Order status sequence) -->
+          <div class="order-status-tabs" role="tablist">
+            <button class="order-filter-pill active" onclick="filterMerchantOrders('all', this)">
+              <span>All Orders</span>
+              <span class="order-badge-count" id="count-all">6</span>
+            </button>
+            <button class="order-filter-pill" onclick="filterMerchantOrders('received', this)">
+              <span>Incoming Received</span>
+              <span class="order-badge-count" id="count-received">1</span>
+            </button>
+            <button class="order-filter-pill" onclick="filterMerchantOrders('preparing', this)">
+              <span>In Preparation</span>
+              <span class="order-badge-count" id="count-preparing">2</span>
+            </button>
+            <button class="order-filter-pill" onclick="filterMerchantOrders('ready', this)">
+              <span>Ready for Pickup</span>
+              <span class="order-badge-count" id="count-ready">1</span>
+            </button>
+            <button class="order-filter-pill" onclick="filterMerchantOrders('dispatched', this)">
+              <span>Sonic In-Transit</span>
+              <span class="order-badge-count" id="count-dispatched">1</span>
+            </button>
+            <button class="order-filter-pill" onclick="filterMerchantOrders('delivered', this)">
+              <span>Completed Delivered</span>
+              <span class="order-badge-count" id="count-delivered">1</span>
+            </button>
+          </div>
+
+          <!-- Order Cards List Container -->
+          <div class="merchant-orders-list" id="merchant-orders-container">
+            <!-- Injected dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 3: MENU & CATEGORY CONTROLS
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-menu">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Menu & Category Manager</h2>
+              <p class="portal-module-subtitle">Control dish pricing, descriptions, instant stock availability, and categories.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-secondary btn-sm" onclick="openAddNewCategoryModal()">
+                <i class="uil uil-folder-plus"></i> + Add Category
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="openAddNewDishModal()">
+                <i class="uil uil-plus"></i> + Add New Dish
+              </button>
+            </div>
+          </div>
+
+          <!-- Category Quick Filter Chips -->
+          <div class="menu-category-chips-bar" id="menu-cat-chips-bar">
+            <!-- Injected dynamically via app.js -->
+          </div>
+
+          <!-- Dishes Table Container -->
+          <div style="overflow-x: auto; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl);">
+            <table class="portal-table">
+              <thead>
+                <tr>
+                  <th>Dish & Details</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock Availability</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="portal-dishes-tbody">
+                <!-- Rendered dynamically via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 4: PROMOTIONS & DEALS MANAGER
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-promotions">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Promotions & Special Deals</h2>
+              <p class="portal-module-subtitle">Create limited-time offers, meal combos, and volume discounts featured on the marketplace.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openCreatePromoModal()">
+              <i class="uil uil-tag-alt"></i> + Create New Deal
+            </button>
+          </div>
+
+          <!-- Promo Stats Bar -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div class="kpi-card">
+              <div class="kpi-label">Active Promotions</div>
+              <div class="kpi-val" id="promo-active-count">2</div>
+              <div class="kpi-trend positive">Featured on Marketplace</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Total Inquiries & Claims</div>
+              <div class="kpi-val" id="promo-claims-count">64</div>
+              <div class="kpi-trend positive">↑ 22% this week</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Customer Savings Generated</div>
+              <div class="kpi-val">₦142,500</div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Drives repeat loyalty</div>
+            </div>
+          </div>
+
+          <!-- Promos Grid -->
+          <div class="promos-grid" id="merchant-promos-container">
             <!-- Rendered dynamically via app.js -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+          </div>
+        </div>
 
-    <!-- Reviews Moderation & Feedback -->
-    <div
-      style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl);">
-      <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Customer Feedback & Inquiries</h3>
-      <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-lg);">Recent reviews left by
-        customers who visited or ordered from your restaurant.</p>
+        <!-- ===================================================================
+             MODULE 5: ANALYTICS & DINER RETENTION
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-analytics">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Analytics & Customer Insights</h2>
+              <p class="portal-module-subtitle">Deep dive into sales trends, average order values, and loyal repeat diners.</p>
+            </div>
+            <span class="badge badge-open">Real-Time Data</span>
+          </div>
 
-      <div id="portal-reviews-list" style="display: flex; flex-direction: column; gap: 12px;">
-        <!-- Rendered dynamically via app.js -->
-      </div>
-    </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div class="kpi-card">
+              <div class="kpi-label">Gross Revenue (30 Days)</div>
+              <div class="kpi-val">₦3,420,000</div>
+              <div class="kpi-trend positive">↑ 28.5% MoM</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Average Order Value (AOV)</div>
+              <div class="kpi-val">₦6,450</div>
+              <div class="kpi-trend positive">↑ ₦850 vs last month</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Total Unique Diners</div>
+              <div class="kpi-val">412</div>
+              <div class="kpi-trend positive">68.4% return rate</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Midnight Bank Settlements</div>
+              <div class="kpi-val">₦3,249,000</div>
+              <div style="font-size: 12px; color: #16a34a;"><i class="uil uil-check-circle"></i> 100% Settled Daily</div>
+            </div>
+          </div>
 
-    <!-- Visibility Subscription Card -->
-    <div class="subscription-card">
-      <div>
-        <div
-          style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cn-green-800); margin-bottom: 4px;">
-          Platform Visibility Tier</div>
-        <h4 style="font-size: 20px; font-weight: 800; color: var(--color-text-primary);">CHOPS Verified Merchant Plan
-          (Active)</h4>
-        <p style="font-size: 13px; color: var(--color-text-secondary); max-width: 600px; margin-top: 4px;">
-          Your menu and restaurant profile are live and discoverable by thousands of diners across Lagos. Your next
-          renewal is on <strong>November 15, 2026</strong>.
-        </p>
-      </div>
-      <button class="btn btn-primary" onclick="showToast('Your subscription is up to date!')">Manage
-        Subscription</button>
+          <!-- Customer Loyalty Leaderboard (PRD requirement: Customer Insights) -->
+          <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
+            <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px 0;">Top Loyal Diners Leaderboard</h3>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0 0 16px 0;">Diners who order frequently from Mama's Kitchen.</p>
+            
+            <div style="overflow-x: auto;">
+              <table class="portal-table">
+                <thead>
+                  <tr>
+                    <th>Diner</th>
+                    <th>Total Orders</th>
+                    <th>Total Spent</th>
+                    <th>Favorite Dish</th>
+                    <th>Last Order</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Bolanle Adeleke</strong> <span style="font-size: 11px; color: var(--color-text-muted);">(Lekki)</span></td>
+                    <td>14 orders</td>
+                    <td>₦94,200</td>
+                    <td>Signature Smoky Jollof Special</td>
+                    <td>Today, 1:15 PM</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Emeka Okafor</strong> <span style="font-size: 11px; color: var(--color-text-muted);">(VI)</span></td>
+                    <td>11 orders</td>
+                    <td>₦78,500</td>
+                    <td>Fisherman Soup (Native Pot)</td>
+                    <td>Yesterday</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Zainab Al-Hassan</strong> <span style="font-size: 11px; color: var(--color-text-muted);">(Ikoyi)</span></td>
+                    <td>9 orders</td>
+                    <td>₦62,000</td>
+                    <td>Pounded Yam & Egusi</td>
+                    <td>3 days ago</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Femi Daniels</strong> <span style="font-size: 11px; color: var(--color-text-muted);">(Oniru)</span></td>
+                    <td>8 orders</td>
+                    <td>₦52,800</td>
+                    <td>Ofada Rice Royal Fiesta</td>
+                    <td>5 days ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 6: CUSTOMER REVIEWS & FEEDBACK
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-reviews">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Customer Feedback & Reviews</h2>
+              <p class="portal-module-subtitle">Monitor customer sentiment, dish ratings, and post verified merchant replies.</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="badge badge-open"><i class="uil uil-star"></i> 4.9 Average Rating</span>
+            </div>
+          </div>
+
+          <div id="portal-reviews-list">
+            <!-- Rendered dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 7: STORE SETTINGS & BANK SETTLEMENTS
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-settings">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Store Settings & Bank Settlements</h2>
+              <p class="portal-module-subtitle">Manage business profile, operating hours, delivery coverage, and midnight payout bank account.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="saveStoreSettings(event)">
+              <i class="uil uil-save"></i> Save All Changes
+            </button>
+          </div>
+
+          <form id="store-settings-form" onsubmit="saveStoreSettings(event)">
+            <!-- 1. Bank Account Settlement Card (PRD: Get settlements to business account every midnight) -->
+            <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(59, 130, 246, 0.06) 100%); border: 1.5px solid var(--cn-green-400); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--cn-green-600); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                    <i class="uil uil-university"></i>
+                  </div>
+                  <div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: var(--color-text-primary); margin: 0;">Automated Midnight Bank Settlement</h3>
+                    <p style="font-size: 12.5px; color: var(--color-text-muted); margin: 0;">Daily order earnings are transferred automatically to this Nigerian bank account every midnight at 12:00 AM.</p>
+                  </div>
+                </div>
+                <span class="badge badge-open"><i class="uil uil-check-circle"></i> Direct Deposit Verified</span>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px;">
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label">Bank Name</label>
+                  <select class="form-control" id="settings-bank-name">
+                    <option value="Zenith Bank" selected>Zenith Bank Plc</option>
+                    <option value="GTBank">Guaranty Trust Bank (GTBank)</option>
+                    <option value="Access Bank">Access Bank</option>
+                    <option value="First Bank">First Bank of Nigeria</option>
+                    <option value="UBA">United Bank for Africa (UBA)</option>
+                    <option value="Stanbic IBTC">Stanbic IBTC Bank</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label">Account Number (NUBAN)</label>
+                  <input type="text" class="form-control" id="settings-bank-account-num" value="1014829384" maxlength="10">
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label class="form-label">Beneficiary Account Name</label>
+                  <input type="text" class="form-control" id="settings-bank-account-name" value="MAMA'S KITCHEN RESTAURANT LTD" readonly style="background: var(--color-bg-surface-sunken);">
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Business Information -->
+            <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
+              <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 16px 0;">Business Information</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Restaurant Brand Name</label>
+                  <input type="text" class="form-control" id="settings-store-name" value="Mama's Kitchen">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tagline</label>
+                  <input type="text" class="form-control" id="settings-store-tagline" value="Authentic Lagos Homestyle Flavors & Native Pots">
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Operating Address / Kitchen Location</label>
+                  <input type="text" class="form-control" id="settings-store-location" value="12 Admiralty Way, Lekki Phase 1, Lagos">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Direct Order Phone</label>
+                  <input type="text" class="form-control" id="settings-store-phone" value="+234 803 555 0199">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Restaurant Bio & Kitchen Story</label>
+                <textarea class="form-control" rows="3" id="settings-store-bio">Lagos's premier destination for authentic wood-fired party jollof, hand-pounded yam, and rich Nigerian native soups cooked fresh daily.</textarea>
+              </div>
+            </div>
+
+            <!-- 3. Logistics & Delivery Zones -->
+            <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px;">
+              <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 16px 0;">Delivery Zones & Logistics</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Active Delivery Zones</label>
+                  <input type="text" class="form-control" id="settings-store-zones" value="Lekki Phase 1, Victoria Island, Ikoyi, Oniru">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Standard Base Delivery Fee (₦)</label>
+                  <input type="number" class="form-control" id="settings-store-fee" value="1200">
+                </div>
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13.5px; font-weight: 600;">
+                  <input type="checkbox" checked style="accent-color: var(--cn-green-600); width: 18px; height: 18px;">
+                  <span>Auto-dispatch nearest Connect Nigeria Sonic Riders upon marking orders ready for pickup</span>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- ===================================================================
+             MODULE 8: SUBSCRIPTION & VISIBILITY PLAN
+             =================================================================== -->
+        <div class="portal-module" id="portal-tab-subscription">
+          <div class="portal-module-header">
+            <div>
+              <h2 class="portal-module-title">Subscription & Platform Visibility</h2>
+              <p class="portal-module-subtitle">Manage your CHOPS Verified Merchant subscription to maintain customer visibility and search ranking.</p>
+            </div>
+            <span class="badge badge-open">Active Tier</span>
+          </div>
+
+          <!-- Subscription Card (PRD requirement: Monthly/Yearly plans) -->
+          <div class="subscription-card" style="margin-top: 0; margin-bottom: 24px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cn-green-800); margin-bottom: 4px;">
+                Active Merchant Plan</div>
+              <h4 style="font-size: 22px; font-weight: 800; color: var(--color-text-primary); margin: 0 0 4px 0;">CHOPS Verified Merchant Plan (Active)</h4>
+              <p style="font-size: 13px; color: var(--color-text-secondary); max-width: 600px; margin: 0;">
+                Your menu and restaurant profile are live and discoverable by thousands of diners across Lagos. Your next renewal reminder will be sent on <strong>November 8, 2026</strong> (renewal due November 15, 2026).
+              </p>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--cn-green-700);">₦15,000 <span style="font-size: 14px; font-weight: 500; color: var(--color-text-muted);">/ month</span></div>
+              <button class="btn btn-primary btn-sm" style="margin-top: 8px;" onclick="showToast('Your subscription is active and renewed automatically!')">Manage Plan</button>
+            </div>
+          </div>
+
+          <!-- Plan Comparison Tiers -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="background: var(--color-bg-surface); border: 2px solid var(--cn-green-500); border-radius: var(--radius-xl); padding: 24px; position: relative;">
+              <span style="position: absolute; top: -10px; right: 20px; background: var(--cn-green-600); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: var(--radius-full); text-transform: uppercase;">Current Plan</span>
+              <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 6px 0;">Monthly Plan</h3>
+              <div style="font-size: 26px; font-weight: 800; color: var(--color-text-primary); margin-bottom: 16px;">₦15,000 <span style="font-size: 13px; font-weight: 500; color: var(--color-text-muted);">/ mo</span></div>
+              <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 13px; line-height: 1.8; color: var(--color-text-secondary);">
+                <li>✓ Full Marketplace Search & Discovery Visibility</li>
+                <li>✓ Unlimited Menu Dishes & Categories</li>
+                <li>✓ Direct Customer Chat & Inquiries</li>
+                <li>✓ Sonic Rider Automated Dispatch</li>
+                <li>✓ Daily Midnight Automated Bank Settlements</li>
+              </ul>
+              <button class="btn btn-secondary btn-sm" style="width: 100%;" disabled>Active</button>
+            </div>
+
+            <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <h3 style="font-size: 18px; font-weight: 700; margin: 0;">Annual Plan (Best Value)</h3>
+                <span class="badge badge-featured">Save ₦30,000</span>
+              </div>
+              <div style="font-size: 26px; font-weight: 800; color: var(--color-text-primary); margin-bottom: 16px;">₦150,000 <span style="font-size: 13px; font-weight: 500; color: var(--color-text-muted);">/ year (2 months free)</span></div>
+              <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 13px; line-height: 1.8; color: var(--color-text-secondary);">
+                <li>✓ Everything in Monthly Plan</li>
+                <li>✓ Priority Featured Placement on Homepage</li>
+                <li>✓ Verified Merchant Gold Badge</li>
+                <li>✓ Dedicated Connect Nigeria Account Manager</li>
+                <li>✓ Zero Transaction Fees on Promo Deals</li>
+              </ul>
+              <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="showToast('Switched to Annual Billing (Save ₦30,000)')">Upgrade to Annual</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -893,6 +1399,422 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" onclick="closeWriteReviewModal()">Cancel</button>
           <button type="submit" class="btn btn-primary btn-sm">Post Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MERCHANT MODAL 1: MULTI-STEP BUSINESS ONBOARDING WIZARD (PRD Spec)
+       ========================================================================= -->
+  <div class="modal-backdrop" id="business-onboarding-modal" onclick="if(event.target === this) closeMerchantOnboarding();">
+    <div class="onboarding-modal-card" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+      <!-- Modal Header -->
+      <div class="onboarding-modal-header">
+        <div class="onboarding-title-group">
+          <span class="onboarding-kicker"><i class="uil uil-shield-check"></i> Connect Nigeria CHOPS Verified Merchant</span>
+          <h2 class="onboarding-modal-title" id="onboarding-title">Merchant Business Onboarding</h2>
+          <p class="onboarding-modal-sub">Complete your business compliance, menu, and automated midnight payout setup to launch your verified store.</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeMerchantOnboarding()" aria-label="Close Onboarding">
+          <i class="uil uil-times"></i>
+        </button>
+      </div>
+
+      <!-- Stepper Indicator -->
+      <div class="onboarding-stepper-bar">
+        <div class="onboarding-step-item active" id="onboarding-step-tab-1" onclick="jumpToOnboardingStep(1)">
+          <div class="onboarding-step-num">1</div>
+          <div class="onboarding-step-meta">
+            <span class="onboarding-step-name">Business Profile</span>
+            <span class="onboarding-step-desc">CAC & permits</span>
+          </div>
+        </div>
+        <div class="onboarding-step-divider"></div>
+        <div class="onboarding-step-item" id="onboarding-step-tab-2" onclick="jumpToOnboardingStep(2)">
+          <div class="onboarding-step-num">2</div>
+          <div class="onboarding-step-meta">
+            <span class="onboarding-step-name">Restaurant Setup</span>
+            <span class="onboarding-step-desc">Cover, bio & hours</span>
+          </div>
+        </div>
+        <div class="onboarding-step-divider"></div>
+        <div class="onboarding-step-item" id="onboarding-step-tab-3" onclick="jumpToOnboardingStep(3)">
+          <div class="onboarding-step-num">3</div>
+          <div class="onboarding-step-meta">
+            <span class="onboarding-step-name">Delivery Setup</span>
+            <span class="onboarding-step-desc">Zones & Sonic Riders</span>
+          </div>
+        </div>
+        <div class="onboarding-step-divider"></div>
+        <div class="onboarding-step-item" id="onboarding-step-tab-4" onclick="jumpToOnboardingStep(4)">
+          <div class="onboarding-step-num">4</div>
+          <div class="onboarding-step-meta">
+            <span class="onboarding-step-name">Midnight Bank Payout</span>
+            <span class="onboarding-step-desc">NUBAN settlements</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step Content Area -->
+      <div class="onboarding-modal-body">
+        <!-- STEP 1: BUSINESS PROFILE & CAC COMPLIANCE -->
+        <div class="onboarding-step-panel active" id="onboarding-panel-1">
+          <h3 class="onboarding-step-heading">Step 1: Business Profile & Verification</h3>
+          <p class="onboarding-step-subtext">Provide your registered business details for verification on the Connect Nigeria business directory.</p>
+
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ob-legal-name">Registered Business / Trade Name *</label>
+              <input type="text" id="ob-legal-name" class="form-control" value="Mama's Kitchen Nigeria Ltd" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-biz-type">Business Entity Type</label>
+              <select id="ob-biz-type" class="form-control">
+                <option value="LLC">Private Limited Company (LTD / LLC)</option>
+                <option value="BN">Registered Business Name (BN)</option>
+                <option value="Caterer">Independent Caterer / Cloud Kitchen</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ob-cac-number">CAC Registration Number *</label>
+              <input type="text" id="ob-cac-number" class="form-control" value="RC-1849204" placeholder="RC-123456 or BN-123456">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-tin-number">Tax Identification Number (TIN)</label>
+              <input type="text" id="ob-tin-number" class="form-control" value="TIN-29384710-0001" placeholder="e.g. 29384710-0001">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ob-street-address">Physical Kitchen / Restaurant Address in Nigeria *</label>
+            <input type="text" id="ob-street-address" class="form-control" value="Plot 14 Admiralty Way, Lekki Phase 1, Lagos State">
+          </div>
+
+          <!-- Document Upload Dropzones (PRD Requirement) -->
+          <div class="onboarding-grid-2" style="margin-top: 14px;">
+            <div class="onboarding-upload-box">
+              <div class="onboarding-upload-icon"><i class="uil uil-file-shield-alt"></i></div>
+              <div class="onboarding-upload-title">CAC Certificate of Incorporation</div>
+              <div class="onboarding-upload-desc">PDF, JPG or PNG (Max 5MB)</div>
+              <span class="badge badge-open" style="font-size: 10px; margin-top: 6px;"><i class="uil uil-check-circle"></i> CAC-Cert-Verified.pdf</span>
+            </div>
+            <div class="onboarding-upload-box">
+              <div class="onboarding-upload-icon"><i class="uil uil-utensils-alt"></i></div>
+              <div class="onboarding-upload-title">Food Safety & Hygiene Permit</div>
+              <div class="onboarding-upload-desc">Local Govt / NAFDAC Health Cert</div>
+              <span class="badge badge-open" style="font-size: 10px; margin-top: 6px;"><i class="uil uil-check-circle"></i> Lagos-FoodPermit-2026.pdf</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: RESTAURANT PROFILE SETUP -->
+        <div class="onboarding-step-panel" id="onboarding-panel-2">
+          <h3 class="onboarding-step-heading">Step 2: Restaurant Marketplace Branding</h3>
+          <p class="onboarding-step-subtext">Set up how diners discover your kitchen, food photos, brand tagline, and hours.</p>
+
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ob-brand-name">Customer-Facing Restaurant Name *</label>
+              <input type="text" id="ob-brand-name" class="form-control" value="Mama's Kitchen">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-cuisine-category">Primary Cuisine Style</label>
+              <input type="text" id="ob-cuisine-category" class="form-control" value="Authentic Nigerian • Soups & Swallows • Coastal Specials">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ob-tagline">Catchy Brand Tagline</label>
+            <input type="text" id="ob-tagline" class="form-control" value="Authentic Nigerian Home-Style Delicacies & Coastal Specials">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ob-bio">Restaurant Bio & Story</label>
+            <textarea id="ob-bio" class="form-control" rows="3">Serving the finest authentic Nigerian home-style dishes since 2018. All ingredients are freshly sourced daily from local markets and prepared with traditional wood-fire and clay pot recipes.</textarea>
+          </div>
+
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ob-phone">Direct Orders Phone Number *</label>
+              <input type="text" id="ob-phone" class="form-control" value="+234 803 123 4567">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-whatsapp">WhatsApp Inquiries Number *</label>
+              <input type="text" id="ob-whatsapp" class="form-control" value="+234 803 123 4567">
+            </div>
+          </div>
+
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="ob-instagram">Instagram Handle</label>
+              <input type="text" id="ob-instagram" class="form-control" value="@mamaskitchenlekki">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-hours">Operating Schedule</label>
+              <input type="text" id="ob-hours" class="form-control" value="Mon - Sat: 8:00 AM - 10:00 PM">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: DELIVERY & SONIC RIDERS -->
+        <div class="onboarding-step-panel" id="onboarding-panel-3">
+          <h3 class="onboarding-step-heading">Step 3: Delivery Zones & Rider Fulfillment</h3>
+          <p class="onboarding-step-subtext">Configure where you deliver, your kitchen preparation speed, and dispatch options.</p>
+
+          <div class="form-group">
+            <label class="form-label">Active Delivery Zones (Lagos Metropolitan & Suburbs)</label>
+            <div class="onboarding-zones-grid">
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox" checked>
+                <span>Lekki Phase 1</span>
+              </label>
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox" checked>
+                <span>Victoria Island (VI)</span>
+              </label>
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox" checked>
+                <span>Ikoyi & Banana Island</span>
+              </label>
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox" checked>
+                <span>Lekki Phase 2 & Chevron</span>
+              </label>
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox">
+                <span>Oniru & Victoria Island Ext.</span>
+              </label>
+              <label class="onboarding-checkbox-chip">
+                <input type="checkbox">
+                <span>Ikeja GRA & Mainland</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="onboarding-grid-2" style="margin-top: 14px;">
+            <div class="form-group">
+              <label class="form-label" for="ob-prep-time">Average Kitchen Preparation Time</label>
+              <select id="ob-prep-time" class="form-control">
+                <option value="15">15 Minutes (Express / Ready Bites)</option>
+                <option value="20">20 Minutes (Standard Fast Cook)</option>
+                <option value="25" selected>25 Minutes (Recommended)</option>
+                <option value="35">35 Minutes (Fresh Made-to-Order Soups)</option>
+                <option value="45">45 Minutes (Large Family Platters)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-delivery-fee">Base Local Delivery Fee (₦)</label>
+              <input type="number" id="ob-delivery-fee" class="form-control" value="1200">
+            </div>
+          </div>
+
+          <!-- Sonic Rider Highlight Box -->
+          <div class="sonic-dispatch-highlight-box">
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="sonic-icon-circle"><i class="uil uil-bolt-alt"></i></div>
+              <div>
+                <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 4px 0; color: #1e3a8a;">Connect Nigeria Sonic Rider Network</h4>
+                <p style="font-size: 13px; color: #3b82f6; margin: 0 0 10px 0; line-height: 1.5;">
+                  Trained two-wheel food couriers equipped with insulated hot-boxes across Lagos Island and Mainland. Never lose an order due to driver shortages.
+                </p>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #1e40af; cursor: pointer;">
+                  <input type="checkbox" id="ob-auto-sonic" checked style="accent-color: #2563eb; width: 18px; height: 18px;">
+                  <span>Auto-summon nearest Sonic Rider when order is marked "Ready for Pickup"</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: MIDNIGHT BANK SETTLEMENTS & LAUNCH -->
+        <div class="onboarding-step-panel" id="onboarding-panel-4">
+          <h3 class="onboarding-step-heading">Step 4: Automated Midnight Bank Settlements</h3>
+          <p class="onboarding-step-subtext">Direct 100% daily earnings transfer to your Nigerian commercial bank account every night at 00:00 WAT.</p>
+
+          <div class="bank-compliance-banner">
+            <div style="font-size: 20px; color: var(--cn-green-700);"><i class="uil uil-lock"></i></div>
+            <div style="font-size: 12.5px; color: var(--cn-green-900); line-height: 1.5;">
+              <strong>Zero-Commission Model:</strong> CHOPS charges zero percentage fees on orders. Your daily gross sales are pooled and transferred automatically every midnight via NIBSS NIP into your nominated corporate bank account.
+            </div>
+          </div>
+
+          <div class="onboarding-grid-2" style="margin-top: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="ob-bank-name">Receiving Bank *</label>
+              <select id="ob-bank-name" class="form-control" onchange="validateNubanAccount()">
+                <option value="GTBank" selected>Guaranty Trust Bank (GTBank)</option>
+                <option value="Zenith">Zenith Bank Plc</option>
+                <option value="Access">Access Bank</option>
+                <option value="FirstBank">First Bank of Nigeria</option>
+                <option value="Kuda">Kuda Microfinance Bank</option>
+                <option value="Moniepoint">Moniepoint MFB</option>
+                <option value="OPay">OPay Digital Services</option>
+                <option value="UBA">United Bank for Africa (UBA)</option>
+                <option value="Stanbic">Stanbic IBTC Bank</option>
+                <option value="Providus">Providus Bank</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ob-nuban-account">10-Digit NUBAN Account Number *</label>
+              <input type="text" id="ob-nuban-account" class="form-control" value="0149283719" maxlength="10" oninput="validateNubanAccount()">
+            </div>
+          </div>
+
+          <!-- Account Verification Banner -->
+          <div class="nuban-verification-status" id="nuban-verification-status">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="verified-dot-green"></span>
+              <strong style="color: var(--cn-green-800); font-size: 13.5px;" id="nuban-account-name">MAMA'S KITCHEN NIGERIA LTD</strong>
+            </div>
+            <span class="badge badge-open" style="font-size: 10px;"><i class="uil uil-check-circle"></i> NIP Match Verified</span>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">
+              <input type="checkbox" checked required style="accent-color: var(--cn-green-600); width: 18px; height: 18px;">
+              <span>I agree to the Connect Nigeria CHOPS Merchant Settlement & Visibility Policy</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer Controls -->
+      <div class="onboarding-modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="ob-prev-btn" onclick="prevOnboardingStep()" style="display: none;">
+          <i class="uil uil-arrow-left"></i> Back
+        </button>
+        <div style="margin-left: auto; display: flex; gap: 10px;">
+          <button type="button" class="btn btn-ghost btn-sm" onclick="closeMerchantOnboarding()">Save & Exit</button>
+          <button type="button" class="btn btn-primary btn-sm" id="ob-next-btn" onclick="nextOnboardingStep()">
+            Continue <i class="uil uil-arrow-right"></i>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="ob-finish-btn" onclick="finishOnboarding()" style="display: none; background: #059669;">
+            <i class="uil uil-rocket"></i> Launch Store & Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MERCHANT MODAL 2: ADD MENU CATEGORY MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="add-category-modal" onclick="if(event.target === this) closeAddCategoryModal();">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Menu Category</h3>
+        <button onclick="closeAddCategoryModal()" class="modal-close-btn" aria-label="Close Modal"><i class="uil uil-times"></i></button>
+      </div>
+      <form onsubmit="handleCreateCategory(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="category-name-input">Category Name *</label>
+            <input type="text" id="category-name-input" class="form-control" placeholder="e.g. Small Chops & Starters" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="category-desc-input">Description / Serving Note</label>
+            <input type="text" id="category-desc-input" class="form-control" placeholder="e.g. Freshly fried party pastries and finger bites">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeAddCategoryModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Create Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MERCHANT MODAL 3: CREATE PROMOTIONAL DEAL MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="create-promo-modal" onclick="if(event.target === this) closeCreatePromoModal();">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Promotional Deal</h3>
+        <button onclick="closeCreatePromoModal()" class="modal-close-btn" aria-label="Close Modal"><i class="uil uil-times"></i></button>
+      </div>
+      <form onsubmit="handleCreatePromo(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="promo-title-input">Promotion Campaign Name *</label>
+            <input type="text" id="promo-title-input" class="form-control" placeholder="e.g. Friday Suya Feast Discount" required>
+          </div>
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="promo-discount-input">Discount (e.g. 15% OFF or ₦1,000 OFF) *</label>
+              <input type="text" id="promo-discount-input" class="form-control" placeholder="15% OFF" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="promo-min-spend">Minimum Spend (₦)</label>
+              <input type="number" id="promo-min-spend" class="form-control" value="5000">
+            </div>
+          </div>
+          <div class="onboarding-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="promo-code-input">Deal Tag / Code</label>
+              <input type="text" id="promo-code-input" class="form-control" placeholder="FEAST15" style="text-transform: uppercase;">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="promo-expiry-input">Expiry Date</label>
+              <input type="date" id="promo-expiry-input" class="form-control" value="2026-11-30">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="promo-description-input">Deal Details for Diners</label>
+            <textarea id="promo-description-input" class="form-control" rows="2" placeholder="Enjoy 15% discount on all orders above ₦5,000 this weekend. Valid on delivery or pickup."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeCreatePromoModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Publish Promotion</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MERCHANT MODAL 4: VERIFIED MERCHANT REVIEW REPLY MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="reply-review-modal" onclick="if(event.target === this) closeReplyReviewModal();">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--cn-green-100); color: var(--cn-green-700); display: flex; align-items: center; justify-content: center;">
+            <i class="uil uil-check-circle" style="font-size: 18px;"></i>
+          </div>
+          <h3 class="modal-title" style="margin: 0;">Verified Merchant Reply</h3>
+        </div>
+        <button onclick="closeReplyReviewModal()" class="modal-close-btn" aria-label="Close Modal"><i class="uil uil-times"></i></button>
+      </div>
+      <form onsubmit="handleMerchantReplySubmit(event)">
+        <div class="modal-body">
+          <!-- Customer Review Quote Box -->
+          <div class="review-reply-context-box" id="review-reply-context-box">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Quick Response Chips -->
+          <div style="margin-bottom: 10px;">
+            <label class="form-label" style="margin-bottom: 4px;">Quick Suggestions:</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <button type="button" class="chat-quick-chip" onclick="applyQuickReplyText('Thank you so much for the wonderful feedback! We are thrilled you enjoyed the authentic flavors.')">Warm Thanks</button>
+              <button type="button" class="chat-quick-chip" onclick="applyQuickReplyText('We deeply appreciate your patronage! Always happy to cook fresh for you.')">Customer Appreciation</button>
+              <button type="button" class="chat-quick-chip" onclick="applyQuickReplyText('Thank you for letting us know! We have taken note of your feedback to ensure your next meal is flawless.')">Service Improvement</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="merchant-reply-textarea">Official Response from Restaurant Kitchen *</label>
+            <textarea id="merchant-reply-textarea" class="form-control" rows="4" placeholder="Write your public, verified response to the diner..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeReplyReviewModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Post Official Verified Reply</button>
         </div>
       </form>
     </div>
@@ -1306,7 +2228,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=2.9"></script>
+  <script src="app.js?v=3.0"></script>
 </body>
 
 </html>
