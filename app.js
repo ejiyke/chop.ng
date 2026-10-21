@@ -1563,13 +1563,14 @@ function renderMerchantDashboard() {
   const nameEl = document.getElementById('portal-store-name');
   if (nameEl) nameEl.innerText = m.name;
 
-  const statusEl = document.getElementById('portal-store-status');
-  if (statusEl) {
-    statusEl.innerHTML = `<i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> ${m.location} • Status: ${m.isOpen ? 'Accepting Orders' : 'Store Closed'}`;
+  const statusPill = document.getElementById('portal-store-status-pill');
+  if (statusPill) {
+    statusPill.className = `portal-store-status-badge ${m.isOpen ? 'open' : 'closed'}`;
+    statusPill.innerHTML = `<i class="uil ${m.isOpen ? 'uil-check-circle' : 'uil-times-circle'}"></i> ${m.isOpen ? 'Accepting Orders' : 'Store Closed'}`;
   }
 
   const toggle = document.getElementById('store-status-switch');
-  if (toggle) toggle.checked = m.isOpen;
+  if (toggle) toggle.checked = !!m.isOpen;
 
   // Active module tab
   switchMerchantTab(m.activeTab || 'overview');
@@ -1577,9 +1578,14 @@ function renderMerchantDashboard() {
 
 function toggleStoreStatus(checkbox) {
   AppState.merchantStore.isOpen = checkbox.checked;
-  const statusEl = document.getElementById('portal-store-status');
-  if (statusEl) {
-    statusEl.innerHTML = `<i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> ${AppState.merchantStore.location} • Status: ${checkbox.checked ? 'Accepting Orders' : 'Store Closed'}`;
+  const statusPill = document.getElementById('portal-store-status-pill');
+  if (statusPill) {
+    statusPill.className = `portal-store-status-badge ${checkbox.checked ? 'open' : 'closed'}`;
+    statusPill.innerHTML = `<i class="uil ${checkbox.checked ? 'uil-check-circle' : 'uil-times-circle'}"></i> ${checkbox.checked ? 'Accepting Orders' : 'Store Closed'}`;
+  }
+  const label = document.getElementById('settings-ordering-status-label');
+  if (label) {
+    label.innerText = checkbox.checked ? "Accepting Orders:" : "Store Closed:";
   }
   showToast(checkbox.checked ? "Store is now LIVE and accepting diner orders!" : "Store is now marked as Closed");
 }
@@ -2297,59 +2303,162 @@ function handleMerchantReplySubmit(e) {
 // --------------------------------------------------------------------------
 // MODULE 7: STORE SETTINGS & MIDNIGHT BANK SETTLEMENTS
 // --------------------------------------------------------------------------
+function switchSettingsSection(sectionId, pillBtn) {
+  // Update subnav pills
+  document.querySelectorAll('.settings-subnav-pill').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  if (pillBtn) {
+    pillBtn.classList.add('active');
+  }
+
+  // Update section panels
+  document.querySelectorAll('.settings-section-panel').forEach(panel => {
+    panel.classList.remove('active');
+  });
+
+  const activePanel = document.getElementById(`settings-section-${sectionId}`);
+  if (activePanel) {
+    activePanel.classList.add('active');
+  }
+}
+
 function renderMerchantSettings() {
   const m = AppState.merchantStore;
-  if (!m || !m.settings) return;
+  if (!m) return;
 
-  const bankSelect = document.getElementById('settings-bank-name');
-  if (bankSelect && m.settings.bankName) bankSelect.value = m.settings.bankName;
+  // 1. Legal / Compliance Profile
+  const legalNameInput = document.getElementById('ob-legal-name');
+  if (legalNameInput) legalNameInput.value = (m.settings && m.settings.legalName) || "Mama's Kitchen Nigeria Ltd";
 
-  const acctNumInput = document.getElementById('settings-bank-account-num');
-  if (acctNumInput && m.settings.accountNum) acctNumInput.value = m.settings.accountNum;
+  const bizTypeSelect = document.getElementById('ob-biz-type');
+  if (bizTypeSelect && m.settings && m.settings.bizType) bizTypeSelect.value = m.settings.bizType;
 
-  const acctNameInput = document.getElementById('settings-bank-account-name');
-  if (acctNameInput && m.settings.accountName) acctNameInput.value = m.settings.accountName;
+  const cacInput = document.getElementById('ob-cac-number');
+  if (cacInput) cacInput.value = (m.settings && m.settings.cacNumber) || "RC-1849204";
 
-  const storeNameInput = document.getElementById('settings-store-name');
-  if (storeNameInput) storeNameInput.value = m.name;
+  const tinInput = document.getElementById('ob-tin-number');
+  if (tinInput) tinInput.value = (m.settings && m.settings.tinNumber) || "TIN-29384710-0001";
 
-  const storeTaglineInput = document.getElementById('settings-store-tagline');
-  if (storeTaglineInput) storeTaglineInput.value = m.tagline;
+  const streetInput = document.getElementById('ob-street-address');
+  if (streetInput) streetInput.value = (m.settings && m.settings.address) || m.location || "Plot 14 Admiralty Way, Lekki Phase 1, Lagos State";
 
-  const storeLocInput = document.getElementById('settings-store-location');
-  if (storeLocInput) storeLocInput.value = m.location;
+  // 2. Restaurant Branding & Status
+  const storeSwitch = document.getElementById('store-status-switch');
+  if (storeSwitch) storeSwitch.checked = !!m.isOpen;
 
-  const storePhoneInput = document.getElementById('settings-store-phone');
-  if (storePhoneInput) storePhoneInput.value = m.phone;
+  const statusLabel = document.getElementById('settings-ordering-status-label');
+  if (statusLabel) statusLabel.innerText = m.isOpen ? "Accepting Orders:" : "Store Closed:";
+
+  const brandNameInput = document.getElementById('ob-brand-name');
+  if (brandNameInput) brandNameInput.value = m.name || "Mama's Kitchen";
+
+  const cuisineInput = document.getElementById('ob-cuisine-category');
+  if (cuisineInput && m.cuisine) cuisineInput.value = m.cuisine;
+
+  const taglineInput = document.getElementById('ob-tagline');
+  if (taglineInput) taglineInput.value = m.tagline || "Authentic Nigerian Home-Style Delicacies & Coastal Specials";
+
+  const bioInput = document.getElementById('ob-bio');
+  if (bioInput) bioInput.value = m.bio || "";
+
+  const phoneInput = document.getElementById('ob-phone');
+  if (phoneInput) phoneInput.value = m.phone || "+234 803 123 4567";
+
+  const whatsappInput = document.getElementById('ob-whatsapp');
+  if (whatsappInput) whatsappInput.value = m.whatsapp || m.phone || "+234 803 123 4567";
+
+  const igInput = document.getElementById('ob-instagram');
+  if (igInput && m.instagram) igInput.value = m.instagram;
+
+  const hoursInput = document.getElementById('ob-hours');
+  if (hoursInput && m.hours) hoursInput.value = m.hours;
+
+  // 3. Delivery & Sonic Logistics
+  const prepTimeSelect = document.getElementById('ob-prep-time');
+  if (prepTimeSelect && m.settings && m.settings.prepTime) prepTimeSelect.value = m.settings.prepTime;
+
+  const deliveryFeeInput = document.getElementById('ob-delivery-fee');
+  if (deliveryFeeInput && m.settings && m.settings.deliveryFee) deliveryFeeInput.value = m.settings.deliveryFee;
+
+  const autoSonicCheck = document.getElementById('ob-auto-sonic');
+  if (autoSonicCheck && m.settings && typeof m.settings.autoSonic === 'boolean') autoSonicCheck.checked = m.settings.autoSonic;
+
+  // 4. Midnight Bank Settlement
+  const bankSelect = document.getElementById('ob-bank-name');
+  if (bankSelect && m.settings && m.settings.bankName) bankSelect.value = m.settings.bankName;
+
+  const acctNumInput = document.getElementById('ob-nuban-account');
+  if (acctNumInput && m.settings && m.settings.accountNum) acctNumInput.value = m.settings.accountNum;
+
+  validateNubanAccount();
 }
 
 function saveStoreSettings(e) {
   if (e) e.preventDefault();
   const m = AppState.merchantStore;
-
-  const storeName = document.getElementById('settings-store-name')?.value.trim();
-  const storeTagline = document.getElementById('settings-store-tagline')?.value.trim();
-  const storeLoc = document.getElementById('settings-store-location')?.value.trim();
-  const storePhone = document.getElementById('settings-store-phone')?.value.trim();
-  const bankName = document.getElementById('settings-bank-name')?.value;
-  const acctNum = document.getElementById('settings-bank-account-num')?.value.trim();
-  const acctName = document.getElementById('settings-bank-account-name')?.value.trim();
-
-  if (storeName) m.name = storeName;
-  if (storeTagline) m.tagline = storeTagline;
-  if (storeLoc) m.location = storeLoc;
-  if (storePhone) m.phone = storePhone;
-
+  if (!m) return;
   if (!m.settings) m.settings = {};
+
+  // Extract legal profile
+  const legalName = document.getElementById('ob-legal-name')?.value.trim();
+  const bizType = document.getElementById('ob-biz-type')?.value;
+  const cac = document.getElementById('ob-cac-number')?.value.trim();
+  const tin = document.getElementById('ob-tin-number')?.value.trim();
+  const address = document.getElementById('ob-street-address')?.value.trim();
+
+  if (legalName) m.settings.legalName = legalName;
+  if (bizType) m.settings.bizType = bizType;
+  if (cac) m.settings.cacNumber = cac;
+  if (tin) m.settings.tinNumber = tin;
+  if (address) {
+    m.settings.address = address;
+    m.location = address;
+  }
+
+  // Extract branding & contact
+  const brandName = document.getElementById('ob-brand-name')?.value.trim();
+  const cuisine = document.getElementById('ob-cuisine-category')?.value.trim();
+  const tagline = document.getElementById('ob-tagline')?.value.trim();
+  const bio = document.getElementById('ob-bio')?.value.trim();
+  const phone = document.getElementById('ob-phone')?.value.trim();
+  const whatsapp = document.getElementById('ob-whatsapp')?.value.trim();
+  const ig = document.getElementById('ob-instagram')?.value.trim();
+  const hours = document.getElementById('ob-hours')?.value.trim();
+
+  if (brandName) m.name = brandName;
+  if (cuisine) m.cuisine = cuisine;
+  if (tagline) m.tagline = tagline;
+  if (bio) m.bio = bio;
+  if (phone) m.phone = phone;
+  if (whatsapp) m.whatsapp = whatsapp;
+  if (ig) m.instagram = ig;
+  if (hours) m.hours = hours;
+
+  // Extract delivery & sonic settings
+  const prepTime = document.getElementById('ob-prep-time')?.value;
+  const deliveryFee = parseInt(document.getElementById('ob-delivery-fee')?.value, 10);
+  const autoSonic = document.getElementById('ob-auto-sonic')?.checked;
+
+  if (prepTime) m.settings.prepTime = prepTime;
+  if (!isNaN(deliveryFee)) m.settings.deliveryFee = deliveryFee;
+  if (typeof autoSonic === 'boolean') m.settings.autoSonic = autoSonic;
+
+  // Extract midnight bank payouts
+  const bankName = document.getElementById('ob-bank-name')?.value;
+  const acctNum = document.getElementById('ob-nuban-account')?.value.trim();
+
   if (bankName) m.settings.bankName = bankName;
   if (acctNum) m.settings.accountNum = acctNum;
-  if (acctName) m.settings.accountName = acctName;
 
-  // Sync to header command bar
+  // Update top banner display
   const nameEl = document.getElementById('portal-store-name');
   if (nameEl) nameEl.innerText = m.name;
 
-  showToast("Store settings & automated midnight settlement bank account saved!");
+  const locEl = document.getElementById('portal-store-location-text');
+  if (locEl && m.location) locEl.innerText = m.location;
+
+  showToast("Verified business profile, operational settings, and midnight bank payout account saved successfully!");
 }
 
 function validateNubanAccount() {
@@ -2366,92 +2475,16 @@ function validateNubanAccount() {
   }
 }
 
-// --------------------------------------------------------------------------
-// MULTI-STEP BUSINESS ONBOARDING WIZARD (PRD Requirement)
-// --------------------------------------------------------------------------
-let onboardingStep = 1;
-
 function openMerchantOnboarding() {
-  onboardingStep = 1;
-  const modal = document.getElementById('business-onboarding-modal');
-  if (modal) {
-    modal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    updateOnboardingStepUI();
+  switchMerchantTab('settings');
+  const profilePill = document.querySelector('.settings-subnav-pill');
+  if (profilePill) {
+    switchSettingsSection('profile', profilePill);
   }
 }
 
 function closeMerchantOnboarding() {
-  const modal = document.getElementById('business-onboarding-modal');
-  if (modal) {
-    modal.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
-}
-
-function jumpToOnboardingStep(step) {
-  onboardingStep = step;
-  updateOnboardingStepUI();
-}
-
-function nextOnboardingStep() {
-  if (onboardingStep < 4) {
-    onboardingStep += 1;
-    updateOnboardingStepUI();
-  }
-}
-
-function prevOnboardingStep() {
-  if (onboardingStep > 1) {
-    onboardingStep -= 1;
-    updateOnboardingStepUI();
-  }
-}
-
-function updateOnboardingStepUI() {
-  // Update step tabs
-  for (let i = 1; i <= 4; i++) {
-    const tab = document.getElementById(`onboarding-step-tab-${i}`);
-    const panel = document.getElementById(`onboarding-panel-${i}`);
-    if (tab) {
-      tab.classList.toggle('active', i === onboardingStep);
-      tab.classList.toggle('completed', i < onboardingStep);
-    }
-    if (panel) {
-      panel.classList.toggle('active', i === onboardingStep);
-    }
-  }
-
-  // Update footer buttons
-  const prevBtn = document.getElementById('ob-prev-btn');
-  const nextBtn = document.getElementById('ob-next-btn');
-  const finishBtn = document.getElementById('ob-finish-btn');
-
-  if (prevBtn) prevBtn.style.display = onboardingStep > 1 ? 'inline-flex' : 'none';
-  if (nextBtn) nextBtn.style.display = onboardingStep < 4 ? 'inline-flex' : 'none';
-  if (finishBtn) finishBtn.style.display = onboardingStep === 4 ? 'inline-flex' : 'none';
-}
-
-function finishOnboarding() {
-  // Read onboarding inputs and sync to merchant store
-  const brandName = document.getElementById('ob-brand-name')?.value.trim();
-  const legalName = document.getElementById('ob-legal-name')?.value.trim();
-  const cac = document.getElementById('ob-cac-number')?.value.trim();
-  const address = document.getElementById('ob-street-address')?.value.trim();
-  const bank = document.getElementById('ob-bank-name')?.value;
-  const acct = document.getElementById('ob-nuban-account')?.value.trim();
-
-  if (brandName) AppState.merchantStore.name = brandName;
-  if (!AppState.merchantStore.settings) AppState.merchantStore.settings = {};
-  if (legalName) AppState.merchantStore.settings.legalName = legalName;
-  if (cac) AppState.merchantStore.settings.cacNumber = cac;
-  if (address) AppState.merchantStore.settings.address = address;
-  if (bank) AppState.merchantStore.settings.bankName = bank;
-  if (acct) AppState.merchantStore.settings.accountNum = acct;
-
-  closeMerchantOnboarding();
-  renderMerchantDashboard();
-  showToast("🎉 Store Onboarding Complete! Your verified restaurant profile and midnight payouts are active!");
+  // Modal retired; fallback handler
 }
 
 // ==========================================================================
@@ -3734,6 +3767,7 @@ window.applyQuickReplyText = applyQuickReplyText;
 window.handleMerchantReplySubmit = handleMerchantReplySubmit;
 window.renderMerchantSettings = renderMerchantSettings;
 window.saveStoreSettings = saveStoreSettings;
+window.switchSettingsSection = switchSettingsSection;
 window.validateNubanAccount = validateNubanAccount;
 window.openMerchantOnboarding = openMerchantOnboarding;
 window.closeMerchantOnboarding = closeMerchantOnboarding;

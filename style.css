@@ -2351,6 +2351,85 @@ input:checked + .slider:before {
   margin: 4px 0 0;
 }
 
+/* Settings Sub-Navigation & Section Panels */
+.settings-subnav-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  scrollbar-width: thin;
+}
+
+.settings-subnav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-surface-sunken);
+  border: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.settings-subnav-pill:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+  background-color: var(--color-bg-surface);
+}
+
+.settings-subnav-pill.active {
+  background-color: var(--cn-green-500) !important;
+  color: var(--cn-blue-500, #0f172a) !important;
+  border-color: var(--cn-green-600);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(147, 199, 0, 0.3);
+}
+
+.settings-subnav-pill.active i {
+  color: var(--cn-blue-500, #0f172a) !important;
+}
+
+.settings-section-panel {
+  display: none;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.settings-section-panel.active {
+  display: block;
+}
+
+.settings-section-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--elevation-xs, 0 1px 3px rgba(0,0,0,0.05));
+}
+
+.portal-nav-exit {
+  margin-top: 16px;
+  color: var(--color-text-muted) !important;
+  transition: all 0.2s ease;
+}
+
+.portal-nav-exit:hover {
+  color: var(--color-brand-primary, #16a34a) !important;
+  background-color: rgba(22, 163, 74, 0.08) !important;
+}
+
+.portal-nav-exit i {
+  color: inherit !important;
+}
+
 /* KPI Overview Cards */
 .kpi-cards-grid {
   display: grid;

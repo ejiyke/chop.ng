@@ -133,9 +133,13 @@ Following the PRD documentation (`https://docs.google.com/document/d/1CfNH-sDBIi
    - Community review stream with diner ratings and feedback.
    - Verified Merchant Reply modal featuring one-click professional quick suggestions and official response publication.
    - Verified merchant responses automatically sync to public diner view.
-7. **Store Settings & Midnight Bank Settlements:**
-   - Configurable commercial bank settlement account details.
-   - Operating address, kitchen story, direct phone, and Sonic Rider auto-dispatch preferences.
+7. **Store Settings & Midnight Bank Settlements (Integrated Profile Suite):**
+   - Transformed Edit Business Profile into a full 4-section settings page:
+     - **Business & Legal Profile:** CAC registration, TIN, entity type, kitchen address, and verified document badges.
+     - **Restaurant & Marketplace:** Live ordering operational toggle switch, customer brand name, cuisine styles, bio, phone, WhatsApp, and hours.
+     - **Delivery & Sonic Logistics:** Interactive Lagos delivery zones selection, kitchen prep times, base delivery fees, and auto-dispatch toggles.
+     - **Midnight Bank Settlements:** Receiving commercial bank selector, 10-digit NUBAN account input with instant NIP verification, and zero-commission guarantees.
+   - Cleaned top banner by removing clutter buttons, adding a sleek exit button in the sidebar nav.
 8. **Subscription & Visibility Plan:**
    - Verified Merchant Plan status display (Monthly ₦15,000/mo vs. Annual ₦150,000/yr with 2 months free).
    - Complete marketplace search ranking, unlimited menu items, and Sonic Rider dispatch benefits.

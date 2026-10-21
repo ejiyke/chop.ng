@@ -17,8 +17,8 @@
   <meta http-equiv="Expires" content="0">
   <!-- IconScout Unicons -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="tokens.css?v=3.3">
-  <link rel="stylesheet" href="style.css?v=3.3">
+  <link rel="stylesheet" href="tokens.css?v=3.4">
+  <link rel="stylesheet" href="style.css?v=3.4">
 </head>
 
 <body>
@@ -584,32 +584,6 @@
           </div>
         </div>
       </div>
-
-      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-        <!-- Live Store Status Toggle -->
-        <div class="store-switch-container">
-          <span style="font-size: 13px; font-weight: 700;">Live Ordering:</span>
-          <label class="switch" title="Toggle Live Ordering (Open/Closed)">
-            <input type="checkbox" id="store-status-switch" checked onchange="toggleStoreStatus(this)">
-            <span class="slider"></span>
-          </label>
-        </div>
-
-        <!-- Quick Demo Incoming Order Trigger -->
-        <button class="btn btn-secondary btn-sm" onclick="simulateIncomingOrder()" title="Simulate a new customer order for testing fulfillment">
-          <i class="uil uil-bell"></i> Simulate Order
-        </button>
-
-        <!-- Quick Launch Onboarding / Store Edit -->
-        <button class="btn btn-secondary btn-sm" onclick="openMerchantOnboarding()" title="Update business onboarding profile">
-          <i class="uil uil-edit"></i> Edit Business Profile
-        </button>
-
-        <!-- Switch Role -->
-        <button class="btn btn-primary btn-sm" onclick="toggleRoleMode()">
-          <i class="uil uil-arrow-left"></i> Switch to Customer Mode
-        </button>
-      </div>
     </div>
 
     <!-- Workspace Grid: Sidebar Navigation + Content Modules -->
@@ -679,6 +653,15 @@
             <span>Subscription & Plan</span>
           </span>
           <span style="font-size: 10.5px; font-weight: 700; color: var(--cn-green-600);">Active</span>
+        </button>
+
+        <div class="portal-nav-divider"></div>
+
+        <button type="button" class="portal-nav-link portal-nav-exit" onclick="toggleRoleMode()" title="Return to Diner Marketplace">
+          <span class="portal-nav-link-content">
+            <i class="uil uil-arrow-left"></i>
+            <span>Switch to Customer Mode</span>
+          </span>
         </button>
       </aside>
 
@@ -829,12 +812,6 @@
             <div>
               <h2 class="portal-module-title">Orders Management</h2>
               <p class="portal-module-subtitle">Process incoming orders, track preparation, and dispatch Sonic Riders in real time.</p>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn btn-secondary btn-sm" onclick="simulateIncomingOrder()">
-                <i class="uil uil-plus-circle"></i> New Test Order
-              </button>
-            </div>
           </div>
 
           <!-- Order Status Pipeline Filter Tabs (PRD: Order status sequence) -->
@@ -1059,106 +1036,306 @@
         </div>
 
         <!-- ===================================================================
-             MODULE 7: STORE SETTINGS & BANK SETTLEMENTS
+             MODULE 7: STORE SETTINGS & BANK SETTLEMENTS (PRD Comprehensive Suite)
              =================================================================== -->
         <div class="portal-module" id="portal-tab-settings">
           <div class="portal-module-header">
             <div>
-              <h2 class="portal-module-title">Store Settings & Bank Settlements</h2>
-              <p class="portal-module-subtitle">Manage business profile, operating hours, delivery coverage, and midnight payout bank account.</p>
+              <h2 class="portal-module-title">Settings & Bank Payouts</h2>
+              <p class="portal-module-subtitle">Manage business profile, compliance, operating hours, delivery coverage, and automated midnight payouts.</p>
             </div>
             <button class="btn btn-primary btn-sm" onclick="saveStoreSettings(event)">
               <i class="uil uil-save"></i> Save All Changes
             </button>
           </div>
 
+          <!-- Settings Sub-Navigation Bar -->
+          <div class="settings-subnav-bar">
+            <button type="button" class="settings-subnav-pill active" onclick="switchSettingsSection('profile', this)">
+              <i class="uil uil-building"></i> Business & Legal Profile
+            </button>
+            <button type="button" class="settings-subnav-pill" onclick="switchSettingsSection('branding', this)">
+              <i class="uil uil-store"></i> Restaurant & Marketplace
+            </button>
+            <button type="button" class="settings-subnav-pill" onclick="switchSettingsSection('delivery', this)">
+              <i class="uil uil-truck"></i> Delivery & Sonic Riders
+            </button>
+            <button type="button" class="settings-subnav-pill" onclick="switchSettingsSection('payouts', this)">
+              <i class="uil uil-university"></i> Midnight Bank Settlements
+            </button>
+          </div>
+
           <form id="store-settings-form" onsubmit="saveStoreSettings(event)">
-            <!-- 1. Bank Account Settlement Card (PRD: Get settlements to business account every midnight) -->
-            <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(59, 130, 246, 0.06) 100%); border: 1.5px solid var(--cn-green-400); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <div style="width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--cn-green-600); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px;">
-                    <i class="uil uil-university"></i>
-                  </div>
+            <!-- SECTION 1: BUSINESS PROFILE & CAC VERIFICATION -->
+            <div class="settings-section-panel active" id="settings-section-profile">
+              <div class="settings-section-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
                   <div>
-                    <h3 style="font-size: 16px; font-weight: 800; color: var(--color-text-primary); margin: 0;">Automated Midnight Bank Settlement</h3>
-                    <p style="font-size: 12.5px; color: var(--color-text-muted); margin: 0;">Daily order earnings are transferred automatically to this Nigerian bank account every midnight at 12:00 AM.</p>
+                    <h3 style="font-size: 17px; font-weight: 800; color: var(--color-text-primary); margin: 0 0 4px 0;">
+                      <i class="uil uil-shield-check" style="color: var(--cn-green-600); margin-right: 6px;"></i> Business Identity & CAC Compliance
+                    </h3>
+                    <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Verified business records published on the Connect Nigeria business directory.</p>
+                  </div>
+                  <span class="badge badge-open"><i class="uil uil-check-circle"></i> CAC Verified Business</span>
+                </div>
+
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-legal-name">Registered Business / Trade Name *</label>
+                    <input type="text" id="ob-legal-name" class="form-control" value="Mama's Kitchen Nigeria Ltd" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-biz-type">Business Entity Type</label>
+                    <select id="ob-biz-type" class="form-control">
+                      <option value="LLC">Private Limited Company (LTD / LLC)</option>
+                      <option value="BN">Registered Business Name (BN)</option>
+                      <option value="Caterer">Independent Caterer / Cloud Kitchen</option>
+                    </select>
                   </div>
                 </div>
-                <span class="badge badge-open"><i class="uil uil-check-circle"></i> Direct Deposit Verified</span>
-              </div>
 
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px;">
-                <div class="form-group" style="margin: 0;">
-                  <label class="form-label">Bank Name</label>
-                  <select class="form-control" id="settings-bank-name">
-                    <option value="Zenith Bank" selected>Zenith Bank Plc</option>
-                    <option value="GTBank">Guaranty Trust Bank (GTBank)</option>
-                    <option value="Access Bank">Access Bank</option>
-                    <option value="First Bank">First Bank of Nigeria</option>
-                    <option value="UBA">United Bank for Africa (UBA)</option>
-                    <option value="Stanbic IBTC">Stanbic IBTC Bank</option>
-                  </select>
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-cac-number">CAC Registration Number *</label>
+                    <input type="text" id="ob-cac-number" class="form-control" value="RC-1849204" placeholder="RC-123456 or BN-123456" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-tin-number">Tax Identification Number (TIN)</label>
+                    <input type="text" id="ob-tin-number" class="form-control" value="TIN-29384710-0001" placeholder="e.g. 29384710-0001">
+                  </div>
                 </div>
-                <div class="form-group" style="margin: 0;">
-                  <label class="form-label">Account Number (NUBAN)</label>
-                  <input type="text" class="form-control" id="settings-bank-account-num" value="1014829384" maxlength="10">
+
+                <div class="form-group">
+                  <label class="form-label" for="ob-street-address">Physical Kitchen / Restaurant Address in Nigeria *</label>
+                  <input type="text" id="ob-street-address" class="form-control" value="Plot 14 Admiralty Way, Lekki Phase 1, Lagos State" required>
                 </div>
-                <div class="form-group" style="margin: 0;">
-                  <label class="form-label">Beneficiary Account Name</label>
-                  <input type="text" class="form-control" id="settings-bank-account-name" value="MAMA'S KITCHEN RESTAURANT LTD" readonly style="background: var(--color-bg-surface-sunken);">
+
+                <div style="margin-top: 18px;">
+                  <label class="form-label">Compliance Documents & Permits</label>
+                  <div class="onboarding-grid-2">
+                    <div class="onboarding-upload-box">
+                      <div class="onboarding-upload-icon"><i class="uil uil-file-shield-alt"></i></div>
+                      <div class="onboarding-upload-title">CAC Certificate of Incorporation</div>
+                      <div class="onboarding-upload-desc">Verified Corporate Affairs Commission Filing</div>
+                      <span class="badge badge-open" style="font-size: 11px; margin-top: 8px;"><i class="uil uil-check-circle"></i> CAC-Cert-Verified.pdf</span>
+                    </div>
+                    <div class="onboarding-upload-box">
+                      <div class="onboarding-upload-icon"><i class="uil uil-utensils-alt"></i></div>
+                      <div class="onboarding-upload-title">Food Safety & Hygiene Permit</div>
+                      <div class="onboarding-upload-desc">State Health & Sanitary Inspection Certificate</div>
+                      <span class="badge badge-open" style="font-size: 11px; margin-top: 8px;"><i class="uil uil-check-circle"></i> Lagos-FoodPermit-2026.pdf</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- 2. Business Information -->
-            <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 24px;">
-              <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 16px 0;">Business Information</h3>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                  <label class="form-label">Restaurant Brand Name</label>
-                  <input type="text" class="form-control" id="settings-store-name" value="Mama's Kitchen">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Tagline</label>
-                  <input type="text" class="form-control" id="settings-store-tagline" value="Authentic Lagos Homestyle Flavors & Native Pots">
+            <!-- SECTION 2: RESTAURANT & MARKETPLACE BRANDING -->
+            <div class="settings-section-panel" id="settings-section-branding">
+              <!-- Live Store Operational Status Card -->
+              <div class="settings-section-card" style="border: 1.5px solid var(--cn-green-400); background: linear-gradient(135deg, rgba(147, 199, 0, 0.08) 0%, rgba(15, 23, 42, 0.02) 100%);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                  <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--cn-green-600); color: white; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                      <i class="uil uil-store"></i>
+                    </div>
+                    <div>
+                      <h3 style="font-size: 16.5px; font-weight: 800; color: var(--color-text-primary); margin: 0 0 3px 0;">Live Ordering Operational Status</h3>
+                      <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">Toggle live diner order acceptance. When active, diners can browse and place orders immediately.</p>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px; background: var(--color-bg-surface); padding: 8px 16px; border-radius: var(--radius-full); border: 1px solid var(--color-border-subtle);">
+                    <span style="font-size: 13.5px; font-weight: 700; color: var(--color-text-primary);" id="settings-ordering-status-label">Accepting Orders:</span>
+                    <label class="switch" title="Toggle Live Ordering">
+                      <input type="checkbox" id="store-status-switch" checked onchange="toggleStoreStatus(this)">
+                      <span class="slider"></span>
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                  <label class="form-label">Operating Address / Kitchen Location</label>
-                  <input type="text" class="form-control" id="settings-store-location" value="12 Admiralty Way, Lekki Phase 1, Lagos">
+
+              <div class="settings-section-card">
+                <h3 style="font-size: 17px; font-weight: 800; color: var(--color-text-primary); margin: 0 0 16px 0;">
+                  <i class="uil uil-utensils" style="color: var(--cn-green-600); margin-right: 6px;"></i> Marketplace Profile & Dining Information
+                </h3>
+
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-brand-name">Customer-Facing Restaurant Brand Name *</label>
+                    <input type="text" id="ob-brand-name" class="form-control" value="Mama's Kitchen" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-cuisine-category">Primary Cuisine Style</label>
+                    <input type="text" id="ob-cuisine-category" class="form-control" value="Authentic Nigerian • Soups & Swallows • Coastal Specials">
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label class="form-label">Direct Order Phone</label>
-                  <input type="text" class="form-control" id="settings-store-phone" value="+234 803 555 0199">
+                  <label class="form-label" for="ob-tagline">Catchy Brand Tagline</label>
+                  <input type="text" id="ob-tagline" class="form-control" value="Authentic Nigerian Home-Style Delicacies & Coastal Specials">
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Restaurant Bio & Kitchen Story</label>
-                <textarea class="form-control" rows="3" id="settings-store-bio">Lagos's premier destination for authentic wood-fired party jollof, hand-pounded yam, and rich Nigerian native soups cooked fresh daily.</textarea>
+
+                <div class="form-group">
+                  <label class="form-label" for="ob-bio">Restaurant Bio & Kitchen Story</label>
+                  <textarea id="ob-bio" class="form-control" rows="3">Serving the finest authentic Nigerian home-style dishes since 2018. All ingredients are freshly sourced daily from local markets and prepared with traditional wood-fire and clay pot recipes.</textarea>
+                </div>
+
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-phone">Direct Orders Phone Number *</label>
+                    <input type="text" id="ob-phone" class="form-control" value="+234 803 123 4567" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-whatsapp">WhatsApp Inquiries Number *</label>
+                    <input type="text" id="ob-whatsapp" class="form-control" value="+234 803 123 4567" required>
+                  </div>
+                </div>
+
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-instagram">Instagram / Social Handle</label>
+                    <input type="text" id="ob-instagram" class="form-control" value="@mamaskitchenlekki">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-hours">Operating Schedule</label>
+                    <input type="text" id="ob-hours" class="form-control" value="Mon - Sat: 8:00 AM - 10:00 PM">
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- 3. Logistics & Delivery Zones -->
-            <div style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); padding: 22px;">
-              <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 16px 0;">Delivery Zones & Logistics</h3>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="form-group">
-                  <label class="form-label">Active Delivery Zones</label>
-                  <input type="text" class="form-control" id="settings-store-zones" value="Lekki Phase 1, Victoria Island, Ikoyi, Oniru">
+            <!-- SECTION 3: DELIVERY ZONES & SONIC RIDERS -->
+            <div class="settings-section-panel" id="settings-section-delivery">
+              <div class="settings-section-card">
+                <h3 style="font-size: 17px; font-weight: 800; color: var(--color-text-primary); margin: 0 0 6px 0;">
+                  <i class="uil uil-map-pin-alt" style="color: var(--cn-green-600); margin-right: 6px;"></i> Active Delivery Coverage
+                </h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin: 0 0 16px 0;">Select areas where your kitchen accepts dispatch orders for rapid courier delivery.</p>
+
+                <div class="onboarding-zones-grid">
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" checked value="Lekki Phase 1">
+                    <span>Lekki Phase 1</span>
+                  </label>
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" checked value="Victoria Island">
+                    <span>Victoria Island (VI)</span>
+                  </label>
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" checked value="Ikoyi">
+                    <span>Ikoyi & Banana Island</span>
+                  </label>
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" checked value="Lekki Phase 2">
+                    <span>Lekki Phase 2 & Chevron</span>
+                  </label>
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" value="Oniru">
+                    <span>Oniru & VI Extension</span>
+                  </label>
+                  <label class="onboarding-checkbox-chip">
+                    <input type="checkbox" value="Ikeja GRA">
+                    <span>Ikeja GRA & Mainland</span>
+                  </label>
                 </div>
-                <div class="form-group">
-                  <label class="form-label">Standard Base Delivery Fee (₦)</label>
-                  <input type="number" class="form-control" id="settings-store-fee" value="1200">
+
+                <div class="onboarding-grid-2" style="margin-top: 18px;">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-prep-time">Average Kitchen Preparation Time</label>
+                    <select id="ob-prep-time" class="form-control">
+                      <option value="15">15 Minutes (Express / Ready Bites)</option>
+                      <option value="20">20 Minutes (Standard Fast Cook)</option>
+                      <option value="25" selected>25 Minutes (Recommended)</option>
+                      <option value="35">35 Minutes (Fresh Made-to-Order Soups)</option>
+                      <option value="45">45 Minutes (Large Family Platters)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-delivery-fee">Base Local Delivery Fee (₦)</label>
+                    <input type="number" id="ob-delivery-fee" class="form-control" value="1200">
+                  </div>
+                </div>
+
+                <!-- Sonic Rider Dispatch Highlight Card -->
+                <div class="sonic-dispatch-highlight-box" style="margin-top: 14px;">
+                  <div style="display: flex; gap: 14px; align-items: flex-start;">
+                    <div class="sonic-icon-circle"><i class="uil uil-bolt-alt"></i></div>
+                    <div>
+                      <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 4px 0; color: #1e3a8a;">Connect Nigeria Sonic Rider Network</h4>
+                      <p style="font-size: 13px; color: #3b82f6; margin: 0 0 10px 0; line-height: 1.5;">
+                        Trained two-wheel food couriers equipped with insulated hot-boxes across Lagos Island and Mainland. Orders are dispatched automatically with real-time GPS tracking.
+                      </p>
+                      <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #1e40af; cursor: pointer;">
+                        <input type="checkbox" id="ob-auto-sonic" checked style="accent-color: #2563eb; width: 18px; height: 18px;">
+                        <span>Auto-summon nearest Sonic Rider when order is marked "Ready for Pickup"</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="form-group" style="margin: 0;">
-                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13.5px; font-weight: 600;">
-                  <input type="checkbox" checked style="accent-color: var(--cn-green-600); width: 18px; height: 18px;">
-                  <span>Auto-dispatch nearest Connect Nigeria Sonic Riders upon marking orders ready for pickup</span>
-                </label>
+            </div>
+
+            <!-- SECTION 4: MIDNIGHT BANK SETTLEMENTS -->
+            <div class="settings-section-panel" id="settings-section-payouts">
+              <div class="settings-section-card" style="border: 1.5px solid var(--cn-green-400); background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--cn-green-600); color: white; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                      <i class="uil uil-university"></i>
+                    </div>
+                    <div>
+                      <h3 style="font-size: 16.5px; font-weight: 800; color: var(--color-text-primary); margin: 0;">Automated Midnight Bank Settlements</h3>
+                      <p style="font-size: 12.5px; color: var(--color-text-muted); margin: 0;">100% daily diner order earnings are transferred automatically into this Nigerian commercial bank account every midnight at 00:00 WAT.</p>
+                    </div>
+                  </div>
+                  <span class="badge badge-open"><i class="uil uil-check-circle"></i> Direct Deposit Verified</span>
+                </div>
+
+                <div class="bank-compliance-banner" style="margin-top: 14px; margin-bottom: 18px;">
+                  <div style="font-size: 20px; color: var(--cn-green-700);"><i class="uil uil-lock"></i></div>
+                  <div style="font-size: 12.5px; color: var(--cn-green-900); line-height: 1.5;">
+                    <strong>Zero-Commission Model:</strong> CHOPS charges zero percentage cuts on your food. Your daily sales pool transfers automatically every midnight via NIBSS NIP into your corporate account with zero deductions.
+                  </div>
+                </div>
+
+                <div class="onboarding-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="ob-bank-name">Receiving Commercial Bank *</label>
+                    <select id="ob-bank-name" class="form-control" onchange="validateNubanAccount()">
+                      <option value="GTBank" selected>Guaranty Trust Bank (GTBank)</option>
+                      <option value="Zenith">Zenith Bank Plc</option>
+                      <option value="Access">Access Bank</option>
+                      <option value="FirstBank">First Bank of Nigeria</option>
+                      <option value="Kuda">Kuda Microfinance Bank</option>
+                      <option value="Moniepoint">Moniepoint MFB</option>
+                      <option value="OPay">OPay Digital Services</option>
+                      <option value="UBA">United Bank for Africa (UBA)</option>
+                      <option value="Stanbic">Stanbic IBTC Bank</option>
+                      <option value="Providus">Providus Bank</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ob-nuban-account">10-Digit NUBAN Account Number *</label>
+                    <input type="text" id="ob-nuban-account" class="form-control" value="0149283719" maxlength="10" oninput="validateNubanAccount()" required>
+                  </div>
+                </div>
+
+                <!-- Instant NIP Match Verification Status -->
+                <div class="nuban-verification-status" id="nuban-verification-status" style="margin-top: 10px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="verified-dot-green"></span>
+                    <strong style="color: var(--cn-green-800); font-size: 13.5px;" id="nuban-account-name">MAMA'S KITCHEN NIGERIA LTD</strong>
+                  </div>
+                  <span class="badge badge-open" style="font-size: 10px;"><i class="uil uil-check-circle"></i> NIP Match Verified</span>
+                </div>
               </div>
+            </div>
+
+            <!-- Form Submit Bar -->
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;">
+              <button type="submit" class="btn btn-primary">
+                <i class="uil uil-save"></i> Save All Settings & Changes
+              </button>
             </div>
           </form>
         </div>
@@ -1431,301 +1608,7 @@
     </div>
   </div>
 
-  <!-- =========================================================================
-       MERCHANT MODAL 1: MULTI-STEP BUSINESS ONBOARDING WIZARD (PRD Spec)
-       ========================================================================= -->
-  <div class="modal-backdrop" id="business-onboarding-modal" onclick="if(event.target === this) closeMerchantOnboarding();">
-    <div class="onboarding-modal-card" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
-      <!-- Modal Header -->
-      <div class="onboarding-modal-header">
-        <div class="onboarding-title-group">
-          <span class="onboarding-kicker"><i class="uil uil-shield-check"></i> Connect Nigeria CHOPS Verified Merchant</span>
-          <h2 class="onboarding-modal-title" id="onboarding-title">Merchant Business Onboarding</h2>
-          <p class="onboarding-modal-sub">Complete your business compliance, menu, and automated midnight payout setup to launch your verified store.</p>
-        </div>
-        <button class="modal-close-btn" onclick="closeMerchantOnboarding()" aria-label="Close Onboarding">
-          <i class="uil uil-times"></i>
-        </button>
-      </div>
 
-      <!-- Stepper Indicator -->
-      <div class="onboarding-stepper-bar">
-        <div class="onboarding-step-item active" id="onboarding-step-tab-1" onclick="jumpToOnboardingStep(1)">
-          <div class="onboarding-step-num">1</div>
-          <div class="onboarding-step-meta">
-            <span class="onboarding-step-name">Business Profile</span>
-            <span class="onboarding-step-desc">CAC & permits</span>
-          </div>
-        </div>
-        <div class="onboarding-step-divider"></div>
-        <div class="onboarding-step-item" id="onboarding-step-tab-2" onclick="jumpToOnboardingStep(2)">
-          <div class="onboarding-step-num">2</div>
-          <div class="onboarding-step-meta">
-            <span class="onboarding-step-name">Restaurant Setup</span>
-            <span class="onboarding-step-desc">Cover, bio & hours</span>
-          </div>
-        </div>
-        <div class="onboarding-step-divider"></div>
-        <div class="onboarding-step-item" id="onboarding-step-tab-3" onclick="jumpToOnboardingStep(3)">
-          <div class="onboarding-step-num">3</div>
-          <div class="onboarding-step-meta">
-            <span class="onboarding-step-name">Delivery Setup</span>
-            <span class="onboarding-step-desc">Zones & Sonic Riders</span>
-          </div>
-        </div>
-        <div class="onboarding-step-divider"></div>
-        <div class="onboarding-step-item" id="onboarding-step-tab-4" onclick="jumpToOnboardingStep(4)">
-          <div class="onboarding-step-num">4</div>
-          <div class="onboarding-step-meta">
-            <span class="onboarding-step-name">Midnight Bank Payout</span>
-            <span class="onboarding-step-desc">NUBAN settlements</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step Content Area -->
-      <div class="onboarding-modal-body">
-        <!-- STEP 1: BUSINESS PROFILE & CAC COMPLIANCE -->
-        <div class="onboarding-step-panel active" id="onboarding-panel-1">
-          <h3 class="onboarding-step-heading">Step 1: Business Profile & Verification</h3>
-          <p class="onboarding-step-subtext">Provide your registered business details for verification on the Connect Nigeria business directory.</p>
-
-          <div class="onboarding-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="ob-legal-name">Registered Business / Trade Name *</label>
-              <input type="text" id="ob-legal-name" class="form-control" value="Mama's Kitchen Nigeria Ltd" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-biz-type">Business Entity Type</label>
-              <select id="ob-biz-type" class="form-control">
-                <option value="LLC">Private Limited Company (LTD / LLC)</option>
-                <option value="BN">Registered Business Name (BN)</option>
-                <option value="Caterer">Independent Caterer / Cloud Kitchen</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="onboarding-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="ob-cac-number">CAC Registration Number *</label>
-              <input type="text" id="ob-cac-number" class="form-control" value="RC-1849204" placeholder="RC-123456 or BN-123456">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-tin-number">Tax Identification Number (TIN)</label>
-              <input type="text" id="ob-tin-number" class="form-control" value="TIN-29384710-0001" placeholder="e.g. 29384710-0001">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="ob-street-address">Physical Kitchen / Restaurant Address in Nigeria *</label>
-            <input type="text" id="ob-street-address" class="form-control" value="Plot 14 Admiralty Way, Lekki Phase 1, Lagos State">
-          </div>
-
-          <!-- Document Upload Dropzones (PRD Requirement) -->
-          <div class="onboarding-grid-2" style="margin-top: 14px;">
-            <div class="onboarding-upload-box">
-              <div class="onboarding-upload-icon"><i class="uil uil-file-shield-alt"></i></div>
-              <div class="onboarding-upload-title">CAC Certificate of Incorporation</div>
-              <div class="onboarding-upload-desc">PDF, JPG or PNG (Max 5MB)</div>
-              <span class="badge badge-open" style="font-size: 10px; margin-top: 6px;"><i class="uil uil-check-circle"></i> CAC-Cert-Verified.pdf</span>
-            </div>
-            <div class="onboarding-upload-box">
-              <div class="onboarding-upload-icon"><i class="uil uil-utensils-alt"></i></div>
-              <div class="onboarding-upload-title">Food Safety & Hygiene Permit</div>
-              <div class="onboarding-upload-desc">Local Govt / NAFDAC Health Cert</div>
-              <span class="badge badge-open" style="font-size: 10px; margin-top: 6px;"><i class="uil uil-check-circle"></i> Lagos-FoodPermit-2026.pdf</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 2: RESTAURANT PROFILE SETUP -->
-        <div class="onboarding-step-panel" id="onboarding-panel-2">
-          <h3 class="onboarding-step-heading">Step 2: Restaurant Marketplace Branding</h3>
-          <p class="onboarding-step-subtext">Set up how diners discover your kitchen, food photos, brand tagline, and hours.</p>
-
-          <div class="onboarding-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="ob-brand-name">Customer-Facing Restaurant Name *</label>
-              <input type="text" id="ob-brand-name" class="form-control" value="Mama's Kitchen">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-cuisine-category">Primary Cuisine Style</label>
-              <input type="text" id="ob-cuisine-category" class="form-control" value="Authentic Nigerian • Soups & Swallows • Coastal Specials">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="ob-tagline">Catchy Brand Tagline</label>
-            <input type="text" id="ob-tagline" class="form-control" value="Authentic Nigerian Home-Style Delicacies & Coastal Specials">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="ob-bio">Restaurant Bio & Story</label>
-            <textarea id="ob-bio" class="form-control" rows="3">Serving the finest authentic Nigerian home-style dishes since 2018. All ingredients are freshly sourced daily from local markets and prepared with traditional wood-fire and clay pot recipes.</textarea>
-          </div>
-
-          <div class="onboarding-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="ob-phone">Direct Orders Phone Number *</label>
-              <input type="text" id="ob-phone" class="form-control" value="+234 803 123 4567">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-whatsapp">WhatsApp Inquiries Number *</label>
-              <input type="text" id="ob-whatsapp" class="form-control" value="+234 803 123 4567">
-            </div>
-          </div>
-
-          <div class="onboarding-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="ob-instagram">Instagram Handle</label>
-              <input type="text" id="ob-instagram" class="form-control" value="@mamaskitchenlekki">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-hours">Operating Schedule</label>
-              <input type="text" id="ob-hours" class="form-control" value="Mon - Sat: 8:00 AM - 10:00 PM">
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 3: DELIVERY & SONIC RIDERS -->
-        <div class="onboarding-step-panel" id="onboarding-panel-3">
-          <h3 class="onboarding-step-heading">Step 3: Delivery Zones & Rider Fulfillment</h3>
-          <p class="onboarding-step-subtext">Configure where you deliver, your kitchen preparation speed, and dispatch options.</p>
-
-          <div class="form-group">
-            <label class="form-label">Active Delivery Zones (Lagos Metropolitan & Suburbs)</label>
-            <div class="onboarding-zones-grid">
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox" checked>
-                <span>Lekki Phase 1</span>
-              </label>
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox" checked>
-                <span>Victoria Island (VI)</span>
-              </label>
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox" checked>
-                <span>Ikoyi & Banana Island</span>
-              </label>
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox" checked>
-                <span>Lekki Phase 2 & Chevron</span>
-              </label>
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox">
-                <span>Oniru & Victoria Island Ext.</span>
-              </label>
-              <label class="onboarding-checkbox-chip">
-                <input type="checkbox">
-                <span>Ikeja GRA & Mainland</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="onboarding-grid-2" style="margin-top: 14px;">
-            <div class="form-group">
-              <label class="form-label" for="ob-prep-time">Average Kitchen Preparation Time</label>
-              <select id="ob-prep-time" class="form-control">
-                <option value="15">15 Minutes (Express / Ready Bites)</option>
-                <option value="20">20 Minutes (Standard Fast Cook)</option>
-                <option value="25" selected>25 Minutes (Recommended)</option>
-                <option value="35">35 Minutes (Fresh Made-to-Order Soups)</option>
-                <option value="45">45 Minutes (Large Family Platters)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-delivery-fee">Base Local Delivery Fee (₦)</label>
-              <input type="number" id="ob-delivery-fee" class="form-control" value="1200">
-            </div>
-          </div>
-
-          <!-- Sonic Rider Highlight Box -->
-          <div class="sonic-dispatch-highlight-box">
-            <div style="display: flex; gap: 14px; align-items: flex-start;">
-              <div class="sonic-icon-circle"><i class="uil uil-bolt-alt"></i></div>
-              <div>
-                <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 4px 0; color: #1e3a8a;">Connect Nigeria Sonic Rider Network</h4>
-                <p style="font-size: 13px; color: #3b82f6; margin: 0 0 10px 0; line-height: 1.5;">
-                  Trained two-wheel food couriers equipped with insulated hot-boxes across Lagos Island and Mainland. Never lose an order due to driver shortages.
-                </p>
-                <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #1e40af; cursor: pointer;">
-                  <input type="checkbox" id="ob-auto-sonic" checked style="accent-color: #2563eb; width: 18px; height: 18px;">
-                  <span>Auto-summon nearest Sonic Rider when order is marked "Ready for Pickup"</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 4: MIDNIGHT BANK SETTLEMENTS & LAUNCH -->
-        <div class="onboarding-step-panel" id="onboarding-panel-4">
-          <h3 class="onboarding-step-heading">Step 4: Automated Midnight Bank Settlements</h3>
-          <p class="onboarding-step-subtext">Direct 100% daily earnings transfer to your Nigerian commercial bank account every night at 00:00 WAT.</p>
-
-          <div class="bank-compliance-banner">
-            <div style="font-size: 20px; color: var(--cn-green-700);"><i class="uil uil-lock"></i></div>
-            <div style="font-size: 12.5px; color: var(--cn-green-900); line-height: 1.5;">
-              <strong>Zero-Commission Model:</strong> CHOPS charges zero percentage fees on orders. Your daily gross sales are pooled and transferred automatically every midnight via NIBSS NIP into your nominated corporate bank account.
-            </div>
-          </div>
-
-          <div class="onboarding-grid-2" style="margin-top: 16px;">
-            <div class="form-group">
-              <label class="form-label" for="ob-bank-name">Receiving Bank *</label>
-              <select id="ob-bank-name" class="form-control" onchange="validateNubanAccount()">
-                <option value="GTBank" selected>Guaranty Trust Bank (GTBank)</option>
-                <option value="Zenith">Zenith Bank Plc</option>
-                <option value="Access">Access Bank</option>
-                <option value="FirstBank">First Bank of Nigeria</option>
-                <option value="Kuda">Kuda Microfinance Bank</option>
-                <option value="Moniepoint">Moniepoint MFB</option>
-                <option value="OPay">OPay Digital Services</option>
-                <option value="UBA">United Bank for Africa (UBA)</option>
-                <option value="Stanbic">Stanbic IBTC Bank</option>
-                <option value="Providus">Providus Bank</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="ob-nuban-account">10-Digit NUBAN Account Number *</label>
-              <input type="text" id="ob-nuban-account" class="form-control" value="0149283719" maxlength="10" oninput="validateNubanAccount()">
-            </div>
-          </div>
-
-          <!-- Account Verification Banner -->
-          <div class="nuban-verification-status" id="nuban-verification-status">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span class="verified-dot-green"></span>
-              <strong style="color: var(--cn-green-800); font-size: 13.5px;" id="nuban-account-name">MAMA'S KITCHEN NIGERIA LTD</strong>
-            </div>
-            <span class="badge badge-open" style="font-size: 10px;"><i class="uil uil-check-circle"></i> NIP Match Verified</span>
-          </div>
-
-          <div class="form-group" style="margin-top: 14px;">
-            <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">
-              <input type="checkbox" checked required style="accent-color: var(--cn-green-600); width: 18px; height: 18px;">
-              <span>I agree to the Connect Nigeria CHOPS Merchant Settlement & Visibility Policy</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal Footer Controls -->
-      <div class="onboarding-modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" id="ob-prev-btn" onclick="prevOnboardingStep()" style="display: none;">
-          <i class="uil uil-arrow-left"></i> Back
-        </button>
-        <div style="margin-left: auto; display: flex; gap: 10px;">
-          <button type="button" class="btn btn-ghost btn-sm" onclick="closeMerchantOnboarding()">Save & Exit</button>
-          <button type="button" class="btn btn-primary btn-sm" id="ob-next-btn" onclick="nextOnboardingStep()">
-            Continue <i class="uil uil-arrow-right"></i>
-          </button>
-          <button type="button" class="btn btn-primary btn-sm" id="ob-finish-btn" onclick="finishOnboarding()" style="display: none; background: #059669;">
-            <i class="uil uil-rocket"></i> Launch Store & Save
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- =========================================================================
        MERCHANT MODAL 2: ADD MENU CATEGORY MODAL
@@ -2255,7 +2138,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=3.3"></script>
+  <script src="app.js?v=3.4"></script>
 </body>
 
 </html>
