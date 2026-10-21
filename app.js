@@ -1196,47 +1196,54 @@ function openRestaurantProfile(restaurantId) {
   const isFav = AppState.favourites.has(r.id);
   const profileHeaderEl = document.getElementById('profile-header-container');
   profileHeaderEl.innerHTML = `
+    <!-- 1. Hero Image Banner with Floating Top Actions -->
     <div class="profile-hero-banner">
       <img src="${r.heroImg}" alt="${r.name}" class="profile-hero-img">
-      <div class="profile-hero-overlay">
-        <div class="profile-top-bar">
-          <button class="back-btn" onclick="backToMarketplace()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Back to Explore
-          </button>
-          <button class="favourite-toggle-btn ${isFav ? 'is-fav' : ''}" onclick="toggleFavourite('${r.id}', event)" title="Save to Favourites">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
-        </div>
-        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-          <span class="badge ${r.isOpen ? 'badge-open' : 'badge-closed'}">
+      <div class="profile-top-bar">
+        <button class="back-btn" onclick="backToMarketplace()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Explore
+        </button>
+        <button class="favourite-toggle-btn ${isFav ? 'is-fav' : ''}" onclick="toggleFavourite('${r.id}', event)" title="Save to Favourites">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Standalone Details Header (Figma 4668:1222 Frame 43) -->
+    <div class="profile-details-header">
+      <div class="profile-title-row">
+        <h1 class="profile-title-header">${r.name}</h1>
+        <div class="profile-title-badges">
+          <span class="${r.isOpen ? 'badge-open-pill' : 'badge-closed-pill'}">
             ${r.isOpen ? '● Open Now' : '○ Closed'}
           </span>
-          <span class="verified-merchant-tag" style="margin-bottom: 0;">
+          <span class="badge-verified-pill">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
             Confirmed Merchant
           </span>
         </div>
-        <h1 class="profile-title-header">${r.name}</h1>
-        <div class="profile-meta-tags">
-          <span><i class="uil uil-star" style="color: var(--cn-yellow-normal); margin-right: 2px;"></i> <strong>${r.rating}</strong> (${r.reviewsCount} reviews)</span>
-          <span>•</span>
-          <span>${r.cuisine}</span>
-          <span>•</span>
-          <span><i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 2px;"></i> ${r.location}</span>
-          <span>•</span>
-          <span><i class="uil uil-clock" style="margin-right: 2px;"></i> ${r.distance} away</span>
-        </div>
-        <div class="profile-actions-bar">
-          <button class="btn btn-primary btn-lg" onclick="callMerchant('${r.id}', event)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Merchant (${r.phone})
-          </button>
-          <button class="btn btn-secondary btn-lg" onclick="openChatWithRestaurant('${r.id}')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Chat to Order
-          </button>
-        </div>
+      </div>
+
+      <div class="profile-meta-tags">
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="#eab308" style="display: inline-block; vertical-align: -2px; margin-right: 4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><strong>${r.rating}</strong> (${r.reviewsCount} reviews)</span>
+        <span class="profile-meta-dot">•</span>
+        <span>${r.cuisine}</span>
+        <span class="profile-meta-dot">•</span>
+        <span><i class="uil uil-map-marker" style="color: #65a30d; margin-right: 4px;"></i> ${r.location}</span>
+        <span class="profile-meta-dot">•</span>
+        <span><i class="uil uil-clock" style="margin-right: 4px;"></i> ${r.distance} away</span>
+      </div>
+
+      <div class="profile-actions-bar">
+        <button class="btn-call-merchant" onclick="callMerchant('${r.id}', event)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Merchant (${r.phone})
+        </button>
+        <button class="btn-chat-order" onclick="openChatWithRestaurant('${r.id}')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat to Order
+        </button>
       </div>
     </div>
   `;
@@ -1248,17 +1255,19 @@ function openRestaurantProfile(restaurantId) {
   renderProfileAboutTab(r);
   renderProfileTableTab(r);
 
-  // Switch to Menu Tab by default
-  switchDetailTab('menu');
+  // Switch to Menu Tab by default without scrolling past the hero
+  switchDetailTab('menu', false);
 }
 
 let isManualTabScroll = false;
 
-function switchDetailTab(tabName) {
-  isManualTabScroll = true;
-  const targetEl = document.getElementById(`tab-${tabName}`);
-  if (targetEl) {
-    targetEl.scrollIntoView({ behavior: 'smooth' });
+function switchDetailTab(tabName, shouldScroll = true) {
+  if (shouldScroll) {
+    isManualTabScroll = true;
+    const targetEl = document.getElementById(`tab-${tabName}`);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   document.querySelectorAll('.detail-tab-btn').forEach(btn => {
@@ -1289,12 +1298,13 @@ function renderProfileMenuTab(r) {
   });
 
   let html = `
-    <div style="background: var(--cn-green-50); border: 1px solid var(--cn-green-300); border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-      <div>
-        <strong style="color: var(--cn-green-900); font-size: 14px;">Direct Contact Ordering:</strong>
-        <p style="font-size: 13px; color: var(--cn-green-900); margin: 0;">In-app checkout is replaced with direct contact. Tap <strong>Call</strong> or <strong>Chat to Order</strong> on any dish to place your order with the restaurant!</p>
+    <!-- Direct Contact Ordering Notice Box (Figma 4668:1334) -->
+    <div class="direct-contact-banner">
+      <div class="direct-contact-banner-text">
+        <strong>Direct Contact Ordering:</strong>
+        <p>In-app checkout is replaced with direct contact. Tap <strong>Call</strong> or <strong>Chat to Order</strong> on any dish to place your order with the restaurant!</p>
       </div>
-      <button class="btn btn-primary btn-sm" onclick="callMerchant('${r.id}')">Call: ${r.phone}</button>
+      <button class="btn-banner-call" onclick="callMerchant('${r.id}')">Call: ${r.phone}</button>
     </div>
   `;
 
@@ -1307,16 +1317,16 @@ function renderProfileMenuTab(r) {
             <div class="menu-dish-item">
               <img src="${dish.img}" alt="${dish.name}" class="menu-dish-img" loading="lazy">
               <div class="menu-dish-details">
-                <h4 class="menu-dish-name">
-                  ${dish.name}
+                <div class="menu-dish-name">
+                  <span>${dish.name}</span>
                   ${dish.isTrending ? `<span class="menu-dish-views-pill" title="${getDishViews(dish).toLocaleString()} diners viewed this week"><i class="uil uil-eye"></i> ${formatViews(getDishViews(dish))} views</span>` : ''}
-                </h4>
+                </div>
                 <p class="menu-dish-desc">${dish.description}</p>
-                ${dish.variations ? `<div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 4px;"><strong>Options:</strong> ${dish.variations.join(' • ')}</div>` : ''}
+                ${dish.variations ? `<div class="menu-dish-options"><strong>Options:</strong> ${dish.variations.join(' • ')}</div>` : ''}
                 <div class="menu-dish-price-row">
                   <div class="menu-dish-price">₦${dish.price.toLocaleString()}</div>
-                  <button class="btn btn-primary btn-sm" onclick="inquireDish('${r.id}', '${dish.name}', ${dish.price})">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <button class="btn-dish-chat" onclick="inquireDish('${r.id}', '${dish.name.replace(/'/g, "\\'")}', ${dish.price})">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     Chat to Order
                   </button>
                 </div>
@@ -1335,28 +1345,31 @@ function renderProfileReviewsTab(r) {
   const container = document.getElementById('tab-reviews');
   if (!container) return;
 
+  const starSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="#eab308" style="display: inline-block; vertical-align: -2px; margin-right: 2px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  const starSvgLg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="#eab308" style="display: inline-block; vertical-align: -3px; margin: 0 1px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+
   container.innerHTML = `
     <div class="detail-section-title-bar">
       <h2 class="detail-section-heading">Ratings & Reviews</h2>
-      <span style="font-size: 13px; color: var(--color-text-muted);">${r.reviewsCount} verified diner reviews</span>
+      <span style="font-size: 13.5px; color: var(--color-text-muted);">${r.reviewsCount} verified diner reviews</span>
     </div>
 
     <div class="reviews-summary-card">
       <div class="rating-score-box">
         <div class="rating-huge-num">${r.rating}</div>
-        <div style="color: var(--cn-yellow-normal); font-size: 18px; margin: 4px 0;"><i class="uil uil-star"></i><i class="uil uil-star"></i><i class="uil uil-star"></i><i class="uil uil-star"></i><i class="uil uil-star"></i></div>
+        <div style="margin: 6px 0 4px 0;">${starSvgLg.repeat(5)}</div>
         <div style="font-size: 13px; color: var(--color-text-muted);">${r.reviewsCount} customer reviews</div>
       </div>
       <div style="flex: 1; min-width: 260px;">
-        <div style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">Community Experience Score</div>
-        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--color-text-secondary);">
-          <div>Food Quality & Freshness: <strong>4.9 / 5.0</strong></div>
-          <div>Speed & Preparation: <strong>4.8 / 5.0</strong></div>
-          <div>Hospitality & Customer Care: <strong>4.9 / 5.0</strong></div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px;">Community Experience Score</div>
+        <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; color: var(--color-text-secondary);">
+          <div>Food Quality & Freshness: <strong style="color: var(--color-text-primary);">4.9 / 5.0</strong></div>
+          <div>Speed & Preparation: <strong style="color: var(--color-text-primary);">4.8 / 5.0</strong></div>
+          <div>Hospitality & Customer Care: <strong style="color: var(--color-text-primary);">4.9 / 5.0</strong></div>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="openWriteReviewModal()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <button class="btn btn-primary" onclick="openWriteReviewModal()" style="background: #93C700; border: none; font-weight: 700; padding: 10px 20px; border-radius: 8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         Write a Review
       </button>
     </div>
@@ -1365,18 +1378,18 @@ function renderProfileReviewsTab(r) {
       ${r.reviews.map(rev => `
         <div class="review-item">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <div style="font-weight: 700; font-size: 14px; color: var(--color-text-primary);">${rev.author}</div>
+            <div style="font-weight: 700; font-size: 14.5px; color: var(--color-text-primary);">${rev.author}</div>
             <div style="font-size: 12px; color: var(--color-text-muted);">${rev.date}</div>
           </div>
-          <div style="color: var(--cn-yellow-normal); font-size: 13px; margin-bottom: 8px;">${'<i class="uil uil-star"></i>'.repeat(rev.rating)}</div>
-          <p style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin: 0;">${rev.comment}</p>
+          <div style="margin-bottom: 8px;">${starSvg.repeat(rev.rating)}</div>
+          <p style="font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.5; margin: 0;">${rev.comment}</p>
           ${rev.reply ? `
-            <div style="margin-top: 12px; background: var(--color-bg-surface-sunken); border-left: 3px solid var(--cn-green-500); padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12px;">
-              <div style="font-weight: 700; color: var(--cn-green-700); margin-bottom: 3px; display: flex; align-items: center; gap: 4px;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
+            <div style="margin-top: 12px; background: var(--color-bg-surface-sunken); border-left: 3px solid #93C700; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12.5px;">
+              <div style="font-weight: 700; color: #65a30d; margin-bottom: 3px; display: flex; align-items: center; gap: 5px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
                 Response from ${r.name}
               </div>
-              <p style="margin: 0; color: var(--color-text-secondary); line-height: 1.4;">${rev.reply}</p>
+              <p style="margin: 0; color: var(--color-text-secondary); line-height: 1.45;">${rev.reply}</p>
             </div>
           ` : ''}
         </div>
@@ -1389,22 +1402,35 @@ function renderProfilePhotosTab(r) {
   const container = document.getElementById('tab-photos');
   if (!container) return;
 
-  const photos = [
+  const basePhotos = [
     r.heroImg,
     ...r.menu.map(d => d.img),
     "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80",
-    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80"
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80",
+    "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
+    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80",
+    "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=600&q=80",
+    "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=600&q=80",
+    "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&q=80",
+    "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=600&q=80",
+    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
   ];
+
+  // Ensure exactly 21 photos matching Figma 4668:1939 (21 photos)
+  const photos = basePhotos.slice(0, 21);
+  while (photos.length < 21) {
+    photos.push("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80");
+  }
 
   container.innerHTML = `
     <div class="detail-section-title-bar">
       <h2 class="detail-section-heading">Photo Gallery</h2>
-      <span style="font-size: 13px; color: var(--color-text-muted);">Atmosphere, kitchen & signature plating</span>
+      <span style="font-size: 13.5px; color: var(--color-text-muted);">Atmosphere, kitchen & signature plating</span>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
+    <div class="profile-gallery-grid">
       ${photos.map((src, idx) => `
-        <div style="border-radius: var(--radius-lg); overflow: hidden; height: 180px; box-shadow: var(--elevation-xs);">
-          <img src="${src}" alt="Photo ${idx + 1}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+        <div class="profile-gallery-item">
+          <img src="${src}" alt="Photo ${idx + 1}" loading="lazy">
         </div>
       `).join('')}
     </div>
@@ -1418,27 +1444,27 @@ function renderProfileAboutTab(r) {
   container.innerHTML = `
     <div class="detail-section-title-bar">
       <h2 class="detail-section-heading">About & Operating Hours</h2>
-      <span style="font-size: 13px; color: var(--color-text-muted);">Authentic story, hygiene & visit hours</span>
+      <span style="font-size: 13.5px; color: var(--color-text-muted);">Authentic story, hygiene & visit hours</span>
     </div>
     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px;">
-      <div style="background: var(--color-bg-surface); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
-        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">About ${r.name}</h3>
-        <p style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 16px;">
+      <div style="background: var(--color-bg-surface); padding: 24px; border-radius: 12px; border: 1px solid var(--color-border-subtle);">
+        <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 12px 0; color: var(--color-text-primary);">About ${r.name}</h3>
+        <p style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 20px;">
           ${r.tagline}. Established with the vision of providing premium, authentic culinary experiences across Nigeria. All ingredients are freshly sourced daily from local farmers and prepared with strict hygiene standards.
         </p>
-        <div style="font-size: 13px; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 8px;">
-          <div><i class="uil uil-map-marker" style="color: var(--cn-green-600); margin-right: 4px;"></i> <strong>Address:</strong> ${r.location}</div>
-          <div><i class="uil uil-phone" style="color: var(--cn-green-600); margin-right: 4px;"></i> <strong>Telephone:</strong> <a href="tel:${r.phone}" style="color: var(--cn-green-600); font-weight: 600;">${r.phone}</a></div>
-          <div><i class="uil uil-whatsapp" style="color: #25D366; margin-right: 4px;"></i> <strong>WhatsApp Inquiries:</strong> ${r.whatsapp}</div>
+        <div style="font-size: 13.5px; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 10px;">
+          <div><i class="uil uil-map-marker" style="color: #65a30d; margin-right: 6px;"></i> <strong style="color: var(--color-text-primary);">Address:</strong> ${r.location}</div>
+          <div><i class="uil uil-phone" style="color: #65a30d; margin-right: 6px;"></i> <strong style="color: var(--color-text-primary);">Telephone:</strong> <a href="tel:${r.phone}" style="color: #65a30d; font-weight: 600;">${r.phone}</a></div>
+          <div><i class="uil uil-whatsapp" style="color: #25D366; margin-right: 6px;"></i> <strong style="color: var(--color-text-primary);">WhatsApp Inquiries:</strong> ${r.whatsapp}</div>
         </div>
       </div>
-      <div style="background: var(--color-bg-surface); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
-        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Opening Hours</h3>
-        <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+      <div style="background: var(--color-bg-surface); padding: 24px; border-radius: 12px; border: 1px solid var(--color-border-subtle);">
+        <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 12px 0; color: var(--color-text-primary);">Opening Hours</h3>
+        <table style="width: 100%; font-size: 13.5px; border-collapse: collapse;">
           ${Object.entries(r.openingHours).map(([days, hours]) => `
             <tr style="border-bottom: 1px solid var(--color-border-subtle);">
-              <td style="padding: 8px 0; font-weight: 600;">${days}</td>
-              <td style="padding: 8px 0; text-align: right; color: var(--cn-green-600); font-weight: 700;">${hours}</td>
+              <td style="padding: 10px 0; font-weight: 600; color: var(--color-text-primary);">${days}</td>
+              <td style="padding: 10px 0; text-align: right; color: #65a30d; font-weight: 700;">${hours}</td>
             </tr>
           `).join('')}
         </table>
@@ -1455,40 +1481,40 @@ function renderProfileTableTab(r) {
   container.innerHTML = `
     <div class="detail-section-title-bar">
       <h2 class="detail-section-heading">Table Availability</h2>
-      <span style="font-size: 13px; color: var(--color-text-muted);">Dining areas & reservation info</span>
+      <span style="font-size: 13.5px; color: var(--color-text-muted);">Dining areas & reservation info</span>
     </div>
     <div class="table-capacity-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
         <div>
-          <h3 style="font-size: 20px; font-weight: 700;">Table Seating & Availability Info</h3>
-          <p style="font-size: 13px; color: var(--color-text-muted);">View-only table capacity specs for dine-in planning.</p>
+          <h3 style="font-size: 20px; font-weight: 700; margin: 0 0 4px 0; color: var(--color-text-primary);">Table Seating & Availability Info</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">View-only table capacity specs for dine-in planning.</p>
         </div>
-        <div style="background: var(--cn-green-50); border: 1px solid var(--cn-green-300); color: var(--cn-green-900); padding: 6px 14px; border-radius: var(--radius-full); font-weight: 700; font-size: 13px;">
+        <div style="background: #ecfccb; border: 1px solid #d9f99d; color: #3f6212; padding: 6px 16px; border-radius: var(--radius-full); font-weight: 700; font-size: 13.5px;">
           Total Capacity: ${t.totalCapacity} Guests
         </div>
       </div>
 
       <div class="table-sections-grid">
         <div class="table-section-box">
-          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px;">Main Dining Area</div>
-          <div style="font-size: 15px; font-weight: 700; color: var(--color-text-primary);">${t.indoorHall}</div>
+          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 6px;">Main Dining Area</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--color-text-primary);">${t.indoorHall}</div>
         </div>
         <div class="table-section-box">
-          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px;">Terrace & Outdoor</div>
-          <div style="font-size: 15px; font-weight: 700; color: var(--color-text-primary);">${t.terrace}</div>
+          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 6px;">Terrace & Outdoor</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--color-text-primary);">${t.terrace}</div>
         </div>
         <div class="table-section-box">
-          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px;">Private Dining & VIP</div>
-          <div style="font-size: 15px; font-weight: 700; color: var(--color-text-primary);">${t.privateDining}</div>
+          <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 6px;">Private Dining & VIP</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--color-text-primary);">${t.privateDining || t.vipRooms || '10 Seats (VIP Reservation only)'}</div>
         </div>
       </div>
 
-      <div style="margin-top: 24px; padding: 16px; background: var(--color-bg-surface-sunken); border-radius: var(--radius-md); border-left: 4px solid var(--cn-green-500);">
-        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">How Reservations Work</h4>
-        <p style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 12px;">
-          ${t.reservationNote}
+      <div class="table-reservation-notice">
+        <h4 style="font-size: 15px; font-weight: 700; margin: 0 0 6px 0; color: var(--color-text-primary);">How Reservations Work</h4>
+        <p style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin: 0 0 16px 0;">
+          Reservations are confirmed directly with our host team via call or WhatsApp. No advance deposit is required for parties under 6 guests.
         </p>
-        <button class="btn btn-primary btn-sm" onclick="callMerchant('${r.id}')">
+        <button class="btn btn-primary btn-sm" onclick="callMerchant('${r.id}')" style="background: #93C700; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px;">
           Call for Table Inquiry: ${r.phone}
         </button>
       </div>
