@@ -25,8 +25,8 @@ const CHOPS_DATA = {
       isFeatured: true,
       phone: "+234 803 123 4567",
       whatsapp: "+234 803 123 4567",
-      heroImg: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&q=80",
-      avatarImg: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80",
+      heroImg: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80",
+      avatarImg: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&q=80",
       openingHours: {
         "Mon - Fri": "08:00 AM - 10:00 PM",
         "Saturday": "09:00 AM - 11:00 PM",
@@ -347,8 +347,8 @@ const CHOPS_DATA = {
       isFeatured: true,
       phone: "+234 802 987 6543",
       whatsapp: "+234 802 987 6543",
-      heroImg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80",
-      avatarImg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&q=80",
+      heroImg: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1200&q=80",
+      avatarImg: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=200&q=80",
       openingHours: {
         "Daily": "04:00 PM - 02:00 AM"
       },
@@ -474,8 +474,8 @@ const CHOPS_DATA = {
       isFeatured: false,
       phone: "+234 809 333 4455",
       whatsapp: "+234 809 333 4455",
-      heroImg: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80",
-      avatarImg: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&q=80",
+      heroImg: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&q=80",
+      avatarImg: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=200&q=80",
       openingHours: {
         "Mon - Sat": "09:00 AM - 07:00 PM",
         "Sunday": "Closed"
@@ -526,8 +526,8 @@ const CHOPS_DATA = {
       isFeatured: true,
       phone: "+234 814 111 2233",
       whatsapp: "+234 814 111 2233",
-      heroImg: "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=1200&q=80",
-      avatarImg: "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=200&q=80",
+      heroImg: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&q=80",
+      avatarImg: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=200&q=80",
       openingHours: {
         "Daily": "07:30 AM - 10:30 PM"
       },
